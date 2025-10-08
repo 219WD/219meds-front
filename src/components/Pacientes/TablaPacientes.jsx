@@ -31,15 +31,15 @@ const TablaPacientes = ({
         <tbody>
           {pacientes.map((paciente) => (
             <tr key={paciente._id} className="user-row">
-              <td>{paciente.fullName}</td>
-              <td>{paciente.userId?.email || 'No asociado'}</td>
-              <td>{paciente.fechaDeNacimiento ? new Date(paciente.fechaDeNacimiento).toLocaleDateString() : 'No especificada'}</td>
-              <td>
+              <td data-label="Nombre">{paciente.fullName}</td>
+              <td data-label="Email">{paciente.userId?.email || 'No asociado'}</td>
+              <td data-label="Fecha Nacimiento">{paciente.fechaDeNacimiento ? new Date(paciente.fechaDeNacimiento).toLocaleDateString() : 'No especificada'}</td>
+              <td data-label="Estado">
                 <span className={`status-badge ${paciente.reprocann?.status || 'inactive'}`}>
                   {paciente.reprocann?.status || 'Sin estado'}
                 </span>
               </td>
-              <td className="actions">
+              <td data-label="Acciones" className="actions">
                 <button 
                   onClick={() => handleViewDetails(paciente)} 
                   className="view-btn"

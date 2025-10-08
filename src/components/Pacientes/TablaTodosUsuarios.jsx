@@ -14,11 +14,11 @@ const TablaTodosUsuarios = ({ users, onCreatePaciente }) => (
     <tbody>
       {users.map((user) => (
         <tr key={user._id} className="user-row">
-          <td>{user.name}</td>
-          <td>{user.email}</td>
-          <td>{user.isPartner ? "✅" : "❌"}</td>
-          <td>{user.isAdmin ? "✅" : "❌"}</td>
-          <td className="actions">
+          <td data-label="Nombre">{user.name}</td>
+          <td data-label="Email">{user.email}</td>
+          <td data-label="Socio">{user.isPartner ? "✅" : "❌"}</td>
+          <td data-label="Admin">{user.isAdmin ? "✅" : "❌"}</td>
+          <td data-label="Acciones" className="actions">
             <button 
               onClick={() => onCreatePaciente(user)} 
               className="approve-btn"

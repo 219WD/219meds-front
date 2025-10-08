@@ -162,7 +162,7 @@ const Clientes = () => {
     tl.fromTo(adminContainerRef.current, { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.5 });
     tl.fromTo(titleRef.current.querySelectorAll("h2"), { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.1 }, "-=0.3");
     tl.fromTo(searchRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3 }, "-=0.2");
-    tl.fromTo(tableRef.current.querySelectorAll(".users-table"), { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.2 }, "-=0.2");
+    tl.fromTo(tableRef.current.querySelectorAll("table.users-table"), { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.2 }, "-=0.2");
 
     return () => tl.kill();
   }, [loading]);
