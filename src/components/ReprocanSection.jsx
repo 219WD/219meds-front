@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
   faIdCard, 
@@ -8,10 +9,16 @@ import {
   faShieldAlt,
   faUsers
 } from "@fortawesome/free-solid-svg-icons";
+import useAuthStore from "../store/authStore"; // 🔹 Importar tu store
 import "./css/ReprocanSection.css";
 
 const ReprocanSection = () => {
   const [currentService, setCurrentService] = useState(0);
+  const navigate = useNavigate();
+  
+  // 🔹 Obtener el usuario del store de auth
+  const user = useAuthStore((state) => state.user);
+  const isPaciente = user?.isPaciente || false;
 
   const services = [
     {
@@ -34,12 +41,23 @@ const ReprocanSection = () => {
     }
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentService((prev) => (prev + 1) % services.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
+  const handleClick = () => {
+    if (isPaciente) {
+      // 🔹 Redirección interna para pacientes
+      navigate("/turnos/paciente");
+    } else {
+      // 🔹 Enviar mensaje por WhatsApp para no pacientes
+      const mensajes = {
+        0: "Hola! Quiero información para gestionar mi inscripción al Reprocan desde cero 🙌",
+        1: "Hola! Quiero información para renovar mi Reprocan 🔄",
+        2: "Hola! Quiero solicitar un turno con un médico especializado 👨‍⚕️"
+      };
+      const mensaje = encodeURIComponent(mensajes[currentService]);
+      const telefono = "5493816671884";
+      const url = `https://wa.me/${telefono}?text=${mensaje}`;
+      window.open(url, "_blank");
+    }
+  };
 
   return (
     <section className="reprocan-section">
@@ -82,7 +100,18 @@ const ReprocanSection = () => {
                   <li key={idx}>{detail}</li>
                 ))}
               </ul>
-              <button className="cta-button">Solicitar Ahora</button>
+              
+              {/* 🔹 Botón con funcionalidad condicional */}
+              <button className="cta-button" onClick={handleClick}>
+                {isPaciente ? "Sacar Turno" : "Consultar por WhatsApp"}
+              </button>
+              
+              {/* 🔹 Mensaje informativo opcional */}
+              {!user && (
+                <p className="info-text">
+                  ⓘ Iniciá sesión como paciente para acceder al sistema de turnos
+                </p>
+              )}
             </div>
           </div>
 
