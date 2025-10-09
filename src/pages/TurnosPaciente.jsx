@@ -431,15 +431,15 @@ const TurnosPaciente = () => {
               <tbody>
                 {filteredTurnos.map((turno) => (
                   <tr key={turno._id}>
-                    <td>{new Date(turno.fecha).toLocaleString()}</td>
-                    <td>
+                    <td data-label="Fecha y Hora">{new Date(turno.fecha).toLocaleString()}</td>
+                    <td data-label="Especialista">
                       {turno.especialistaId?.userId?.name || "No asignado"}
                     </td>
-                    <td>
+                    <td data-label="Especialidad">
                       {turno.especialistaId?.especialidad || "No especificada"}
                     </td>
-                    <td>{turno.motivo}</td>
-                    <td>
+                    <td data-label="Motivo">{turno.motivo}</td>
+                    <td data-label="Estado">
                       <span
                         className={`status-badge ${getStatusClass(
                           turno.estado
@@ -448,7 +448,7 @@ const TurnosPaciente = () => {
                         {turno.estado}
                       </span>
                     </td>
-                    <td className="actions-cell">
+                    <td data-label="Acciones" className="actions-cell">
                       <button
                         className="btn-ver-paciente"
                         onClick={() => {
@@ -532,7 +532,6 @@ const TurnosPaciente = () => {
                 const nuevoTurno = {
                   fecha: formData.get("fecha"),
                   motivo: formData.get("motivo"),
-                  notas: formData.get("notas"),
                   reprocannRelacionado:
                     formData.get("reprocannRelacionado") === "on",
                   especialistaId: formData.get("especialistaId"),
@@ -561,11 +560,6 @@ const TurnosPaciente = () => {
               <div className="form-group">
                 <label>Motivo:</label>
                 <input type="text" name="motivo" required />
-              </div>
-
-              <div className="form-group">
-                <label>Notas adicionales:</label>
-                <textarea name="notas" />
               </div>
 
               <div className="form-group checkbox">
