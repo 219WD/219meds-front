@@ -65,7 +65,8 @@ const Clientes = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         const userData = await userRes.json();
-        if (!userRes.ok) throw new Error(userData.error || "Error al obtener usuario");
+        if (!userRes.ok)
+          throw new Error(userData.error || "Error al obtener usuario");
 
         setSelectedUser(userData);
 
@@ -87,15 +88,16 @@ const Clientes = () => {
   const toggleUserStatus = async (userId, type) => {
     try {
       setError(null);
-      
+
       const endpoints = {
         partner: `${API_URL}/users/togglePartner/${userId}`,
         admin: `${API_URL}/users/isAdmin/${userId}`,
+        medico: `${API_URL}/users/toggleMedico/${userId}`,
       };
 
       const actionText = {
         partner: "Actualizando estado de socio...",
-        admin: "Actualizando estado de administrador..."
+        admin: "Actualizando estado de administrador...",
       };
 
       await withGlobalLoader(async () => {
@@ -108,7 +110,8 @@ const Clientes = () => {
         });
 
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Error al actualizar estado");
+        if (!res.ok)
+          throw new Error(data.error || "Error al actualizar estado");
 
         await fetchAllUsers();
         setSelectedUser(null);
@@ -159,10 +162,29 @@ const Clientes = () => {
     hasAnimated.current = true;
 
     const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-    tl.fromTo(adminContainerRef.current, { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.5 });
-    tl.fromTo(titleRef.current.querySelectorAll("h2"), { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.1 }, "-=0.3");
-    tl.fromTo(searchRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3 }, "-=0.2");
-    tl.fromTo(tableRef.current.querySelectorAll("table.users-table"), { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.2 }, "-=0.2");
+    tl.fromTo(
+      adminContainerRef.current,
+      { opacity: 0, x: -50 },
+      { opacity: 1, x: 0, duration: 0.5 }
+    );
+    tl.fromTo(
+      titleRef.current.querySelectorAll("h2"),
+      { opacity: 0, y: -20 },
+      { opacity: 1, y: 0, duration: 0.3, stagger: 0.1 },
+      "-=0.3"
+    );
+    tl.fromTo(
+      searchRef.current,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.3 },
+      "-=0.2"
+    );
+    tl.fromTo(
+      tableRef.current.querySelectorAll("table.users-table"),
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.2 },
+      "-=0.2"
+    );
 
     return () => tl.kill();
   }, [loading]);
@@ -227,9 +249,12 @@ const Clientes = () => {
                 try {
                   if (user.isMedico) {
                     await withGlobalLoader(async () => {
-                      const res = await fetch(`${API_URL}/partners/user/getPartnerByUserId/${user._id}`, {
-                        headers: { Authorization: `Bearer ${token}` },
-                      });
+                      const res = await fetch(
+                        `${API_URL}/partners/user/getPartnerByUserId/${user._id}`,
+                        {
+                          headers: { Authorization: `Bearer ${token}` },
+                        }
+                      );
                       const partnerData = await res.json();
                       if (res.ok && partnerData) {
                         setPartnerDetails(partnerData);

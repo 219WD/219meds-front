@@ -18,56 +18,47 @@ const ModalAgregarEspecialista = ({ user, onClose, onSuccess }) => {
   const [error, setError] = useState(null);
 
   const handleSubmit = async () => {
-    try {
-      setLoading(true);
-      setError(null);
+  try {
+    setLoading(true);
+    setError(null);
 
-      if (!form.especialidad || !form.matricula) {
-        throw new Error("Especialidad y matrícula son requeridos");
-      }
-
-      const response = await fetch(`${API_URL}/especialistas`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: user._id,
-          especialidad: form.especialidad,
-          matricula: form.matricula,
-          reprocann: form.reprocann.status,
-        }),
-      });
-
-      if (response.ok) {
-        const updateUserRes = await fetch(
-          `${API_URL}/users/toggleMedico/${user._id}`,
-          {
-            method: "PATCH",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (!updateUserRes.ok) {
-          throw new Error("Error al actualizar estado médico del usuario");
-        }
-      } else {
-        const data = await response.json();
-        throw new Error(data.error || data.message || "Error al crear especialista");
-      }
-
-      onSuccess();
-      onClose();
-    } catch (err) {
-      setError(err.message || "Error al crear especialista");
-    } finally {
-      setLoading(false);
+    if (!form.especialidad.trim() || !form.matricula.trim()) {
+      throw new Error("La especialidad y matrícula son requeridas");
     }
-  };
+
+    // ✅ 1️⃣ Crear registro en colección Especialistas
+    // (El backend ya maneja setear isMedico = true)
+    const response = await fetch(`${API_URL}/especialistas`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: user._id,
+        especialidad: form.especialidad,
+        matricula: form.matricula,
+        reprocann: form.reprocann,
+      }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Error al crear especialista");
+
+    // ❌ Eliminar esto: No necesitas toggle, ya que backend lo sets a true
+    // const medicoRes = await fetch(`${API_URL}/users/toggleMedico/${user._id}`, { ... });
+
+    // ✅ Confirmar éxito y actualizar vista
+    if (onSuccess) await onSuccess(); // refresca usuarios
+    onClose();
+
+  } catch (err) {
+    setError(err.message || "Error al crear médico");
+    console.error("❌ Error en ModalAgregarEspecialista:", err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="dashboard-modal-overlay">
@@ -125,10 +116,7 @@ const ModalAgregarEspecialista = ({ user, onClose, onSuccess }) => {
               onChange={(e) =>
                 setForm({
                   ...form,
-                  reprocann: {
-                    ...form.reprocann,
-                    fechaAprobacion: e.target.value,
-                  },
+                  reprocann: { ...form.reprocann, fechaAprobacion: e.target.value },
                 })
               }
             />
@@ -142,10 +130,7 @@ const ModalAgregarEspecialista = ({ user, onClose, onSuccess }) => {
               onChange={(e) =>
                 setForm({
                   ...form,
-                  reprocann: {
-                    ...form.reprocann,
-                    fechaVencimiento: e.target.value,
-                  },
+                  reprocann: { ...form.reprocann, fechaVencimiento: e.target.value },
                 })
               }
             />

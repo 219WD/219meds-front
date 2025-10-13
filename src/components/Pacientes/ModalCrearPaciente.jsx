@@ -18,7 +18,6 @@ const ModalCrearPaciente = ({
     fechaDeNacimiento: "",
     reprocann: { status: "pending" },
     userId: "",
-    partnerId: currentUser.partnerData || "",
   });
   const [antecedentes, setAntecedentes] = useState({
     afeccionCardiaca: false,

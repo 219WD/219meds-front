@@ -80,51 +80,70 @@ const Pacientes = () => {
   };
 
   // Función para obtener especialistas
-  const fetchEspecialistas = async () => {
-    try {
-      const currentToken = useAuthStore.getState().token;
-      if (!currentToken) {
-        throw new Error("No hay token disponible");
-      }
-
-      const res = await fetch(`${API_URL}/especialistas`, {
-        headers: { Authorization: `Bearer ${currentToken}` },
-      });
-
-      if (res.status === 401) {
-        useAuthStore.getState().logout();
-        throw new Error("Sesión expirada. Por favor ingresa nuevamente");
-      }
-
-      const response = await res.json();
-      console.log("Datos de especialistas:", response);
-
-      if (!res.ok)
-        throw new Error(response.error || "Error al obtener especialistas");
-
-      setEspecialistas(response.data || []);
-    } catch (err) {
-      console.error("Error fetching especialistas:", err.message);
-      setError(err.message);
-      setEspecialistas([]);
+const fetchEspecialistas = async () => {
+  try {
+    console.log("🟡 Iniciando fetchEspecialistas...");
+    const currentToken = useAuthStore.getState().token;
+    console.log("🟡 Token para especialistas:", currentToken ? "✅ Existe" : "❌ No existe");
+    
+    const res = await fetch(`${API_URL}/especialistas`, {
+      headers: { Authorization: `Bearer ${currentToken}` },
+    });
+    
+    console.log("🟡 Response status:", res.status);
+    
+    if (res.status === 401) {
+      console.log("🔴 Token expirado en fetchEspecialistas");
+      useAuthStore.getState().logout();
+      throw new Error("Sesión expirada. Por favor ingresa nuevamente");
     }
-  };
 
-  const fetchPacientes = async () => {
-    try {
-      setLoading(true);
-      const res = await fetch(`${API_URL}/pacientes`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Error al obtener pacientes");
-      setPacientes(data.data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+    const response = await res.json();
+    console.log("🟡 Respuesta de especialistas:", response);
+
+    if (!res.ok) throw new Error(response.error || "Error al obtener especialistas");
+    
+    setEspecialistas(response.data || []);
+    console.log("🟢 Especialistas cargados:", response.data?.length || 0);
+    
+  } catch (err) {
+    console.error("🔴 ERROR CRÍTICO en fetchEspecialistas:", err.message);
+    setError(err.message);
+    setEspecialistas([]);
+  }
+};
+
+const fetchPacientes = async () => {
+  try {
+    setLoading(true);
+    console.log("🟡 Fetching pacientes...");
+    
+    const res = await fetch(`${API_URL}/pacientes`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    
+    console.log("🟡 Response status:", res.status);
+    const data = await res.json();
+    console.log("🟡 Respuesta COMPLETA:", JSON.stringify(data, null, 2));
+    
+    if (!res.ok) throw new Error(data.error || "Error al obtener pacientes");
+    
+    // DEBUG: Verifica exactamente qué viene
+    console.log("🟡 data.data:", data.data);
+    console.log("🟡 data.pacientes:", data.pacientes); 
+    console.log("🟡 data.count:", data.count);
+    console.log("🟡 Tipo de data.data:", typeof data.data);
+    console.log("🟡 Es array?", Array.isArray(data.data));
+    
+    setPacientes(data.data);
+    
+  } catch (err) {
+    console.error("❌ Error fetching pacientes:", err);
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const fetchAntecedentes = async () => {
     try {
@@ -310,12 +329,13 @@ const Pacientes = () => {
     setShowCreateTurnoModal(true);
   };
 
-  useEffect(() => {
-    fetchPacientes();
-    fetchAntecedentes();
-    fetchAllUsers();
-    fetchEspecialistas();
-  }, []);
+useEffect(() => {
+  console.log("🏁 Iniciando carga de datos...");
+  fetchPacientes();  // ← Esta primero, que es la importante
+  fetchAntecedentes();
+  fetchAllUsers();
+  fetchEspecialistas(); // ← Esta al final
+}, []);
 
   useEffect(() => {
     setVisiblePacientesCount(10);
@@ -403,7 +423,7 @@ const Pacientes = () => {
     }
 
     // Animación de botones "Ver más"
-    const verMasButtons = document.querySelectorAll('.ver-mas-btn');
+    const verMasButtons = document.querySelectorAll(".ver-mas-btn");
     if (verMasButtons.length > 0) {
       tl.fromTo(
         verMasButtons,
@@ -422,6 +442,10 @@ const Pacientes = () => {
     0,
     visiblePacientesCount
   );
+  console.log("📊 Total pacientes:", pacientes.length);
+  console.log("🔍 Pacientes filtrados:", filteredPacientes.length);
+  console.log("👀 Pacientes visibles:", visiblePacientesCount);
+
   const filteredUsers = filterUsers(allUsers).slice(0, visibleUsersCount);
   const hasMorePacientes =
     filterPacientes(pacientes).length > visiblePacientesCount;
@@ -452,7 +476,7 @@ const Pacientes = () => {
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             onAddPaciente={() => setShowCreateModal(true)}
-            canAdd={user.isAdmin || user.isPartner}
+            canAdd={user.isAdmin || user.isMedico}
           />
         </div>
 
@@ -464,13 +488,13 @@ const Pacientes = () => {
         </div>
 
         <h2 ref={pacientesTitleRef}>Todos los pacientes</h2>
-        
+
         <div ref={pacientesTableRef}>
           <div className="table-container">
             <TablaPacientes
               pacientes={filteredPacientes}
               onViewDetails={setSelectedPaciente}
-              canEdit={user.isAdmin || user.isPartner || user.isMedico}
+              canEdit={user.isAdmin || user.isMedico || user.isPartner}
               refreshData={fetchPacientes}
               onCreateTurno={handleCreateTurnoClick}
             />
@@ -485,7 +509,7 @@ const Pacientes = () => {
         </div>
 
         <h2 ref={usuariosTitleRef}>Todos los Usuarios</h2>
-        
+
         <div className="search-container" style={{ marginBottom: "1rem" }}>
           <button>
             <svg
