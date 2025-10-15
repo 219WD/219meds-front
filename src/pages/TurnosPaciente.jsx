@@ -159,7 +159,6 @@ const TurnosPaciente = () => {
     try {
       setLoading(true);
 
-      // Validaciones básicas
       if (
         !nuevoTurno.fecha ||
         !nuevoTurno.motivo ||
@@ -168,13 +167,17 @@ const TurnosPaciente = () => {
         throw new Error("Todos los campos obligatorios deben completarse");
       }
 
-      // Validar que la fecha sea futura
+      // ✅ CORREGIDO: Formatear fecha correctamente para evitar problemas de zona horaria
       const fechaTurno = new Date(nuevoTurno.fecha);
-      if (fechaTurno <= new Date()) {
-        throw new Error("La fecha del turno debe ser futura");
+
+      // Asegurarse de que la fecha se envíe en formato ISO sin ajustes de zona
+      const fechaParaBackend = fechaTurno.toISOString();
+
+      const ahora = new Date();
+      if (fechaTurno <= ahora) {
+        throw new Error("La fecha y hora deben ser futuras");
       }
 
-      // Crear el turno directamente (el middleware isPacienteWithProfile ya verifica el perfil)
       const response = await fetch(`${API_URL}/turnos`, {
         method: "POST",
         headers: {
@@ -183,7 +186,8 @@ const TurnosPaciente = () => {
         },
         body: JSON.stringify({
           ...nuevoTurno,
-          userId: user._id, // El backend obtendrá el pacienteId del perfil asociado
+          fecha: fechaParaBackend, // Enviar en formato ISO
+          userId: user._id,
         }),
       });
 
@@ -197,7 +201,7 @@ const TurnosPaciente = () => {
 
       notify("Turno creado exitosamente", "success");
       setShowNuevoTurnoModal(false);
-      await fetchTurnosPaciente(); // Actualizar la lista de turnos
+      await fetchTurnosPaciente();
     } catch (err) {
       console.error("Error al crear turno:", err);
       notify(err.message, "error");
@@ -209,7 +213,7 @@ const TurnosPaciente = () => {
   const handleEditarTurno = async (turnoId, turnoActualizado) => {
     try {
       const response = await fetch(`${API_URL}/turnos/paciente/${turnoId}`, {
-        method: "PUT", // Asegurarse que es PUT
+        method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -227,7 +231,7 @@ const TurnosPaciente = () => {
         }
       }
 
-      const result = await response.json();
+      await response.json();
       notify("Turno actualizado exitosamente", "success");
       setShowEditarTurnoModal(false);
       fetchTurnosPaciente();
@@ -280,16 +284,19 @@ const TurnosPaciente = () => {
     return statusClasses[status] || "";
   };
 
-  const toLocalDateTimeString = (date) => {
-    const pad = (n) => n.toString().padStart(2, "0");
-    const local = new Date(date);
-    const year = local.getFullYear();
-    const month = pad(local.getMonth() + 1);
-    const day = pad(local.getDate());
-    const hours = pad(local.getHours());
-    const minutes = pad(local.getMinutes());
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
-  };
+const toLocalDateTimeString = (date) => {
+  const pad = (n) => n.toString().padStart(2, "0");
+  const local = new Date(date);
+  
+  // ✅ CORREGIDO: Usar métodos UTC para coincidir con lo almacenado en la DB
+  const year = local.getUTCFullYear();
+  const month = pad(local.getUTCMonth() + 1);
+  const day = pad(local.getUTCDate());
+  const hours = pad(local.getUTCHours());    // ← Ahora usa UTC
+  const minutes = pad(local.getUTCMinutes()); // ← Ahora usa UTC
+  
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+};
 
   if (!user) {
     return (
@@ -338,6 +345,7 @@ const TurnosPaciente = () => {
           </button>
         </div>
 
+        {/* Filtros */}
         <div className="filtros-container">
           <div className="search-container">
             <input
@@ -403,6 +411,7 @@ const TurnosPaciente = () => {
           </div>
         </div>
 
+        {/* Tabla */}
         <div className="table-container">
           {loading ? (
             <div className="loading-container">
@@ -431,7 +440,16 @@ const TurnosPaciente = () => {
               <tbody>
                 {filteredTurnos.map((turno) => (
                   <tr key={turno._id}>
-                    <td data-label="Fecha y Hora">{new Date(turno.fecha).toLocaleString()}</td>
+                    <td data-label="Fecha y Hora">
+                      {new Date(turno.fecha).toLocaleString("es-ES", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        timeZone: "UTC", // ✅ Forzar mostrar la hora como fue almacenada
+                      })}
+                    </td>
                     <td data-label="Especialista">
                       {turno.especialistaId?.userId?.name || "No asignado"}
                     </td>
@@ -457,28 +475,7 @@ const TurnosPaciente = () => {
                         }}
                         title="Ver detalles de la consulta"
                       >
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                        👁
                       </button>
                       {turno.estado === "pendiente" && (
                         <>
@@ -507,6 +504,8 @@ const TurnosPaciente = () => {
           )}
         </div>
       </div>
+
+      {/* MODAL CREAR */}
       {showNuevoTurnoModal && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -523,7 +522,6 @@ const TurnosPaciente = () => {
                 const formData = new FormData(e.target);
                 const fecha = formData.get("fecha");
 
-                // Validar fecha futura
                 if (new Date(fecha) <= new Date()) {
                   notify("La fecha del turno debe ser futura", "error");
                   return;
@@ -586,6 +584,7 @@ const TurnosPaciente = () => {
         </div>
       )}
 
+      {/* MODAL EDITAR */}
       {showEditarTurnoModal && turnoAEditar && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -600,30 +599,21 @@ const TurnosPaciente = () => {
               onSubmit={(e) => {
                 e.preventDefault();
                 const formData = new FormData(e.target);
+                const fecha = formData.get("fecha");
+
+                if (new Date(fecha) <= new Date()) {
+                  notify("La fecha del turno debe ser futura", "error");
+                  return;
+                }
+
                 const turnoActualizado = {
                   fecha: formData.get("fecha"),
                   motivo: formData.get("motivo"),
                 };
+
                 handleEditarTurno(turnoAEditar._id, turnoActualizado);
               }}
             >
-              <div className="form-group">
-                <label>Especialista:</label>
-                <select
-                  name="especialistaId"
-                  defaultValue={turnoAEditar.especialistaId?._id}
-                  required
-                  disabled
-                >
-                  <option value="">Seleccionar especialista</option>
-                  {especialistas.map((especialista) => (
-                    <option key={especialista._id} value={especialista._id}>
-                      {especialista.especialidad} - {especialista.userId?.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
               <div className="form-group">
                 <label>Fecha y Hora:</label>
                 <input
@@ -660,6 +650,8 @@ const TurnosPaciente = () => {
           </div>
         </div>
       )}
+
+      {/* MODAL VER */}
       {showVerTurnoModal && turnoAVer && (
         <VerTurnoPacienteModal
           turno={turnoAVer}
