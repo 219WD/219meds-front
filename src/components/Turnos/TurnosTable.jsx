@@ -90,13 +90,15 @@ const TurnosTable = ({
                 {especialistaInfo.especialidad &&
                   ` (${especialistaInfo.especialidad})`}
               </td>
-              <td>
-                {turno.fecha
-                  ? new Date(turno.fecha).toLocaleString("es-AR", {
-                      dateStyle: "short",
-                      timeStyle: "short",
-                    })
-                  : "Fecha no especificada"}
+              <td data-label="Fecha y Hora">
+                {new Date(turno.fecha).toLocaleString("es-ES", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  timeZone: "UTC", // ✅ Forzar mostrar la hora como fue almacenada
+                })}
               </td>
               <td>{turno.motivo || "Sin motivo especificado"}</td>
               <td>

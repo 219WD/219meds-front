@@ -45,7 +45,14 @@ const VerTurnoModal = ({ turno, onClose }) => {
               <div className="form-group">
                 <label>Fecha y Hora:</label>
                 <div className="modal-detail">
-                  {new Date(turno.fecha).toLocaleString()}
+                  {new Date(turno.fecha).toLocaleString("es-ES", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    timeZone: "UTC", // Forzar mostrar la hora como está en la DB
+                  })}
                 </div>
               </div>
 

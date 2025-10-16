@@ -6,11 +6,15 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 const toLocalDateTimeString = (date) => {
   if (!date) return "";
   const pad = (n) => n.toString().padStart(2, "0");
-  const year = date.getFullYear();
-  const month = pad(date.getMonth() + 1);
-  const day = pad(date.getDate());
-  const hours = pad(date.getHours());
-  const minutes = pad(date.getMinutes());
+  const local = new Date(date);
+
+  // ✅ CORREGIDO: Usar métodos UTC para coincidir con lo almacenado en la DB
+  const year = local.getUTCFullYear();
+  const month = pad(local.getUTCMonth() + 1);
+  const day = pad(local.getUTCDate());
+  const hours = pad(local.getUTCHours()); // ← Ahora usa UTC
+  const minutes = pad(local.getUTCMinutes()); // ← Ahora usa UTC
+
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 };
 
