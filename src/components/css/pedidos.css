@@ -488,6 +488,40 @@
   margin-bottom: 10px;
 }
 
+/* Estilos para el select del modal cuando está abierto */
+.dashboard-modal-content .dashboard-status-select:focus,
+.dashboard-modal-content .dashboard-status-select:active {
+  background: #000000 !important;
+  color: #00ff00 !important;
+}
+
+/* Estilos para las opciones del select en el modal */
+.dashboard-modal-content .dashboard-status-select option {
+  background: #000000 !important;
+  color: #00ff00 !important;
+  padding: 10px;
+}
+
+/* Estilo cuando el dropdown está abierto */
+.dashboard-modal-content .dashboard-status-select:focus option,
+.dashboard-modal-content .dashboard-status-select:active option {
+  background: #000000 !important;
+  color: #00ff00 !important;
+}
+
+/* Estilo para las opciones al hacer hover */
+.dashboard-modal-content .dashboard-status-select option:hover {
+  background: #00ff00 !important;
+  color: #000000 !important;
+}
+
+/* Asegurar que el select mantenga los estilos cuando está abierto */
+.dashboard-modal-content .dashboard-status-select[open],
+.dashboard-modal-content .dashboard-status-select:focus-within {
+  background: #000000 !important;
+  color: #00ff00 !important;
+}
+
 .dashboard-modal-close-btn {
   background: transparent;
   border: none;

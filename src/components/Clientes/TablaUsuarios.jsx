@@ -8,6 +8,7 @@ import {
   faUserShield,
   faUserMd,
   faUserPlus,
+  faUserSecret // Nuevo ícono para secretaria
 } from "@fortawesome/free-solid-svg-icons";
 
 const TablaUsuarios = ({
@@ -15,6 +16,7 @@ const TablaUsuarios = ({
   onDetails,
   onTogglePartner,
   onToggleAdmin,
+  onToggleSecretaria, // Nueva prop
   onConvertToEspecialista,
 }) => {
   const { user } = useAuthStore();
@@ -25,7 +27,7 @@ const TablaUsuarios = ({
       <thead>
         <tr>
           <th>Nombre</th>
-          <th>Email</th>
+          <th>Secretaria</th> {/* Reemplazado Email por Secretaria */}
           <th>Socio</th>
           <th>Admin</th>
           <th>Médico</th>
@@ -36,7 +38,7 @@ const TablaUsuarios = ({
         {users.map((user) => (
           <tr key={user._id} className="user-row">
             <td data-label="Nombre">{user.name}</td>
-            <td data-label="Email">{user.email}</td>
+            <td data-label="Secretaria">{user.isSecretaria ? "✅" : "❌"}</td> {/* Nuevo campo */}
             <td data-label="Socio">{user.isPartner ? "✅" : "❌"}</td>
             <td data-label="Admin">{user.isAdmin ? "✅" : "❌"}</td>
             <td data-label="Médico">{user.isMedico ? "✅" : "❌"}</td>
@@ -72,6 +74,18 @@ const TablaUsuarios = ({
                 >
                   <FontAwesomeIcon icon={faUserShield} className="icon" />
                   <span>{user.isAdmin ? "Quitar" : "Admin"}</span>
+                </button>
+              )}
+              {isAdmin && onToggleSecretaria && ( // Nuevo botón para secretaria
+                <button
+                  onClick={() => onToggleSecretaria(user._id)}
+                  className={`action-btn ${
+                    user.isSecretaria ? "revoke-btn" : "approve-btn"
+                  }`}
+                  title={user.isSecretaria ? "Quitar Secretaria" : "Hacer Secretaria"}
+                >
+                  <FontAwesomeIcon icon={faUserSecret} className="icon" />
+                  <span>{user.isSecretaria ? "Quitar" : "Secretaria"}</span>
                 </button>
               )}
               {isAdmin && onConvertToEspecialista && !user.isMedico && (

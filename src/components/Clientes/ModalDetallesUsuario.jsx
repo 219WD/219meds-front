@@ -9,6 +9,7 @@ const ModalDetallesUsuario = ({
   loading,
   onClose,
   onTogglePartner,
+  onToggleSecretaria, // Nueva prop agregada
 }) => {
   const [especialistaData, setEspecialistaData] = useState(null);
   const [loadingEspecialista, setLoadingEspecialista] = useState(false);
@@ -85,6 +86,9 @@ const ModalDetallesUsuario = ({
             </p>
             <p>
               <strong>Médico:</strong> {user.isMedico ? "✅ Sí" : "❌ No"}
+            </p>
+            <p>
+              <strong>Secretaria:</strong> {user.isSecretaria ? "✅ Sí" : "❌ No"} {/* Nuevo campo */}
             </p>
 
             {loading ? (
@@ -191,6 +195,19 @@ const ModalDetallesUsuario = ({
           >
             {user.isPartner ? "Revocar Socio" : "Aprobar Socio"}
           </button>
+          
+          {/* Nuevo botón para secretaria - solo visible para admins */}
+          {isAdmin && onToggleSecretaria && (
+            <button
+              onClick={() => onToggleSecretaria(user._id)}
+              className={
+                user.isSecretaria ? "dashboard-revoke-btn" : "dashboard-approve-btn"
+              }
+              disabled={loading}
+            >
+            </button>
+          )}
+          
           <button
             onClick={onClose}
             className="dashboard-close-btn"

@@ -1538,3 +1538,435 @@ td .productos-list li {
 .cloudinary-comprobante {
   margin-top: 10px;
 }
+
+/* RESPONSIVE DESIGN PARA MODAL DE PRODUCTOS - CORREGIDO */
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: 1rem;
+    align-items: flex-start;
+  }
+
+  .modal-content {
+    width: 95%;
+    max-height: 90vh;
+    padding: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .modal-header {
+    padding: 0 0 1rem 0;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .modal-header h3 {
+    font-size: 1.5rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+    font-size: 1.5rem;
+  }
+
+  .modal-content-productos {
+    padding: 1rem 0;
+    overflow-x: hidden;
+  }
+
+  /* TABLA RESPONSIVE - ESTRUCTURA CORREGIDA */
+  .productos-table {
+    width: 100%;
+  }
+
+  .productos-table thead {
+    display: none;
+  }
+
+  .productos-table tbody tr {
+    display: block;
+    margin-bottom: 1.5rem;
+    background: rgba(30, 40, 50, 0.95);
+    border-radius: 12px;
+    padding: 1.2rem;
+    border: 1px solid rgba(0, 255, 0, 0.4);
+    box-shadow: 0 4px 20px rgba(0, 255, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .productos-table tbody tr::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00ff00, #00cc00);
+  }
+
+  .productos-table tbody tr:hover {
+    background: rgba(40, 50, 60, 0.98);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.25);
+  }
+
+  /* ESTRUCTURA CORREGIDA - LABEL IZQUIERDA, CONTENIDO DERECHA */
+  .productos-table tbody td {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.15);
+    position: relative;
+    font-size: 0.92rem;
+    min-height: 44px;
+  }
+
+  .productos-table tbody td:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .productos-table tbody td:first-child {
+    padding-top: 0.5rem;
+  }
+
+  /* LABELS A LA IZQUIERDA - CORREGIDO */
+  .productos-table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #00ff00;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 120px;
+    text-align: left;
+    flex-shrink: 0;
+    margin-right: 1rem;
+  }
+
+  /* CONTENIDO A LA DERECHA - CORREGIDO */
+  .productos-table tbody td > *:not(::before) {
+    flex: 1;
+    text-align: right !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* IMAGEN DEL PRODUCTO - CORREGIDA */
+  .product-image {
+    max-width: 60px !important;
+    max-height: 60px !important;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    margin-left: auto;
+  }
+
+  /* CELDA DE ACCIONES MEJORADA - CORREGIDA */
+  .productos-table tbody td:last-child {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+
+  .product-actions {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 0.8rem !important;
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    margin-left: auto;
+  }
+
+  /* CONTROLES DE CANTIDAD - CORREGIDOS */
+  .quantity-controls {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+    width: 100% !important;
+  }
+
+  .btn-quantity {
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .btn-quantity svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .quantity-display {
+    min-width: 30px !important;
+    text-align: center !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* BOTÓN AGREGAR - CORREGIDO */
+  .btn-add {
+    padding: 0.8rem 1rem !important;
+    font-size: 0.9rem !important;
+    min-width: 120px !important;
+    text-align: center !important;
+    justify-content: center !important;
+    margin-left: auto;
+  }
+
+  /* ESTADOS DE STOCK - CORREGIDOS */
+  .producto-stock {
+    color: #00ff00 !important;
+    font-weight: 500 !important;
+    font-size: 0.85rem !important;
+    text-align: right !important;
+  }
+
+  .producto-sinstock {
+    color: #e60000 !important;
+    font-weight: 500 !important;
+    font-size: 0.85rem !important;
+    text-align: right !important;
+  }
+
+  /* ACCIONES DEL MODAL */
+  .modal-actions {
+    margin: 1rem 0 0 0;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0 0 0;
+  }
+
+  .btn-cancel {
+    width: 100% !important;
+    padding: 1rem !important;
+    font-size: 1rem !important;
+  }
+
+  /* NO PRODUCTOS */
+  .no-products {
+    padding: 3rem 1rem;
+    font-size: 1rem;
+    text-align: center;
+  }
+}
+
+/* PARA PANTALLAS MUY PEQUEÑAS - CORREGIDO */
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 1rem;
+    width: 98%;
+    margin-top: 1rem;
+  }
+
+  .modal-header h3 {
+    font-size: 1.3rem;
+  }
+
+  .productos-table tbody tr {
+    padding: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .productos-table tbody td {
+    gap: 0.8rem;
+    padding: 0.7rem 0;
+    font-size: 0.88rem;
+  }
+
+  .productos-table tbody td::before {
+    font-size: 0.82rem;
+    min-width: 100px;
+    margin-right: 0.5rem;
+  }
+
+  .product-image {
+    max-width: 50px !important;
+    max-height: 50px !important;
+  }
+
+  .product-actions {
+    gap: 0.5rem !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .quantity-controls {
+    justify-content: center !important;
+    gap: 0.8rem !important;
+    width: 100% !important;
+  }
+
+  .btn-quantity {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .btn-add {
+    min-width: 100% !important;
+    width: 100% !important;
+    padding: 0.9rem !important;
+  }
+
+  .modal-actions {
+    gap: 0.8rem;
+  }
+
+  /* MEJORAS ESPECÍFICAS PARA CONTENIDO LARGO */
+  .productos-table tbody td:nth-child(2) {
+    align-items: flex-start !important;
+  }
+
+  .productos-table tbody td:nth-child(2) > *:not(::before) {
+    text-align: right !important;
+    word-break: break-word;
+    max-width: 60%;
+  }
+}
+
+/* ANIMACIONES MEJORADAS */
+@media (max-width: 768px) {
+  .productos-table tbody tr {
+    animation: fadeInUp 0.5s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* MEJORAS ESPECÍFICAS PARA EL MODAL DE PRODUCTOS - CORREGIDAS */
+@media (max-width: 768px) {
+  /* Asegurar que las celdas tengan los data-labels correctos */
+  .productos-table tbody td:nth-child(1)::before {
+    content: "Título";
+  }
+
+  .productos-table tbody td:nth-child(2)::before {
+    content: "Descripción";
+  }
+
+  .productos-table tbody td:nth-child(3)::before {
+    content: "Precio";
+  }
+
+  .productos-table tbody td:nth-child(4)::before {
+    content: "Stock";
+  }
+
+  .productos-table tbody td:nth-child(5)::before {
+    content: "Categoría";
+  }
+
+  .productos-table tbody td:nth-child(6)::before {
+    content: "Imagen";
+  }
+
+  .productos-table tbody td:nth-child(7)::before {
+    content: "Acciones";
+  }
+
+  /* Mejorar la visualización de descripciones largas */
+  .productos-table tbody td:nth-child(2) {
+    align-items: flex-start !important;
+  }
+
+  .productos-table tbody td:nth-child(2) > *:not(::before) {
+    text-align: right !important;
+    word-break: break-word;
+    max-width: 65%;
+    padding-left: 0.5rem;
+  }
+
+  /* Mejorar la visualización de imágenes */
+  .productos-table tbody td:nth-child(6) {
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+
+  .productos-table tbody td:nth-child(6) > *:not(::before) {
+    justify-content: flex-end !important;
+  }
+
+  .product-image {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Mejorar acciones */
+  .productos-table tbody td:nth-child(7) {
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+
+  .productos-table tbody td:nth-child(7)::before {
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+
+  .productos-table tbody td:nth-child(7) > *:not(::before) {
+    width: 100%;
+    justify-content: flex-end !important;
+  }
+}
+
+/* ESTILOS PARA BOTONES DESHABILITADOS */
+@media (max-width: 768px) {
+  .btn-quantity:disabled,
+  .btn-add:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  .btn-quantity:disabled:hover,
+  .btn-add:disabled:hover {
+    background: linear-gradient(45deg, #666, #888) !important;
+    box-shadow: none !important;
+  }
+}
+
+/* SCROLLBAR PERSONALIZADO PARA MODAL */
+@media (max-width: 768px) {
+  .modal-content::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .modal-content::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 255, 0, 0.5);
+    border-radius: 10px;
+  }
+
+  .modal-content::-webkit-scrollbar-track {
+    background: rgba(0, 255, 0, 0.1);
+    margin: 10px;
+  }
+}

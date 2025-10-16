@@ -82,6 +82,22 @@ const ClientesHeader = ({
           </select>
         </div>
 
+        {/* Nuevo filtro para secretaria */}
+        <div className="filter-group">
+          <label>Secretaria:</label>
+          <select
+            value={filters.isSecretaria ?? ''}
+            onChange={(e) => setFilters({
+              ...filters, 
+              isSecretaria: e.target.value === '' ? null : e.target.value === 'true'
+            })}
+          >
+            <option value="">Todos</option>
+            <option value="true">Secretarias</option>
+            <option value="false">No secretarias</option>
+          </select>
+        </div>
+
         <div className="filter-group">
           <label>Ordenar por:</label>
           <select

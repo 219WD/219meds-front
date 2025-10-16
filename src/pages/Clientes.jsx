@@ -26,6 +26,7 @@ const Clientes = () => {
     isPartner: null,
     isAdmin: null,
     isMedico: null,
+    isSecretaria: null,
     sortBy: "newest",
   });
 
@@ -93,11 +94,14 @@ const Clientes = () => {
         partner: `${API_URL}/users/togglePartner/${userId}`,
         admin: `${API_URL}/users/isAdmin/${userId}`,
         medico: `${API_URL}/users/toggleMedico/${userId}`,
+        secretaria: `${API_URL}/users/isSecretaria/${userId}`,
       };
 
       const actionText = {
         partner: "Actualizando estado de socio...",
         admin: "Actualizando estado de administrador...",
+        medico: "Actualizando estado de médico...",
+        secretaria: "Actualizando estado de secretaria...",
       };
 
       await withGlobalLoader(async () => {
@@ -134,8 +138,17 @@ const Clientes = () => {
       filters.isAdmin === null || user.isAdmin === filters.isAdmin;
     const matchesMedico =
       filters.isMedico === null || user.isMedico === filters.isMedico;
+    const matchesSecretaria =
+      filters.isSecretaria === null ||
+      user.isSecretaria === filters.isSecretaria;
 
-    return matchesSearch && matchesPartner && matchesAdmin && matchesMedico;
+    return (
+      matchesSearch &&
+      matchesPartner &&
+      matchesAdmin &&
+      matchesMedico &&
+      matchesSecretaria
+    );
   });
 
   // Orden
@@ -245,6 +258,7 @@ const Clientes = () => {
               onDetails={fetchUserDetails}
               onTogglePartner={(id) => toggleUserStatus(id, "partner")}
               onToggleAdmin={(id) => toggleUserStatus(id, "admin")}
+              onToggleSecretaria={(id) => toggleUserStatus(id, "secretaria")}
               onConvertToEspecialista={async (user) => {
                 try {
                   if (user.isMedico) {

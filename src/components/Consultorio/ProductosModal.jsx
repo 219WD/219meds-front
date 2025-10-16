@@ -27,7 +27,10 @@ const ProductosModal = ({
   const handleIncrement = (productId) => {
     setQuantities((prev) => ({
       ...prev,
-      [productId]: Math.min((prev[productId] || 0) + 1, availableStock[productId] || 0),
+      [productId]: Math.min(
+        (prev[productId] || 0) + 1,
+        availableStock[productId] || 0
+      ),
     }));
   };
 
@@ -90,15 +93,20 @@ const ProductosModal = ({
                 </thead>
                 <tbody>
                   {productosDisponibles.map((producto) => {
-                    const currentAvailableStock = availableStock[producto._id] || 0;
+                    const currentAvailableStock =
+                      availableStock[producto._id] || 0;
                     const currentQuantity = quantities[producto._id] || 0;
 
                     return (
                       <tr key={producto._id}>
-                        <td>{producto.title || "Sin título"}</td>
-                        <td>{producto.description || "Sin descripción"}</td>
-                        <td>${producto.price || 0}</td>
-                        <td>
+                        <td data-label="Título">
+                          {producto.title || "Sin título"}
+                        </td>
+                        <td data-label="Descripción">
+                          {producto.description || "Sin descripción"}
+                        </td>
+                        <td data-label="Precio">${producto.price || 0}</td>
+                        <td data-label="Stock">
                           {currentAvailableStock > 0 ? (
                             <span className="producto-stock">
                               {currentAvailableStock} disponibles
@@ -108,7 +116,7 @@ const ProductosModal = ({
                           )}
                         </td>
                         <td>{producto.category || "Sin categoría"}</td>
-                        <td>
+                        <td data-label="Imagen">
                           {producto.image ? (
                             <img
                               src={producto.image}
@@ -119,7 +127,7 @@ const ProductosModal = ({
                             "Sin imagen"
                           )}
                         </td>
-                        <td>
+                        <td data-label="Acciones">
                           <div className="product-actions">
                             <button
                               className="btn-quantity btn-decrement"
@@ -147,7 +155,10 @@ const ProductosModal = ({
                             <button
                               className="btn-quantity btn-increment"
                               onClick={() => handleIncrement(producto._id)}
-                              disabled={currentAvailableStock <= 0 || currentQuantity >= currentAvailableStock}
+                              disabled={
+                                currentAvailableStock <= 0 ||
+                                currentQuantity >= currentAvailableStock
+                              }
                             >
                               <svg
                                 width="16"
@@ -167,9 +178,15 @@ const ProductosModal = ({
                             <button
                               className="btn-add"
                               onClick={() => handleAddProduct(producto)}
-                              disabled={currentAvailableStock <= 0 || currentQuantity <= 0 || isAdding[producto._id]}
+                              disabled={
+                                currentAvailableStock <= 0 ||
+                                currentQuantity <= 0 ||
+                                isAdding[producto._id]
+                              }
                             >
-                              {isAdding[producto._id] ? "Agregando..." : "Agregar"}
+                              {isAdding[producto._id]
+                                ? "Agregando..."
+                                : "Agregar"}
                             </button>
                           </div>
                         </td>

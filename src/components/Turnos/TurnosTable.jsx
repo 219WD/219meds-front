@@ -82,10 +82,10 @@ const TurnosTable = ({
               key={turno._id}
               className={`turno-row ${turno.estado || "pendiente"}`}
             >
-              <td>
+              <td data-label="Paciente">
                 {turno.pacienteId?.fullName || "Paciente no especificado"}
               </td>
-              <td>
+              <td data-label="Especialista">
                 {especialistaInfo.name}
                 {especialistaInfo.especialidad &&
                   ` (${especialistaInfo.especialidad})`}
@@ -100,13 +100,13 @@ const TurnosTable = ({
                   timeZone: "UTC", // ✅ Forzar mostrar la hora como fue almacenada
                 })}
               </td>
-              <td>{turno.motivo || "Sin motivo especificado"}</td>
-              <td>
+              <td data-label="Motivo">{turno.motivo || "Sin motivo especificado"}</td>
+              <td data-label="Estado">
                 <span className={`status-badge ${turno.estado || "pendiente"}`}>
                   {turno.estado || "Pendiente"}
                 </span>
               </td>
-              <td className="acciones-turno">
+              <td data-label="Acciones" className="acciones-turno">
                 {editable ? (
                   <>
                     <button

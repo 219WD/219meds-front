@@ -437,6 +437,12 @@
     background: rgba(220, 53, 69, 0.15);
     border: 1px solid rgba(220, 53, 69, 0.4);
     color: #dc3545;
+    width: 100%;
+  }
+
+  .dashboard-save-btn,
+  .dashboard-approve-btn {
+    width: 100%;
   }
 
   .users-table .revoke-btn:hover {
@@ -464,9 +470,9 @@
   }
 
   /* Cambia la estructura de la tabla a bloque */
-  .users-table, 
-  .users-table tbody, 
-  .users-table tr, 
+  .users-table,
+  .users-table tbody,
+  .users-table tr,
   .users-table td {
     display: block;
     width: 100% !important;
