@@ -165,12 +165,26 @@ const Turnos = () => {
           turno.especialistaId?.especialidad === especialidadFilter;
 
         const fechaTurno = new Date(turno.fecha);
-        const today = new Date("2025-09-03");
+        const today = new Date();
+        // Definir el rango del día actual en UTC basado en la zona horaria local (UTC-3)
+        const startOfTodayLocal = new Date(today.getFullYear(), today.getMonth(), today.getDate()); // 00:00:00 local
+        const endOfTodayLocal = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59, 999); // 23:59:59.999 local
+        // Convertir a UTC sumando 3 horas (UTC-3 a UTC)
+        const startOfTodayUTC = new Date(startOfTodayLocal.getTime() + 3 * 60 * 60 * 1000);
+        const endOfTodayUTC = new Date(endOfTodayLocal.getTime() + 3 * 60 * 60 * 1000);
         const matchesToday =
           !showToday ||
-          (fechaTurno.getFullYear() === today.getFullYear() &&
-            fechaTurno.getMonth() === today.getMonth() &&
-            fechaTurno.getDate() === today.getDate());
+          (fechaTurno >= startOfTodayUTC && fechaTurno <= endOfTodayUTC);
+
+        // Depuración: Imprimir fechas para verificar el filtro
+        console.log({
+          turnoId: turno._id,
+          fechaTurno: fechaTurno.toISOString(),
+          fechaTurnoLocal: new Date(fechaTurno.getTime() - 3 * 60 * 60 * 1000).toISOString(),
+          startOfTodayUTC: startOfTodayUTC.toISOString(),
+          endOfTodayUTC: endOfTodayUTC.toISOString(),
+          matchesToday,
+        });
 
         const fromDate = dateFrom ? new Date(dateFrom) : null;
         const toDate = dateTo ? new Date(dateTo + "T23:59:59") : null;

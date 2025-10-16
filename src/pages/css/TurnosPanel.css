@@ -279,7 +279,7 @@
 .estado-select {
   background: linear-gradient(45deg, #006600, #00aa00);
   border: 1px solid #00ff00;
-  color: white;
+  color: #00ff00; /* ✅ Cambiado a verde para escritorio */
   padding: 0.5rem;
   border-radius: 8px;
   font-family: "Zen Dots", sans-serif;
@@ -287,6 +287,14 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+}
+
+/* Estilizar los <option> dentro del select */
+.estado-select option {
+  color: #00ff00; /* ✅ Verde para los <option> */
+  background: #0a0e17; /* ✅ Fondo oscuro para legibilidad */
+  font-family: "Zen Dots", sans-serif;
+  font-size: 0.9rem;
 }
 
 .estado-select:focus {
