@@ -1,3 +1,4 @@
+// useProductStore.js
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import useAuthStore from "./authStore";
@@ -129,43 +130,45 @@ const useProductStore = create(
         }
       },
 
-      // updateLocalStock: (productId, quantity) => {
-      //   set((state) => {
-      //     const updatedProducts = state.products.map((product) =>
-      //       product._id === productId
-      //         ? { ...product, stock: Math.max(0, product.stock - quantity) }
-      //         : product
-      //     );
+      // Descomentar y ajustar updateLocalStock
+      updateLocalStock: (productId, quantity) => {
+        set((state) => {
+          const updatedProducts = state.products.map((product) =>
+            product._id === productId
+              ? { ...product, stock: Math.max(0, product.stock - quantity) }
+              : product
+          );
 
-      //     const updatedFilteredProducts = updatedProducts.filter(product =>
-      //       product.isActive && product.stock > 0
-      //     );
+          const updatedFilteredProducts = updatedProducts.filter(product =>
+            product.isActive && product.stock > 0
+          );
 
-      //     return {
-      //       products: updatedProducts,
-      //       filteredProducts: updatedFilteredProducts
-      //     };
-      //   });
-      // },
+          return {
+            products: updatedProducts,
+            filteredProducts: updatedFilteredProducts
+          };
+        });
+      },
 
-      // restoreLocalStock: (productId, quantity) => {
-      //   set((state) => {
-      //     const updatedProducts = state.products.map((product) =>
-      //       product._id === productId
-      //         ? { ...product, stock: (product.stock || 0) + quantity }
-      //         : product
-      //     );
+      // Descomentar y ajustar restoreLocalStock
+      restoreLocalStock: (productId, quantity) => {
+        set((state) => {
+          const updatedProducts = state.products.map((product) =>
+            product._id === productId
+              ? { ...product, stock: (product.stock || 0) + quantity }
+              : product
+          );
 
-      //     const updatedFilteredProducts = updatedProducts.filter(product =>
-      //       product.isActive && product.stock > 0
-      //     );
+          const updatedFilteredProducts = updatedProducts.filter(product =>
+            product.isActive && product.stock > 0
+          );
 
-      //     return {
-      //       products: updatedProducts,
-      //       filteredProducts: updatedFilteredProducts
-      //     };
-      //   });
-      // },
+          return {
+            products: updatedProducts,
+            filteredProducts: updatedFilteredProducts
+          };
+        });
+      },
 
       toggleStatus: async (id) => {
         const { token, products } = get();

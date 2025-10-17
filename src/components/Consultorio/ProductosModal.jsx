@@ -1,3 +1,4 @@
+// ProductosModal.jsx
 import React, { useState, useEffect } from "react";
 
 const ProductosModal = ({
@@ -6,17 +7,18 @@ const ProductosModal = ({
   productosDisponibles,
   handleProductSelect,
   selectedProducts,
+  notify,
 }) => {
   const [quantities, setQuantities] = useState({});
   const [availableStock, setAvailableStock] = useState({});
-  const [isAdding, setIsAdding] = useState({}); // Nuevo estado para rastrear si se está agregando un producto
+  const [isAdding, setIsAdding] = useState({}); // Estado para rastrear si se está agregando un producto
 
   useEffect(() => {
     const updatedQuantities = {};
     const stockMap = {};
 
     productosDisponibles.forEach((producto) => {
-      updatedQuantities[producto._id] = quantities[producto._id] || 0;
+      updatedQuantities[producto._id] = quantities[producto._id] || 1; // Iniciar con 1 en lugar de 0
       stockMap[producto._id] = producto.stock;
     });
 
@@ -37,30 +39,37 @@ const ProductosModal = ({
   const handleDecrement = (productId) => {
     setQuantities((prev) => ({
       ...prev,
-      [productId]: Math.max((prev[productId] || 0) - 1, 0),
+      [productId]: Math.max((prev[productId] || 0) - 1, 1), // No permitir menos de 1
     }));
   };
 
-  const handleAddProduct = async (producto) => {
-    if (isAdding[producto._id]) return; // Evitar múltiples clics
-    setIsAdding((prev) => ({ ...prev, [producto._id]: true }));
+// ProductosModal.jsx
+const handleAddProduct = async (producto) => {
+  if (isAdding[producto._id]) {
+    console.log(`🚫 Evitando agregar ${producto.title} por clic múltiple`);
+    return;
+  }
+  setIsAdding((prev) => ({ ...prev, [producto._id]: true }));
 
-    try {
-      const quantity = quantities[producto._id] || 0;
-      if (quantity > 0 && quantity <= (availableStock[producto._id] || 0)) {
-        handleProductSelect({
-          ...producto,
-          cantidad: quantity,
-        });
-        setQuantities((prev) => ({
-          ...prev,
-          [producto._id]: 0,
-        }));
-      }
-    } finally {
-      setIsAdding((prev) => ({ ...prev, [producto._id]: false }));
+  try {
+    const quantity = quantities[producto._id] || 1;
+    console.log(`📦 Agregando producto ${producto.title} con cantidad ${quantity}`);
+    if (quantity > 0 && quantity <= (availableStock[producto._id] || 0)) {
+      handleProductSelect({
+        ...producto,
+        cantidad: quantity,
+      });
+      setQuantities((prev) => ({
+        ...prev,
+        [producto._id]: 1, // Restablecer a 1 después de agregar
+      }));
+    } else {
+      notify(`Cantidad inválida para ${producto.title}`, "error");
     }
-  };
+  } finally {
+    setIsAdding((prev) => ({ ...prev, [producto._id]: false }));
+  }
+};
 
   return (
     showProductosModal && (
@@ -95,7 +104,7 @@ const ProductosModal = ({
                   {productosDisponibles.map((producto) => {
                     const currentAvailableStock =
                       availableStock[producto._id] || 0;
-                    const currentQuantity = quantities[producto._id] || 0;
+                    const currentQuantity = quantities[producto._id] || 1;
 
                     return (
                       <tr key={producto._id}>
@@ -132,7 +141,7 @@ const ProductosModal = ({
                             <button
                               className="btn-quantity btn-decrement"
                               onClick={() => handleDecrement(producto._id)}
-                              disabled={currentQuantity <= 0}
+                              disabled={currentQuantity <= 1}
                             >
                               <svg
                                 width="16"

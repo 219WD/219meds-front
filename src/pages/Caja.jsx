@@ -210,25 +210,43 @@ const updatePagoStatus = async (turnoId, currentPagado, comprobanteData = null) 
   }
 };
 
-// 📝 CORREGIDO: handleProductSelect con estructura completa
+// Caja.jsx
 const handleProductSelect = (producto) => {
   const productoCantidad = producto.cantidad || 1;
 
-  // 🔹 Actualizar stock localmente para feedback visual inmediato
-  useProductStore.getState().updateLocalStock(producto._id, productoCantidad);
+  console.log(`📥 Recibiendo producto ${producto.title} con cantidad ${productoCantidad}`);
 
-  setSelectedProducts((prev) => [
-    ...prev,
-    {
-      productoId: producto._id,
-      cantidad: productoCantidad,
-      dosis: producto.dosis || "",
-      precioUnitario: producto.price, // ✅ AGREGAR campo necesario
-      nombreProducto: producto.title, // ✅ AGREGAR campo necesario
-    },
-  ]);
+  // Verificar si el producto ya está en selectedProducts
+  setSelectedProducts((prev) => {
+    const existingProductIndex = prev.findIndex(
+      (p) => p.productoId === producto._id
+    );
 
-  notify(`✅ ${producto.title} agregado al carrito`, "success");
+    if (existingProductIndex !== -1) {
+      // Producto ya seleccionado, sumar la cantidad
+      const updatedProducts = [...prev];
+      updatedProducts[existingProductIndex] = {
+        ...updatedProducts[existingProductIndex],
+        cantidad: updatedProducts[existingProductIndex].cantidad + productoCantidad,
+      };
+      console.log("📋 Actualizando producto existente en selectedProducts:", updatedProducts);
+      return updatedProducts;
+    } else {
+      // Producto nuevo, agregarlo
+      const newProduct = {
+        productoId: producto._id,
+        cantidad: productoCantidad,
+        dosis: producto.dosis || "",
+        precioUnitario: producto.price,
+        nombreProducto: producto.title,
+      };
+      console.log("📋 Agregando nuevo producto a selectedProducts:", newProduct);
+      return [...prev, newProduct];
+    }
+  });
+
+  // NO actualizar stock localmente aquí, lo haremos después de la confirmación del backend
+  notify(`✅ ${producto.title} (x${productoCantidad}) agregado al carrito`, "success");
 };
 
   const aplicarDescuento = (montoDescuento) => {
@@ -268,7 +286,6 @@ const handleProductSelect = (producto) => {
     }
   };
 
-// 📝 CORREGIDO: addProduct con parámetro reemplazarProductos
 // Caja.jsx
 const addProduct = async (turnoId) => {
   if (selectedProducts.length === 0) {
@@ -279,7 +296,14 @@ const addProduct = async (turnoId) => {
   try {
     setLoading(true);
 
-    // Mapear productos para enviar al backend
+    // Obtener el turno actual
+    const turno = turnos.find((t) => t._id === turnoId);
+    const productosExistentes = turno.consulta?.productos || [];
+
+    console.log("📋 Productos existentes en el turno:", productosExistentes);
+    console.log("📋 Productos seleccionados para agregar:", selectedProducts);
+
+    // Crear una lista de productos para enviar al backend (solo los nuevos)
     const productosParaEnviar = selectedProducts.map((producto) => ({
       productoId: producto.productoId,
       cantidad: producto.cantidad,
@@ -288,11 +312,16 @@ const addProduct = async (turnoId) => {
       nombreProducto: producto.nombreProducto,
     }));
 
-    console.log("📤 Enviando al backend:", productosParaEnviar);
+    console.log("📤 Enviando productos adicionales al backend:", productosParaEnviar);
 
-    // Verificar si el turno ya tiene productos
-    const turno = turnos.find((t) => t._id === turnoId);
-    const reemplazarProductos = !turno.consulta?.productos || turno.consulta.productos.length === 0;
+    // Validar stock localmente antes de enviar
+    for (const producto of productosParaEnviar) {
+      const stockDisponible = useProductStore.getState().getProductStock(producto.productoId);
+      if (stockDisponible < producto.cantidad) {
+        notify(`Stock insuficiente para ${producto.nombreProducto}`, "error");
+        throw new Error(`Stock insuficiente para ${producto.nombreProducto}`);
+      }
+    }
 
     const res = await fetch(
       `${API_URL}/turnos/${turnoId}/agregar-productos`,
@@ -308,7 +337,7 @@ const addProduct = async (turnoId) => {
           descuento: Number(descuento),
           notasConsulta: selectedTurno?.consulta?.notasConsulta || "",
           precioConsulta: selectedTurno?.consulta?.precioConsulta || 0,
-          reemplazarProductos, // Enviar reemplazarProductos dinámicamente
+          reemplazarProductos: false, // NO reemplazar, solo añadir
         }),
       }
     );
@@ -322,6 +351,11 @@ const addProduct = async (turnoId) => {
       }
       throw new Error(responseData.error || `Error ${res.status}`);
     }
+
+    // Actualizar stock localmente solo después de la confirmación del backend
+    productosParaEnviar.forEach((producto) => {
+      useProductStore.getState().updateLocalStock(producto.productoId, producto.cantidad);
+    });
 
     // Actualizar estado local
     setTurnos((prev) =>
@@ -347,7 +381,7 @@ const addProduct = async (turnoId) => {
     );
 
     notify(responseData.message, "success");
-    setSelectedProducts([]);
+    setSelectedProducts([]); // Limpiar productos seleccionados
     setDescuento(0);
     setShowProductosModal(false);
   } catch (err) {
@@ -520,6 +554,20 @@ const addProduct = async (turnoId) => {
     dateOrder,
   ]);
 
+  useEffect(() => {
+  if (showProductosModal) {
+    console.log("🧹 Limpiando selectedProducts al abrir el modal");
+    setSelectedProducts([]); // Limpiar selectedProducts al abrir el modal
+  }
+}, [showProductosModal]);
+
+useEffect(() => {
+  if (selectedTurno) {
+    console.log("🧹 Limpiando selectedProducts al seleccionar un nuevo turno");
+    setSelectedProducts([]); // Limpiar selectedProducts al cambiar de turno
+  }
+}, [selectedTurno]);
+
   // GSAP Animation for modal
   useEffect(() => {
     if (!selectedTurno || !modalRef.current) return;
@@ -640,6 +688,7 @@ const addProduct = async (turnoId) => {
         setShowProductosModal={setShowProductosModal}
         productosDisponibles={useProductStore.getState().getActiveProducts()}
         handleProductSelect={handleProductSelect}
+        notify={notify}
       />
     </div>
   );

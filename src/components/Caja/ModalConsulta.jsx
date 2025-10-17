@@ -70,18 +70,16 @@ const ModalConsulta = ({
 // ModalConsulta.jsx
 const confirmarYMarcarPago = async (comprobanteData = null) => {
   try {
-    // Solo agregar productos si hay nuevos productos seleccionados Y el turno no está pagado
-    // Y no hay productos ya registrados en el turno (o se desea reemplazar explícitamente)
-    if (
-      selectedProducts.length > 0 &&
-      !selectedTurno.consulta?.pagado &&
-      (!selectedTurno.consulta?.productos || selectedTurno.consulta.productos.length === 0)
-    ) {
-      console.log("📦 Agregando nuevos productos al turno...");
+    // Log para depurar selectedProducts
+    console.log("📋 Productos seleccionados antes de actualizar:", selectedProducts);
+
+    // Solo agregar productos si hay nuevos seleccionados y el turno no está pagado
+    if (selectedProducts.length > 0 && !selectedTurno.consulta?.pagado) {
+      console.log("📦 Actualizando productos en el turno...");
       await addProduct(selectedTurno._id);
-    } else if (selectedProducts.length > 0 && !selectedTurno.consulta?.pagado) {
-      console.log("⚠️ Ya existen productos en el turno, omitiendo agregar nuevos productos.");
-      notify("El turno ya tiene productos asociados. No se agregaron nuevos productos.", "warning");
+    } else if (selectedProducts.length > 0) {
+      console.log("⚠️ Turno ya pagado, no se actualizarán productos.");
+      notify("El turno ya está pagado, no se pueden agregar más productos.", "warning");
     }
 
     // Marcar como pagado (o desmarcar) si es necesario
