@@ -269,6 +269,7 @@ const handleProductSelect = (producto) => {
   };
 
 // 📝 CORREGIDO: addProduct con parámetro reemplazarProductos
+// Caja.jsx
 const addProduct = async (turnoId) => {
   if (selectedProducts.length === 0) {
     notify("No se han seleccionado productos", "warning");
@@ -277,17 +278,21 @@ const addProduct = async (turnoId) => {
 
   try {
     setLoading(true);
-    
-    // ✅ Enviar la estructura CORRECTA que espera el backend
-    const productosParaEnviar = selectedProducts.map(producto => ({
+
+    // Mapear productos para enviar al backend
+    const productosParaEnviar = selectedProducts.map((producto) => ({
       productoId: producto.productoId,
       cantidad: producto.cantidad,
       dosis: producto.dosis || "",
-      precioUnitario: producto.precioUnitario, // ✅ MANTENER
-      nombreProducto: producto.nombreProducto // ✅ MANTENER
+      precioUnitario: producto.precioUnitario,
+      nombreProducto: producto.nombreProducto,
     }));
 
     console.log("📤 Enviando al backend:", productosParaEnviar);
+
+    // Verificar si el turno ya tiene productos
+    const turno = turnos.find((t) => t._id === turnoId);
+    const reemplazarProductos = !turno.consulta?.productos || turno.consulta.productos.length === 0;
 
     const res = await fetch(
       `${API_URL}/turnos/${turnoId}/agregar-productos`,
@@ -303,7 +308,7 @@ const addProduct = async (turnoId) => {
           descuento: Number(descuento),
           notasConsulta: selectedTurno?.consulta?.notasConsulta || "",
           precioConsulta: selectedTurno?.consulta?.precioConsulta || 0,
-          reemplazarProductos: true // ✅ AGREGAR PARÁMETRO CRÍTICO
+          reemplazarProductos, // Enviar reemplazarProductos dinámicamente
         }),
       }
     );
@@ -311,7 +316,6 @@ const addProduct = async (turnoId) => {
     const responseData = await res.json();
 
     if (!res.ok) {
-      // Manejar errores específicos
       if (responseData.error && responseData.error.includes("Stock insuficiente")) {
         notify(responseData.error, "error");
         return;
@@ -319,7 +323,7 @@ const addProduct = async (turnoId) => {
       throw new Error(responseData.error || `Error ${res.status}`);
     }
 
-    // Éxito
+    // Actualizar estado local
     setTurnos((prev) =>
       prev.map((t) =>
         t._id === turnoId
@@ -331,7 +335,7 @@ const addProduct = async (turnoId) => {
           : t
       )
     );
-    
+
     setSelectedTurno((prev) =>
       prev && prev._id === turnoId
         ? {
@@ -341,21 +345,18 @@ const addProduct = async (turnoId) => {
           }
         : prev
     );
-    
+
     notify(responseData.message, "success");
     setSelectedProducts([]);
     setDescuento(0);
     setShowProductosModal(false);
-    
   } catch (err) {
     console.error("Error al agregar productos:", err);
     notify("Error al agregar productos: " + err.message, "error");
-    
+
     // Restaurar stock local en caso de error
     selectedProducts.forEach((product) => {
-      useProductStore
-        .getState()
-        .restoreLocalStock(product.productoId, product.cantidad);
+      useProductStore.getState().restoreLocalStock(product.productoId, product.cantidad);
     });
   } finally {
     setLoading(false);

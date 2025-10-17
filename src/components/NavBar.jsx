@@ -93,7 +93,7 @@ const NavBar = ({ cartCount, toggleCartVisibility }) => {
               </Link>
             )}
 
-            <Link to="/about" className="nav-item" onClick={handleNavClick}>
+            <Link to="/aboutus" className="nav-item" onClick={handleNavClick}>
               Acerca de Nosotros
             </Link>
 

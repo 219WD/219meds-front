@@ -1,0 +1,331 @@
+.about-us-page {
+    width: 100%;
+    font-family: "Timmons NY", "Arial", sans-serif;
+    background: #0a0a0a;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* Hero Section */
+.about-hero {
+    position: relative;
+    width: 100%;
+    height: 120vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.about-hero-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10; /* Aumenté el z-index para asegurar que esté por encima */
+    pointer-events: none; /* Para que no interfiera con los clicks de las imágenes */
+}
+
+.about-hero-img img {
+    max-width: 200px;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5)); /* Efecto de brillo verde */
+}
+
+.about-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-gallery {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background: #b0b0b0;
+    margin: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: border-color 0.3s ease;
+    z-index: 1;
+}
+
+.about-item:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.about-item-expanded {
+    z-index: 1000;
+    cursor: default;
+}
+
+.about-item-expanded:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.about-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.about-gallery::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    z-index: 999;
+}
+
+.about-item-expanded ~ .about-gallery::before {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Main Section */
+.about-main {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    padding: 100px 20px;
+    background: #0a0a0a;
+}
+
+.about-main-content {
+    max-width: 1200px;
+    margin: 0 auto 150px auto;
+    text-align: center;
+}
+
+.about-logo {
+    margin-bottom: 60px;
+    transform: scale(0);
+}
+
+.about-logo img {
+    max-width: 150px;
+    height: auto;
+}
+
+.about-copy {
+    margin-bottom: 60px;
+}
+
+.about-line {
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.about-line p {
+    font-size: 3rem;
+    font-weight: bold;
+    transform: translateY(100%);
+    margin: 0;
+}
+
+/* Rows and Cards */
+.about-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto 100px auto;
+    gap: 40px;
+}
+
+.about-card {
+    flex: 1;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.about-card img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Footer */
+.about-footer {
+    padding: 50px 20px;
+    text-align: center;
+    background: #0a0a0a;
+}
+
+.about-footer a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.about-footer a:hover {
+    color: #ccc;
+}
+
+/* Botón moderno */
+.about-btn-primary-modern {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #006600, #00cc00);
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+    transform: translateY(50px);
+    opacity: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-btn-primary-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.about-btn-primary-modern:hover::before {
+    left: 100%;
+}
+
+.about-btn-primary-modern:hover {
+    background: linear-gradient(45deg, #008800, #00ff00);
+    box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+    transform: translateY(47px) scale(1.05);
+}
+
+.about-arrow {
+    transition: transform 0.3s ease;
+}
+
+.about-btn-primary-modern:hover .about-arrow {
+    transform: translateX(5px);
+}
+
+.about-btn-primary-modern svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .about-item {
+        width: 70px;
+        height: 70px;
+    }
+
+    .about-hero-img img {
+        max-width: 150px;
+    }
+
+    .about-line p {
+        font-size: 2rem;
+    }
+
+    .about-row {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .about-card img {
+        height: 300px;
+    }
+
+    .about-logo img {
+        max-width: 120px;
+    }
+
+    .about-btn-primary-modern {
+        padding: 12px 25px;
+        font-size: 1rem;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-item {
+        width: 60px;
+        height: 60px;
+    }
+
+    .about-hero-img img {
+        max-width: 120px;
+    }
+
+    .about-line p {
+        font-size: 1.5rem;
+    }
+
+    .about-card img {
+        height: 250px;
+    }
+
+    .about-main {
+        padding: 50px 15px;
+    }
+
+    .about-main-content {
+        margin-bottom: 100px;
+    }
+
+    .about-btn-primary-modern {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        gap: 8px;
+    }
+    
+    .about-btn-primary-modern svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .about-item {
+        width: 90px;
+        height: 90px;
+    }
+
+    .about-line p {
+        font-size: 2.5rem;
+    }
+}

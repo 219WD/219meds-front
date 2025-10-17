@@ -1,15 +1,16 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarAlt, faClock, faMusic, faCocktail } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalendarAlt,
+  faClock,
+  faMusic,
+  faCouch,
+} from "@fortawesome/free-solid-svg-icons";
 import "./css/AfterOffice.css";
-
-// Importar imágenes (debes reemplazar estas rutas con las tuyas)
-// Usar URLs como strings
-const afterOffice1 = "https://media.istockphoto.com/id/1152502772/es/foto/hora-de-celebrarlo.jpg?s=612x612&w=0&k=20&c=G7kJYelt1WV-CB22AwKdJtdeHLYbwpLNx7vSjn2CT-4=";
-const afterOffice2 = "https://media.istockphoto.com/id/1152502772/es/foto/hora-de-celebrarlo.jpg?s=612x612&w=0&k=20&c=G7kJYelt1WV-CB22AwKdJtdeHLYbwpLNx7vSjn2CT-4=";
-const afterOffice3 = "https://media.istockphoto.com/id/1152502772/es/foto/hora-de-celebrarlo.jpg?s=612x612&w=0&k=20&c=G7kJYelt1WV-CB22AwKdJtdeHLYbwpLNx7vSjn2CT-4=";
-const afterOffice4 = "https://media.istockphoto.com/id/1152502772/es/foto/hora-de-celebrarlo.jpg?s=612x612&w=0&k=20&c=G7kJYelt1WV-CB22AwKdJtdeHLYbwpLNx7vSjn2CT-4=";
-
+import afterOffice1 from "../assets/club-after-office.jpg";
+import afterOffice2 from "../assets/club-after-office2.jpg";
+import afterOffice3 from "../assets/club-after-office3.jpg";
+import afterOffice4 from "../assets/club-after-office4.jpg";
 const AfterOfficeSection = () => {
   return (
     <section className="after-office-section">
@@ -45,10 +46,13 @@ const AfterOfficeSection = () => {
               <span className="title-line accent">After Office</span>
               <span className="title-line">Viernes Especial</span>
             </h2>
-            
+
             <div className="schedule-info">
               <div className="schedule-item">
-                <FontAwesomeIcon icon={faCalendarAlt} className="schedule-icon" />
+                <FontAwesomeIcon
+                  icon={faCalendarAlt}
+                  className="schedule-icon"
+                />
                 <span>Todos los Viernes</span>
               </div>
               <div className="schedule-item">
@@ -58,8 +62,9 @@ const AfterOfficeSection = () => {
             </div>
 
             <p className="after-office-description">
-              Terminá la semana con la mejor energía en nuestro After Office especial. 
-              Disfrutá de un ambiente único con música, bebidas exclusivas y la mejor compañía.
+              Terminá la semana con la mejor energía en nuestro After Office
+              especial. Disfrutá de un ambiente único con música, bebidas
+              exclusivas y la mejor compañía.
             </p>
 
             <div className="features-grid">
@@ -69,14 +74,14 @@ const AfterOfficeSection = () => {
                 <p>DJ y artistas locales</p>
               </div>
               <div className="feature-item">
-                <FontAwesomeIcon icon={faCocktail} className="feature-icon" />
-                <h4>Bebidas Exclusivas</h4>
-                <p>Coctelería premium</p>
+                <FontAwesomeIcon icon={faCouch} className="feature-icon" />
+                <h4>Zona Relax</h4>
+                <p>Un lugar para desconectarte y pasarla bien.</p>
               </div>
             </div>
 
             <button className="cta-button after-office-cta">
-              Reservar Mesa
+              Reservar tu lugar
               <FontAwesomeIcon icon={faCalendarAlt} className="cta-icon" />
             </button>
           </div>

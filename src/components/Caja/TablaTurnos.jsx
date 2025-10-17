@@ -10,7 +10,7 @@ const TablaTurnos = ({
   setSelectedProducts,
   setDescuento,
   setFormaPago,
-  updatePagoStatus
+  updatePagoStatus,
 }) => {
   return (
     <table className="turnos-table">
@@ -32,14 +32,20 @@ const TablaTurnos = ({
 
           return (
             <tr key={turno._id} className="turno-row">
-              <td>{turno.pacienteId?.fullName || "Sin Paciente"}</td>
-              <td>
-                {new Date(turno.fecha).toLocaleString("es-AR", {
-                  dateStyle: "short",
-                  timeStyle: "short",
+              <td data-label="Paciente">
+                {turno.pacienteId?.fullName || "Sin Paciente"}
+              </td>
+              <td data-label="Fecha y Hora">
+                {new Date(turno.fecha).toLocaleString("es-ES", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  timeZone: "UTC",
                 })}
               </td>
-              <td>
+              <td data-label="Productos">
                 {productos.length > 0 ? (
                   <ul className="productos-list">
                     {productos.map((producto, index) => (
@@ -54,31 +60,25 @@ const TablaTurnos = ({
                   "Ninguno"
                 )}
               </td>
-              <td>${total.toFixed(2)}</td>
-              <td>
+              <td data-label="Total">${total.toFixed(2)}</td>
+              <td data-label="Forma de Pago">
                 <span
                   className={`turno-estado ${
-                    turno.consulta?.pagado
-                      ? "completado"
-                      : "pendiente"
+                    turno.consulta?.pagado ? "completado" : "pendiente"
                   }`}
                 >
                   {turno.consulta?.formaPago || "N/A"}
                 </span>
               </td>
-              <td>
+              <td data-label="Acciones" className="acciones-turno">
                 <div className="acciones-botones">
                   <button
                     className="btn-small"
                     onClick={() => {
                       setSelectedTurno(turno);
-                      setSelectedProducts(
-                        turno.consulta?.productos || []
-                      );
+                      setSelectedProducts(turno.consulta?.productos || []);
                       setDescuento(turno.consulta?.descuento || 0);
-                      setFormaPago(
-                        turno.consulta?.formaPago || "efectivo"
-                      );
+                      setFormaPago(turno.consulta?.formaPago || "efectivo");
                     }}
                   >
                     Ver Consulta
@@ -92,9 +92,7 @@ const TablaTurnos = ({
                       )
                     }
                   >
-                    {turno.consulta?.pagado
-                      ? "Desmarcar"
-                      : "Marcar Pagado"}
+                    {turno.consulta?.pagado ? "Desmarcar" : "Marcar Pagado"}
                   </button>
                 </div>
               </td>

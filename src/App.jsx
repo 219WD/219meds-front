@@ -30,6 +30,7 @@ const TurnosPaciente = lazy(() => import("./pages/TurnosPaciente.jsx"));
 const Consultorio = lazy(() => import("./pages/Consultorio.jsx"));
 const Caja = lazy(() => import("./pages/Caja.jsx"));
 const LoaderGsap = lazy(() => import("./components/LoaderGsap.jsx"));
+const AboutUs = lazy(() => import("./pages/AboutUs.jsx"));
 
 import Pacientes from "./pages/Pacientes.jsx";
 
@@ -179,6 +180,7 @@ function App() {
           <Route path="/consultorio" element={<Consultorio />} />
           <Route path="/caja" element={<Caja />} />
           <Route path="/loader" element={<LoaderGsap />} />
+          <Route path="/aboutus" element={<AboutUs />} />
           <Route
             path="/reset-password/:token"
             element={<ChangePasswordForm />}

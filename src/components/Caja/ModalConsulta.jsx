@@ -67,29 +67,37 @@ const ModalConsulta = ({
     }
   };
 
-  const confirmarYMarcarPago = async (comprobanteData = null) => {
-    try {
-      if (selectedProducts.length > 0) {
-        await addProduct(selectedTurno._id);
-      }
-
-      if (!selectedTurno.consulta?.pagado) {
-        await updatePagoStatus(
-          selectedTurno._id,
-          selectedTurno.consulta?.pagado || false,
-          comprobanteData
-        );
-      } else if (comprobanteData) {
-        await updatePagoStatus(selectedTurno._id, true, comprobanteData);
-      }
-
-      setShowConfirmarCambios(false);
-      setComprobante(null);
-    } catch (error) {
-      console.error("Error al confirmar cambios:", error);
-      notify("Error al procesar los cambios: " + error.message, "error");
+// ModalConsulta.jsx
+const confirmarYMarcarPago = async (comprobanteData = null) => {
+  try {
+    // Solo agregar productos si hay nuevos productos seleccionados Y el turno no está pagado
+    // Y no hay productos ya registrados en el turno (o se desea reemplazar explícitamente)
+    if (
+      selectedProducts.length > 0 &&
+      !selectedTurno.consulta?.pagado &&
+      (!selectedTurno.consulta?.productos || selectedTurno.consulta.productos.length === 0)
+    ) {
+      console.log("📦 Agregando nuevos productos al turno...");
+      await addProduct(selectedTurno._id);
+    } else if (selectedProducts.length > 0 && !selectedTurno.consulta?.pagado) {
+      console.log("⚠️ Ya existen productos en el turno, omitiendo agregar nuevos productos.");
+      notify("El turno ya tiene productos asociados. No se agregaron nuevos productos.", "warning");
     }
-  };
+
+    // Marcar como pagado (o desmarcar) si es necesario
+    await updatePagoStatus(
+      selectedTurno._id,
+      selectedTurno.consulta?.pagado || false,
+      comprobanteData
+    );
+
+    setShowConfirmarCambios(false);
+    setComprobante(null);
+  } catch (error) {
+    console.error("Error al confirmar cambios:", error);
+    notify("Error al procesar los cambios: " + error.message, "error");
+  }
+};
 
   // Función para formatear la fecha
   const formatFecha = (fecha) => {
@@ -127,9 +135,13 @@ const ModalConsulta = ({
               </p>
               <p>
                 <strong>Fecha:</strong>{" "}
-                {new Date(selectedTurno.fecha).toLocaleString("es-AR", {
-                  dateStyle: "short",
-                  timeStyle: "short",
+                {new Date(selectedTurno.fecha).toLocaleString("es-ES", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  timeZone: "UTC",
                 })}
               </p>
               <p>
@@ -373,7 +385,6 @@ const ModalConsulta = ({
               {showConfirmarCambios && (
                 <div className="confirmation-overlay">
                   <div className="confirmation-modal">
-                    <h3>Confirmar Cambios</h3>
 
                     {formaPago === "efectivo" ? (
                       <>
