@@ -21,7 +21,7 @@
   justify-content: flex-end;
   align-items: flex-start;
   z-index: 1000;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   padding: 2rem;
 }
 
@@ -33,15 +33,15 @@
 
 .cart {
   background: linear-gradient(145deg, #0a0e17, #0f1623);
-  border: 1px solid #00ff00;
+  border: 1px solid #5858FB;
   border-radius: 16px;
   padding: 2.5rem 2.5rem 2.5rem 2.5rem;
   max-width: 600px;
   width: 100%;
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 0 30px rgba(0, 255, 0, 0.3), 0 0 60px rgba(0, 128, 0, 0.2);
-  font-family: "Zen Dots", sans-serif;
+  box-shadow: 0 0 30px rgba(88, 88, 251, 0.3), 0 0 60px rgba(10, 46, 92, 0.2);
+  font-family: "Archivo", sans-serif;
   animation: slideInRight 0.3s ease forwards;
   position: relative;
   box-sizing: border-box;
@@ -61,7 +61,7 @@
 .cart-close-btn {
   background: transparent;
   border: none;
-  color: #00ff00;
+  color: #5858FB;
   font-size: 1.8rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -106,12 +106,12 @@
 }
 
 .cart h2 {
-  font-family: "DM Sans", serif;
-  color: #00ff00;
+  font-family: "Archivo", sans-serif;
+  color: #5858FB;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+  border-bottom: 1px solid rgba(88, 88, 251, 0.3);
   padding-bottom: 1rem;
-  text-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+  text-shadow: 0 0 15px rgba(88, 88, 251, 0.4);
   letter-spacing: 1px;
   font-size: 1.8rem;
   text-align: center;
@@ -131,7 +131,7 @@
   padding: 1rem;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(0, 255, 0, 0.2);
+  border: 1px solid rgba(88, 88, 251, 0.2);
 }
 
 .cart-item img {
@@ -139,7 +139,7 @@
   height: 60px;
   object-fit: cover;
   border-radius: 8px;
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  border: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .cart-item-info {
@@ -149,8 +149,8 @@
 .cart-item h4 {
   margin-bottom: 0.5rem;
   font-size: 1rem;
-  color: #00ff00;
-  text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+  color: #5858FB;
+  text-shadow: 0 0 5px rgba(88, 88, 251, 0.3);
 }
 
 .cart-item p {
@@ -174,9 +174,9 @@
 }
 
 .cart-item button {
-  background: rgba(0, 255, 0, 0.1);
-  border: 1px solid rgba(0, 255, 0, 0.3);
-  color: #00ff00;
+  background: rgba(88, 88, 251, 0.1);
+  border: 1px solid rgba(88, 88, 251, 0.3);
+  color: #5858FB;
   border-radius: 4px;
   padding: 0.4rem 0.7rem;
   cursor: pointer;
@@ -184,7 +184,7 @@
 }
 
 .cart-item button:hover {
-  background: rgba(0, 255, 0, 0.3);
+  background: rgba(88, 88, 251, 0.3);
   color: #ffffff;
 }
 
@@ -192,11 +192,11 @@
   text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #00ff00;
+  color: #5858FB;
   margin: 1.5rem 0;
   padding: 1rem;
-  border-top: 1px solid rgba(0, 255, 0, 0.3);
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  border-top: 1px solid rgba(88, 88, 251, 0.3);
+  text-shadow: 0 0 10px rgba(88, 88, 251, 0.3);
 }
 
 .cart-item .delete-button {
@@ -215,7 +215,7 @@
 }
 
 .pay-button {
-  background: linear-gradient(45deg, #006600, #00aa00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   font-size: 1.1rem;
   font-weight: bold;
@@ -229,13 +229,13 @@
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
-  font-family: "Zen Dots", sans-serif;
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
+  font-family: "Archivo", sans-serif;
 }
 
 .pay-button:hover {
-  background: linear-gradient(45deg, #008800, #00cc00);
-  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
   transform: translateY(-2px);
 }
 
@@ -247,29 +247,29 @@
 }
 
 .form-step h3 {
-  font-family: "Raleway", sans-serif;
-  color: #00ff00;
+  font-family: "Archivo", sans-serif;
+  color: #5858FB;
   text-align: center;
   margin-bottom: 1rem;
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  text-shadow: 0 0 10px rgba(88, 88, 251, 0.3);
 }
 
 .form-step input {
   margin-bottom: 2px;
   padding: 12px;
   border: none;
-  border-bottom: 2px solid rgba(0, 255, 0, 0.5);
+  border-bottom: 2px solid rgba(88, 88, 251, 0.5);
   background-color: rgba(255, 255, 255, 0.05);
   color: #f0f0f0;
   outline: none;
-  font-family: "Open Sans", serif;
+  font-family: "Archivo", sans-serif;
   font-size: 1rem;
   border-radius: 4px;
   transition: all 0.3s ease;
 }
 
 .form-step input:focus {
-  border-bottom: 2px solid #00ff00;
+  border-bottom: 2px solid #5858FB;
   background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -284,10 +284,10 @@
 
 .payment-options h3,
 .delivery-options h3 {
-  color: #00ff00;
+  color: #5858FB;
   text-align: center;
   margin-bottom: 1rem;
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  text-shadow: 0 0 10px rgba(88, 88, 251, 0.3);
 }
 
 .payment-button,
@@ -300,7 +300,7 @@
   font-weight: bold;
   text-align: center;
   transition: all 0.3s ease;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -312,9 +312,9 @@
 }
 
 .payment-button.transferencia {
-  background: linear-gradient(45deg, #004d99, #007bff);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
-  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
 }
 
 .payment-button.mercadopago {
@@ -325,7 +325,7 @@
 
 .payment-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
 }
 
 .receipt-upload h4 {
@@ -361,7 +361,7 @@
   justify-content: center;
   align-items: center;
   z-index: 10000;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   opacity: 0;
   animation: fadeIn 0.3s ease forwards;
 }
@@ -374,19 +374,19 @@
 
 .modal-container {
   background: linear-gradient(145deg, #0a0e17, #0f1623);
-  border: 1px solid #00ff00;
+  border: 1px solid #5858FB;
   border-radius: 16px;
   padding: 2.5rem 15px 2.5rem 2.5rem;
   width: 90%;
   max-width: 600px;
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 0 30px rgba(0, 255, 0, 0.3), 0 0 60px rgba(0, 128, 0, 0.2);
+  box-shadow: 0 0 30px rgba(88, 88, 251, 0.3), 0 0 60px rgba(10, 46, 92, 0.2);
   position: relative;
   transform: translateY(20px);
   animation: slideUp 0.3s ease forwards;
   box-sizing: border-box;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   z-index: 10001;
 }
 
@@ -412,23 +412,23 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+  border-bottom: 1px solid rgba(88, 88, 251, 0.3);
   padding-bottom: 1rem;
 }
 
 .modal-header h2 {
   margin: 0;
-  color: #00ff00;
+  color: #5858FB;
   font-size: 1.8rem;
-  text-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+  text-shadow: 0 0 15px rgba(88, 88, 251, 0.4);
   letter-spacing: 1px;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
 }
 
 .modal-close-btn {
   background: transparent;
   border: none;
-  color: #00ff00;
+  color: #5858FB;
   font-size: 1.8rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -462,7 +462,7 @@
   margin: 0.5rem 0;
   font-size: 1rem;
   color: #fff;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
 }
 
 .modal-footer {
@@ -473,23 +473,23 @@
 }
 
 .modal-btn {
-  background: linear-gradient(45deg, #006600, #00aa00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   padding: 0.75rem 2rem;
   border-radius: 8px;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
 }
 
 .modal-btn:hover:not(:disabled) {
-  background: linear-gradient(45deg, #008800, #00cc00);
-  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
   transform: translateY(-2px);
 }
 
@@ -510,7 +510,7 @@
 }
 
 .nav-button {
-  background-color: 1abc9c;
+  background-color: #5858FB;
   color: white;
   border: none;
   padding: 10px 18px;
@@ -521,7 +521,7 @@
 }
 
 .nav-button:hover {
-  background-color: #16a085;
+  background-color: #1860b0;
 }
 
 .paid-status-container {
@@ -536,12 +536,12 @@
 .paid-status-message {
   font-size: 1.2rem;
   color: #f0f0f0;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
 }
 
 .status-button {
   width: 100%;
-  background-color: #4caf50;
+  background-color: #5858FB;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -555,24 +555,24 @@
   position: fixed;
   top: 1rem;
   right: 1rem;
-  background: linear-gradient(45deg, #006600, #00aa00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
   z-index: 999;
 }
 
 .open-cart-button:hover {
-  background: linear-gradient(45deg, #008800, #00cc00);
-  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
   transform: translateY(-2px);
 }
 
@@ -589,7 +589,7 @@
   padding: 0.75rem;
   border: none;
   border-radius: 8px;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -608,14 +608,14 @@
 }
 
 .finish-button {
-  background: linear-gradient(45deg, #006600, #00aa00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
 }
 
 .finish-button:hover:not(:disabled) {
-  background: linear-gradient(45deg, #008800, #00cc00);
-  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
   transform: translateY(-2px);
 }
 
