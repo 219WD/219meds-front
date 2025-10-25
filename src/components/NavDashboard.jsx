@@ -21,7 +21,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/authStore";
-import logo from "../assets/logo png.png";
+import logo from "../assets/219Meds.png";
 import "./css/dashboard.css";
 
 const NavDashboard = () => {

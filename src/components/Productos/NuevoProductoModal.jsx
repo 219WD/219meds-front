@@ -9,6 +9,9 @@ const NuevoProductoModal = ({ onClose, onSubmit }) => {
     stock: "",
     price: "",
     category: "",
+    fechaVencimiento: "", // 🔥 NUEVO
+    lote: "", // 🔥 NUEVO
+    alertaVencimiento: 30, // 🔥 NUEVO
     cartRatings: []
   });
   const [errors, setErrors] = useState({});
@@ -36,6 +39,15 @@ const NuevoProductoModal = ({ onClose, onSubmit }) => {
     if (!formValues.price || formValues.price <= 0) newErrors.price = "Precio inválido";
     if (!formValues.category.trim()) newErrors.category = "La categoría es requerida";
     
+    // 🔥 NUEVO: Validación de fecha de vencimiento
+    if (formValues.fechaVencimiento) {
+      const fechaVencimiento = new Date(formValues.fechaVencimiento);
+      const hoy = new Date();
+      if (fechaVencimiento <= hoy) {
+        newErrors.fechaVencimiento = "La fecha de vencimiento debe ser futura";
+      }
+    }
+    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -43,7 +55,13 @@ const NuevoProductoModal = ({ onClose, onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      onSubmit(formValues);
+      // 🔥 NUEVO: Convertir fecha vacía a undefined
+      const submitData = {
+        ...formValues,
+        fechaVencimiento: formValues.fechaVencimiento || undefined,
+        lote: formValues.lote || undefined
+      };
+      onSubmit(submitData);
     }
   };
 
@@ -101,31 +119,33 @@ const NuevoProductoModal = ({ onClose, onSubmit }) => {
             {errors.description && <span className="error-text">{errors.description}</span>}
           </div>
 
-          <div className="form-group">
-            <label>Stock:</label>
-            <input
-              type="number"
-              name="stock"
-              value={formValues.stock}
-              onChange={handleChange}
-              className={errors.stock ? "error" : ""}
-              min="0"
-            />
-            {errors.stock && <span className="error-text">{errors.stock}</span>}
-          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label>Stock:</label>
+              <input
+                type="number"
+                name="stock"
+                value={formValues.stock}
+                onChange={handleChange}
+                className={errors.stock ? "error" : ""}
+                min="0"
+              />
+              {errors.stock && <span className="error-text">{errors.stock}</span>}
+            </div>
 
-          <div className="form-group">
-            <label>Precio:</label>
-            <input
-              type="number"
-              name="price"
-              value={formValues.price}
-              onChange={handleChange}
-              className={errors.price ? "error" : ""}
-              min="0"
-              step="0.01"
-            />
-            {errors.price && <span className="error-text">{errors.price}</span>}
+            <div className="form-group">
+              <label>Precio:</label>
+              <input
+                type="number"
+                name="price"
+                value={formValues.price}
+                onChange={handleChange}
+                className={errors.price ? "error" : ""}
+                min="0"
+                step="0.01"
+              />
+              {errors.price && <span className="error-text">{errors.price}</span>}
+            </div>
           </div>
 
           <div className="form-group">
@@ -138,6 +158,48 @@ const NuevoProductoModal = ({ onClose, onSubmit }) => {
               className={errors.category ? "error" : ""}
             />
             {errors.category && <span className="error-text">{errors.category}</span>}
+          </div>
+
+          {/* 🔥 NUEVO: Campos de vencimiento */}
+          <div className="form-row">
+            <div className="form-group">
+              <label>Fecha de Vencimiento:</label>
+              <input
+                type="date"
+                name="fechaVencimiento"
+                value={formValues.fechaVencimiento}
+                onChange={handleChange}
+                className={errors.fechaVencimiento ? "error" : ""}
+                min={new Date().toISOString().split('T')[0]}
+              />
+              {errors.fechaVencimiento && <span className="error-text">{errors.fechaVencimiento}</span>}
+              <small className="help-text">Opcional - Debe ser una fecha futura</small>
+            </div>
+
+            <div className="form-group">
+              <label>Lote:</label>
+              <input
+                type="text"
+                name="lote"
+                value={formValues.lote}
+                onChange={handleChange}
+                placeholder="Ej: LOTE-2024-001"
+              />
+              <small className="help-text">Opcional</small>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label>Alerta de Vencimiento (días):</label>
+            <input
+              type="number"
+              name="alertaVencimiento"
+              value={formValues.alertaVencimiento}
+              onChange={handleChange}
+              min="1"
+              max="365"
+            />
+            <small className="help-text">Días antes del vencimiento para alertar (1-365)</small>
           </div>
 
           <div className="modal-footer">

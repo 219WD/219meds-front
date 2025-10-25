@@ -10,7 +10,7 @@ import {
   faCannabis
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import LogoSinFondo from "../assets/logo png.png";
+import LogoSinFondo from "../assets/219Meds.png";
 import useAuthStore from "../store/authStore";
 import useCartStore from "../store/cartStore";
 import { gsap } from "gsap";

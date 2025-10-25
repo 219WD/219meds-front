@@ -1,18 +1,18 @@
-/* NavBar.css - CORREGIDO */
-/* Variables CSS */
+/* NavBar.css - CON NOMBRES ÚNICOS */
+/* Variables CSS ÚNICAS para NavBar */
 :root {
-  --primary-color: #74B72C;
-  --primary-hover: #5e9423;
-  --accent-color: #E4FF00;
-  --text-light: #ffffff;
-  --text-dark: #333333;
-  --bg-dark: #012700;
-  --bg-transparent: rgba(1, 39, 0, 0.95);
-  --bg-scrolled: rgba(1, 39, 0, 0.98);
-  --border-radius: 12px;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.25);
+  --nav-primary: #1759A4;
+  --nav-primary-hover: #134a8a;
+  --nav-accent: #4FC3F7;
+  --nav-text-light: #ffffff;
+  --nav-text-dark: #333333;
+  --nav-bg-dark: #0A1F3A;
+  --nav-bg-transparent: rgba(10, 31, 58, 0.95);
+  --nav-bg-scrolled: rgba(10, 31, 58, 0.98);
+  --nav-border-radius: 12px;
+  --nav-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --nav-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  --nav-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.25);
 }
 
 /* Estilos generales */
@@ -28,14 +28,14 @@
   z-index: 1000;
   width: 100%;
   font-family: "Zen Dots", sans-serif;
-  transition: var(--transition);
+  transition: var(--nav-transition);
   backdrop-filter: blur(0px);
 }
 
 .header.scrolled {
-  background: var(--bg-scrolled);
+  background: var(--nav-bg-scrolled);
   backdrop-filter: blur(10px);
-  box-shadow: var(--shadow);
+  box-shadow: var(--nav-shadow);
   padding: 0.5rem 0;
 }
 
@@ -52,12 +52,12 @@
   text-decoration: none;
   display: flex;
   align-items: center;
-  transition: var(--transition);
+  transition: var(--nav-transition);
 }
 
 .logo img {
-  width: 80px;
-  transition: var(--transition);
+  width: 60px;
+  transition: var(--nav-transition);
 }
 
 .nav {
@@ -68,17 +68,17 @@
 
 .nav-item {
   text-decoration: none;
-  color: var(--text-light);
-  transition: var(--transition);
+  color: var(--nav-text-light);
+  transition: var(--nav-transition);
   padding: 0.5rem 1rem;
-  border-radius: var(--border-radius);
+  border-radius: var(--nav-border-radius);
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.95rem;
   position: relative;
   overflow: hidden;
-  will-change: transform, opacity; /* Mejora rendimiento animaciones */
+  will-change: transform, opacity;
 }
 
 .nav-item::before {
@@ -88,8 +88,8 @@
   left: 50%;
   width: 0;
   height: 2px;
-  background: var(--accent-color);
-  transition: var(--transition);
+  background: var(--nav-accent);
+  transition: var(--nav-transition);
   transform: translateX(-50%);
 }
 
@@ -98,7 +98,7 @@
 }
 
 .nav-item:hover {
-  color: var(--accent-color);
+  color: var(--nav-accent);
   transform: translateY(-2px);
 }
 
@@ -111,26 +111,36 @@
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
+  color: var(--nav-text-light);
 }
 
+
 .nav-button.primary {
-  background: var(--primary-color);
-  border-color: var(--primary-color);
-  color: var(--text-dark);
+  background: var(--nav-primary);
+  border-color: var(--nav-primary);
+  color: var(--nav-text-light);
   font-weight: 600;
 }
 
-.nav-button.primary:hover {
-  background: var(--accent-color);
-  border-color: var(--accent-color);
+.nav-button:hover {
+  background: var(--nav-primary) !important;
+  border-color: var(--nav-primary) !important;
+  color: var(--nav-text-light) !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(228, 255, 0, 0.3);
+  box-shadow: 0 8px 25px rgba(23, 89, 164, 0.3) !important;
+}
+
+.nav-button.primary:hover {
+  background: var(--nav-primary-hover);
+  border-color: var(--nav-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(23, 89, 164, 0.3);
 }
 
 .logout-button {
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.2);
-  color: var(--text-light);
+  color: var(--nav-text-light);
   cursor: pointer;
   font-family: "Zen Dots", sans-serif;
   font-size: 0.95rem;
@@ -145,7 +155,7 @@
 .cart-button {
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.2);
-  color: var(--text-light);
+  color: var(--nav-text-light);
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -153,25 +163,25 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: var(--transition);
+  transition: var(--nav-transition);
   position: relative;
   backdrop-filter: blur(10px);
 }
 
 .cart-button:hover {
-  background: var(--primary-color);
-  border-color: var(--primary-color);
-  color: var(--text-dark);
+  background: var(--nav-primary);
+  border-color: var(--nav-primary);
+  color: var(--nav-text-light);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(116, 183, 44, 0.3);
+  box-shadow: 0 8px 25px rgba(23, 89, 164, 0.3);
 }
 
 .cart-count {
   position: absolute;
   top: -5px;
   right: -5px;
-  background: var(--accent-color);
-  color: var(--text-dark);
+  background: var(--nav-accent);
+  color: var(--nav-text-dark);
   font-size: 0.7rem;
   font-weight: bold;
   border-radius: 50%;
@@ -189,33 +199,30 @@
   100% { transform: scale(1); }
 }
 
-/* Botón menú hamburguesa - CORREGIDO */
+/* Botón menú hamburguesa */
 .menu-toggle {
-  /* Oculto por defecto en desktop */
   display: none;
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.2);
-  color: var(--text-light);
+  color: var(--nav-text-light);
   width: 50px;
   height: 50px;
   border-radius: 50%;
   cursor: pointer;
-  transition: var(--transition);
+  transition: var(--nav-transition);
   backdrop-filter: blur(10px);
   z-index: 1002;
-  /* Centrado perfecto del ícono */
   align-items: center;
   justify-content: center;
   padding: 0;
 }
 
 .menu-toggle:hover {
-  background: var(--primary-color);
-  border-color: var(--primary-color);
-  color: var(--text-dark);
+  background: var(--nav-primary);
+  border-color: var(--nav-primary);
+  color: var(--nav-text-light);
 }
 
-/* Asegurar que el ícono esté perfectamente centrado */
 .menu-toggle svg {
   font-size: 1.2rem;
   width: 1em;
@@ -257,24 +264,21 @@
     width: 60px;
   }
 
-  /* Mostrar menú toggle solo en mobile */
   .menu-toggle {
     display: flex;
   }
 
-  /* Ocultar nav normal en mobile */
   .nav {
     display: none;
   }
 
-  /* Mostrar nav móvil SOLO cuando tiene la clase mobile-nav */
   .nav.mobile-nav {
     position: fixed;
     top: 0;
     right: -100%;
     width: 280px;
     height: 100vh;
-    background: var(--bg-transparent);
+    background: var(--nav-bg-transparent);
     backdrop-filter: blur(20px);
     flex-direction: column;
     justify-content: center;
@@ -291,15 +295,14 @@
     right: 0;
   }
 
-  /* Asegurar que los items del menú sean visibles en móvil */
   .nav.mobile-nav .nav-item {
     width: 100%;
     justify-content: center;
     padding: 1rem;
     font-size: 1.1rem;
     border: 2px solid rgba(255, 255, 255, 0.1);
-    opacity: 1; /* Cambiado de 0 a 1 para que sean visibles */
-    transform: translateX(0); /* Eliminado el desplazamiento inicial */
+    opacity: 1;
+    transform: translateX(0);
   }
 
   .nav.mobile-nav.open .nav-item {
@@ -366,43 +369,14 @@
   }
 }
 
-@media (max-width: 480px) {
-  .nav-container {
-    padding: 0 1rem;
-  }
-
-  .logo img {
-    width: 50px;
-  }
-
-  .nav.mobile-nav {
-    width: 100%;
-    right: -100%;
-  }
-
-  .cart-button {
-    width: 45px;
-    height: 45px;
-  }
-
-  .menu-toggle {
-    width: 45px;
-    height: 45px;
-  }
-  
-  .menu-toggle svg {
-    font-size: 1.1rem;
-  }
-}
-
 /* Efectos de animación mejorados */
 @media (prefers-reduced-motion: no-preference) {
   .nav-item {
-    transition: var(--transition), transform 0.2s ease;
+    transition: var(--nav-transition), transform 0.2s ease;
   }
   
   .cart-button {
-    transition: var(--transition), transform 0.2s ease;
+    transition: var(--nav-transition), transform 0.2s ease;
   }
 }
 

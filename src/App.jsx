@@ -40,26 +40,29 @@ import Dashboard from "./components/Dashboard.jsx";
 
 // Componente simple para el fallback de Suspense
 const SuspenseFallback = () => (
-  <div style={{
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: '100vw',
-    height: '100vh',
-    backgroundColor: 'rgba(0, 5, 10, 0.9)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 9998,
-    fontFamily: '"Zen Dots", sans-serif',
-    color: '#00ff00',
-    fontSize: '1.2rem'
-  }}>
+  <div
+    style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100vw",
+      height: "100vh",
+      backgroundColor: "rgba(0, 5, 10, 0.9)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 9998,
+      fontFamily: '"Zen Dots", sans-serif',
+      color: "#00ff00",
+      fontSize: "1.2rem",
+    }}
+  >
     <div>Cargando sección...</div>
   </div>
 );
 
-function App() {
+// Componente principal que usa useLocation
+function AppContent() {
   const {
     cart,
     isCartVisible,
@@ -69,7 +72,8 @@ function App() {
     updateQuantity,
   } = useCartStore();
 
-  const location = useLocation(); // Hook para obtener la ruta actual
+  const location = useLocation(); // Ahora funciona porque está dentro de BrowserRouter
+
   const hideNavRoutes = [
     "/admin",
     "/products",
@@ -83,7 +87,7 @@ function App() {
     "/turnos/paciente",
     "/consultorio",
     "/caja",
-  ]; // rutas donde no se mostrará el NavBar
+  ];
 
   const shouldHideNav = hideNavRoutes.includes(location.pathname);
 
@@ -93,34 +97,72 @@ function App() {
       <Suspense fallback={<SuspenseFallback />}>
         <Toaster position="top-right" reverseOrder={false} />
         <Helmet>
-          <title>Jamrock ONG de la Salud - Res. 344/2023-DPJ</title>
-          <link rel="icon" type="image/png" href="/LOGOJAMROCK.png" />
+          <title>219Meds - Plataforma de Gestión Médica y Farmacéutica</title>
+          <link rel="icon" type="image/png" href="/219Meds.png" />
+
           <meta
             name="description"
-            content="Jamrock ONG de la Salud - Res. 344/2023-DPJ. Cultivadores Solidarios Weed and Dab Club, San Miguel de Tucumán. Promovemos el cultivo solidario y el acceso a terapias con cannabis medicinal."
+            content="219Meds es una plataforma integral para clínicas, farmacias y profesionales de la salud. Gestioná pacientes, turnos, stock y analíticas en un solo lugar."
           />
           <meta
             name="keywords"
-            content="Cannabis medicinal, ONG de la Salud, Cultivo solidario, Weed and Dab Club, San Miguel de Tucumán, Terapias con cannabis"
+            content="219Meds, software médico, gestión clínica, sistema de turnos, farmacia, salud digital, analíticas médicas, historia clínica"
           />
-          <meta name="author" content="Jamrock ONG de la Salud" />
+          <meta name="author" content="219Meds" />
+          <meta
+            property="og:title"
+            content="219Meds - Plataforma de Gestión Médica y Farmacéutica"
+          />
+          <meta
+            property="og:description"
+            content="Optimiza tu clínica o farmacia con 219Meds. Control de pacientes, stock, y estadísticas en tiempo real."
+          />
+          <meta
+            property="og:image"
+            content="https://219meds.com/og-image.jpg"
+          />
+          <meta property="og:url" content="https://219meds.com" />
+          <meta property="og:type" content="website" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta
+            name="twitter:title"
+            content="219Meds - Plataforma de Gestión Médica y Farmacéutica"
+          />
+          <meta
+            name="twitter:description"
+            content="Software médico con herramientas para clínicas, farmacias y profesionales de la salud."
+          />
+          <meta
+            name="twitter:image"
+            content="https://219meds.com/og-image.jpg"
+          />
+
+          {/* Schema.org JSON-LD */}
           <script type="application/ld+json">
             {JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "Jamrock ONG de la Salud",
+              name: "219Meds",
+              url: "https://219meds.com",
+              logo: "https://219meds.com/logo219.png",
+              sameAs: [
+                "https://www.instagram.com/219meds",
+                "https://www.facebook.com/219meds",
+              ],
+              description:
+                "219Meds es una plataforma integral para gestión médica y farmacéutica, diseñada para clínicas, consultorios y farmacias.",
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "San Miguel de Tucumán",
-                addressLocality: "Tucumán",
-                addressRegion: "T",
-                postalCode: "4000",
+                addressLocality: "San Miguel de Tucumán",
+                addressRegion: "Tucumán",
                 addressCountry: "AR",
               },
-              telephone: "+549XXXXXXXXX",
-              description:
-                "Jamrock ONG de la Salud - Res. 344/2023-DPJ. Cultivadores Solidarios Weed and Dab Club, promoviendo el acceso a cannabis medicinal y el cultivo responsable en Argentina.",
-              url: "https://jamrocksalud.org/",
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "Atención al cliente",
+                telephone: "+5493810000000",
+                email: "contacto@219meds.com",
+              },
             })}
           </script>
         </Helmet>
@@ -192,10 +234,13 @@ function App() {
   );
 }
 
-const AppWrapper = () => (
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-);
+// Componente wrapper principal
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  );
+}
 
-export default AppWrapper;
+export default App;

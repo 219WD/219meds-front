@@ -10,6 +10,9 @@ import {
   faBox,
   faMoneyBillWave,
   faTruck,
+  faReceipt,
+  faDownload,
+  faExternalLinkAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import "./css/pedidos.css";
 import NavDashboard from "./NavDashboard";
@@ -270,6 +273,24 @@ const Pedidos = () => {
 
   const handleResetSearch = () => {
     setSearchTerm("");
+  };
+
+  const handleDownloadReceipt = (receiptUrl) => {
+    if (receiptUrl) {
+      const link = document.createElement('a');
+      link.href = receiptUrl;
+      link.download = `comprobante-pedido-${pedidoSeleccionado._id}.pdf`;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
+  const handleViewReceipt = (receiptUrl) => {
+    if (receiptUrl) {
+      window.open(receiptUrl, '_blank');
+    }
   };
 
   if (loading && pedidos.length === 0) {
@@ -571,6 +592,9 @@ const Pedidos = () => {
             <h2 className="dashboard-modal-title">Detalle del Pedido</h2>
             <div className="dashboard-modal-body">
               <p>
+                <strong>ID del Pedido:</strong> {pedidoSeleccionado._id}
+              </p>
+              <p>
                 <strong>Usuario:</strong>{" "}
                 {pedidoSeleccionado.userId?.name || "No disponible"}
               </p>
@@ -591,34 +615,114 @@ const Pedidos = () => {
                 <strong>Método de entrega:</strong>{" "}
                 {pedidoSeleccionado.deliveryMethod}
               </p>
-              {pedidoSeleccionado.shippingAddress && (
+              
+              {/* Sección del Comprobante */}
+              {pedidoSeleccionado.receiptUrl && (
                 <>
-                  <h3 className="dashboard-modal-title">Dirección:</h3>
-                  <p>
-                    <strong>Nombre:</strong>{" "}
-                    {pedidoSeleccionado.shippingAddress.name}
-                  </p>
-                  <p>
-                    <strong>Teléfono:</strong>{" "}
-                    {pedidoSeleccionado.shippingAddress.phone}
-                  </p>
-                  <p>
-                    <strong>Dirección:</strong>{" "}
-                    {pedidoSeleccionado.shippingAddress.address}
-                  </p>
+                  <h3 className="dashboard-modal-title">
+                    <FontAwesomeIcon icon={faReceipt} /> Comprobante
+                  </h3>
+                  <div className="receipt-section">
+                    <div className="receipt-info">
+                      <p>
+                        <strong>Comprobante disponible:</strong> Sí
+                      </p>
+                      <div className="receipt-actions">
+                        <button
+                          onClick={() => handleViewReceipt(pedidoSeleccionado.receiptUrl)}
+                          className="receipt-btn view-receipt-btn"
+                          title="Ver comprobante"
+                        >
+                          <FontAwesomeIcon icon={faExternalLinkAlt} />
+                          Ver Comprobante
+                        </button>
+                        <button
+                          onClick={() => handleDownloadReceipt(pedidoSeleccionado.receiptUrl)}
+                          className="receipt-btn download-receipt-btn"
+                          title="Descargar comprobante"
+                        >
+                          <FontAwesomeIcon icon={faDownload} />
+                          Descargar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </>
               )}
+
+              {pedidoSeleccionado.shippingAddress && (
+                <>
+                  <h3 className="dashboard-modal-title">Dirección de Envío:</h3>
+                  <div className="address-section">
+                    <p>
+                      <strong>Nombre:</strong>{" "}
+                      {pedidoSeleccionado.shippingAddress.name}
+                    </p>
+                    <p>
+                      <strong>Teléfono:</strong>{" "}
+                      {pedidoSeleccionado.shippingAddress.phone}
+                    </p>
+                    <p>
+                      <strong>Dirección:</strong>{" "}
+                      {pedidoSeleccionado.shippingAddress.address}
+                    </p>
+                    {pedidoSeleccionado.shippingAddress.city && (
+                      <p>
+                        <strong>Ciudad:</strong>{" "}
+                        {pedidoSeleccionado.shippingAddress.city}
+                      </p>
+                    )}
+                    {pedidoSeleccionado.shippingAddress.state && (
+                      <p>
+                        <strong>Provincia:</strong>{" "}
+                        {pedidoSeleccionado.shippingAddress.state}
+                      </p>
+                    )}
+                    {pedidoSeleccionado.shippingAddress.zipCode && (
+                      <p>
+                        <strong>Código Postal:</strong>{" "}
+                        {pedidoSeleccionado.shippingAddress.zipCode}
+                      </p>
+                    )}
+                  </div>
+                </>
+              )}
+              
               <h3 className="dashboard-modal-title">Productos:</h3>
-              <ul>
-                {pedidoSeleccionado.items.map((item, i) => (
-                  <li key={i}>
-                    {item.productId?.title || "Producto no disponible"} - x
-                    {item.quantity} (${item.productId?.price?.toFixed(2)} c/u)
-                  </li>
-                ))}
-              </ul>
-              <h3 className="dashboard-modal-title">Total:</h3>
-              <p>${pedidoSeleccionado.totalAmount?.toFixed(2)}</p>
+              <div className="products-section">
+                <ul>
+                  {pedidoSeleccionado.items.map((item, i) => (
+                    <li key={i}>
+                      <strong>{item.productId?.title || "Producto no disponible"}</strong>
+                      <br />
+                      Cantidad: {item.quantity} 
+                      {item.productId?.price && (
+                        <> - Precio unitario: ${item.productId.price.toFixed(2)}</>
+                      )}
+                      {item.productId?.price && (
+                        <div className="item-subtotal">
+                          Subtotal: ${(item.quantity * item.productId.price).toFixed(2)}
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              <h3 className="dashboard-modal-title">Resumen del Pedido:</h3>
+              <div className="order-summary">
+                <p>
+                  <strong>Subtotal:</strong> ${pedidoSeleccionado.totalAmount?.toFixed(2)}
+                </p>
+                {pedidoSeleccionado.shippingCost && pedidoSeleccionado.shippingCost > 0 && (
+                  <p>
+                    <strong>Costo de envío:</strong> ${pedidoSeleccionado.shippingCost.toFixed(2)}
+                  </p>
+                )}
+                <p className="total-amount">
+                  <strong>Total:</strong> ${pedidoSeleccionado.totalAmount?.toFixed(2)}
+                </p>
+              </div>
             </div>
             <div className="dashboard-modal-actions">
               <select

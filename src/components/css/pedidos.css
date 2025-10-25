@@ -2,11 +2,11 @@
 .dashboard.pedidos {
   display: flex;
   min-height: 100vh;
-  background-image: url("/src/assets/jamrock.png");
+  background-image: url("/src/assets/pexels-tara-winstead-7722535.jpg");
   background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
 }
 
 .dashboard.pedidos > .nav-dashboard {
@@ -27,12 +27,12 @@
   max-width: 1200px;
   margin: 2rem auto;
   padding: 2rem;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(16px);
   border-radius: 16px;
-  border: 1px solid #00ff00;
-  box-shadow: 0 8px 32px rgba(0, 255, 0, 0.3),
+  border: 1px solid #5858FB;
+  box-shadow: 0 8px 32px rgba(88, 88, 251, 0.3),
     inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 
@@ -46,10 +46,10 @@
 }
 
 .title-admin h1 {
-  color: #00ff00;
+  color: #5858FB;
   margin: 0;
   font-size: 1.8rem;
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  text-shadow: 0 0 10px rgba(88, 88, 251, 0.3);
 }
 
 .form-search {
@@ -57,8 +57,8 @@
   --width-of-input: 400px;
   --height-of-input: 40px;
   --border-height: 2px;
-  --input-bg: rgba(0, 20, 40, 0.5);
-  --border-color: #00ff00;
+  --input-bg: rgba(10, 46, 92, 0.5);
+  --border-color: #5858FB;
   --border-radius: 30px;
   --after-border-radius: 1px;
   position: relative;
@@ -70,7 +70,7 @@
   border-radius: var(--border-radius);
   transition: border-radius 0.5s ease;
   background: var(--input-bg);
-  border: 1px solid rgba(0, 255, 0, 0.5);
+  border: 1px solid rgba(88, 88, 251, 0.5);
   z-index: 10;
 }
 
@@ -115,7 +115,7 @@
 .form-search button {
   border: none;
   background: none;
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .reset {
@@ -133,7 +133,7 @@
 .form-search svg {
   width: 17px;
   margin-top: 3px;
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .filtros-adicionales {
@@ -144,7 +144,8 @@
   padding: 1rem;
   background-color: rgba(20, 30, 40, 0.7);
   border-radius: 8px;
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  border: 1px solid rgba(88, 88, 251, 0.3);
+  margin-bottom: 1rem;
 }
 
 .filter-group {
@@ -154,7 +155,7 @@
 }
 
 .filter-group label {
-  color: #00ff00;
+  color: #5858FB;
   font-size: 0.9rem;
   white-space: nowrap;
 }
@@ -163,8 +164,8 @@
 .filter-group input[type="date"] {
   padding: 0.5rem;
   border-radius: 4px;
-  border: 1px solid rgba(0, 255, 0, 0.5);
-  background-color: rgba(0, 20, 40, 0.5);
+  border: 1px solid rgba(88, 88, 251, 0.5);
+  background-color: rgba(10, 46, 92, 0.5);
   color: white;
   font-size: 0.9rem;
   min-width: 150px;
@@ -173,8 +174,8 @@
 .filter-group select:focus,
 .filter-group input[type="date"]:focus {
   outline: none;
-  border-color: #00ff00;
-  box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  border-color: #5858FB;
+  box-shadow: 0 0 5px rgba(88, 88, 251, 0.5);
 }
 
 .filter-group input:disabled {
@@ -190,27 +191,27 @@
 }
 
 .today-btn {
-  background: linear-gradient(45deg, #006600, #00cc00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(10, 46, 92, 0.3);
 }
 
 .today-btn:hover {
-  background: linear-gradient(45deg, #008800, #00ff00);
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 0 10px rgba(88, 88, 251, 0.4);
   transform: translateY(-2px);
 }
 
 .today-btn.active {
-  background: linear-gradient(45deg, #008800, #00ff00);
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 0 10px rgba(88, 88, 251, 0.4);
 }
 
 /* Tabla */
@@ -219,8 +220,8 @@
   margin-bottom: 30px;
   background: rgba(20, 30, 40, 0.85);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 255, 0, 0.1);
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  box-shadow: 0 2px 4px rgba(88, 88, 251, 0.1);
+  border: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .pedidos-table {
@@ -232,18 +233,18 @@
 .pedidos-table td {
   padding: 1rem;
   text-align: left;
-  border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+  border-bottom: 1px solid rgba(88, 88, 251, 0.2);
 }
 
 .pedidos-table th {
-  background: linear-gradient(to bottom, #006600, #00cc00);
+  background: linear-gradient(to bottom, #0a2e5c, #1860b0);
   font-weight: 600;
   color: #fff;
   padding: 1rem;
 }
 
 .pedidos-table tr:hover {
-  background-color: rgba(0, 255, 0, 0.1);
+  background-color: rgba(88, 88, 251, 0.1);
 }
 
 .pedidos-table td {
@@ -269,7 +270,7 @@
 
 .total-cell {
   font-weight: bold;
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .payment-method,
@@ -280,11 +281,11 @@
 }
 
 .payment-method svg {
-  color: #00cc00;
+  color: #1860b0;
 }
 
 .delivery-method svg {
-  color: #00ff00;
+  color: #5858FB;
 }
 
 /* Badges de estado */
@@ -341,7 +342,7 @@
 .view-btn {
   background: none;
   border: none;
-  color: #00ff00;
+  color: #5858FB;
   cursor: pointer;
   font-size: 16px;
 }
@@ -352,17 +353,17 @@
 
 .status-select {
   padding: 5px;
-  border: 1px solid rgba(0, 255, 0, 0.5);
+  border: 1px solid rgba(88, 88, 251, 0.5);
   border-radius: 4px;
   font-size: 12px;
-  background-color: rgba(0, 20, 40, 0.3);
+  background-color: rgba(10, 46, 92, 0.3);
   color: #fff;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
 }
 
 .status-select:focus {
-  border-color: #00ff00;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+  border-color: #5858FB;
+  box-shadow: 0 0 10px rgba(88, 88, 251, 0.2);
 }
 
 .no-results {
@@ -383,24 +384,24 @@
   background: rgba(20, 30, 40, 0.85);
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  box-shadow: 0 0 10px rgba(88, 88, 251, 0.1);
+  border: 1px solid rgba(88, 88, 251, 0.3);
   text-align: center;
 }
 
 .stat-card:hover {
   background: rgba(0, 0, 0, 0.1);
   transform: translateY(-3px);
-  border-color: rgba(0, 255, 0, 0.2);
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+  border-color: rgba(88, 88, 251, 0.2);
+  box-shadow: 0 0 10px rgba(88, 88, 251, 0.2);
 }
 
 .stat-card h3 {
   margin-top: 0;
   margin-bottom: 10px;
   font-size: 16px;
-  color: #00ff00;
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  color: #5858FB;
+  text-shadow: 0 0 10px rgba(88, 88, 251, 0.3);
 }
 
 .stat-card p {
@@ -419,7 +420,7 @@
 .ver-mas-btn {
   padding: 10px 20px;
   font-size: 1rem;
-  background: linear-gradient(45deg, #006600, #00cc00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   border-radius: 8px;
@@ -430,8 +431,8 @@
 }
 
 .ver-mas-btn:hover {
-  background: linear-gradient(45deg, #008800, #00ff00);
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 0 15px rgba(88, 88, 251, 0.4);
   color: #fff;
 }
 
@@ -449,7 +450,7 @@
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
 }
 
 @supports not (backdrop-filter: blur(10px)) {
@@ -460,14 +461,14 @@
 
 .dashboard-modal-content {
   background: linear-gradient(145deg, #0a0e17, #0f1623);
-  border: 1px solid #00ff00;
+  border: 1px solid #5858FB;
   border-radius: 16px;
   padding: 2.5rem 15px 2.5rem 2.5rem;
   width: 90%;
   max-width: 600px;
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 0 30px rgba(0, 255, 0, 0.3), 0 0 60px rgba(0, 128, 0, 0.2);
+  box-shadow: 0 0 30px rgba(88, 88, 251, 0.3), 0 0 60px rgba(10, 46, 92, 0.2);
   position: relative;
   z-index: 10000;
 }
@@ -492,13 +493,13 @@
 .dashboard-modal-content .dashboard-status-select:focus,
 .dashboard-modal-content .dashboard-status-select:active {
   background: #000000 !important;
-  color: #00ff00 !important;
+  color: #5858FB !important;
 }
 
 /* Estilos para las opciones del select en el modal */
 .dashboard-modal-content .dashboard-status-select option {
   background: #000000 !important;
-  color: #00ff00 !important;
+  color: #5858FB !important;
   padding: 10px;
 }
 
@@ -506,12 +507,12 @@
 .dashboard-modal-content .dashboard-status-select:focus option,
 .dashboard-modal-content .dashboard-status-select:active option {
   background: #000000 !important;
-  color: #00ff00 !important;
+  color: #5858FB !important;
 }
 
 /* Estilo para las opciones al hacer hover */
 .dashboard-modal-content .dashboard-status-select option:hover {
-  background: #00ff00 !important;
+  background: #5858FB !important;
   color: #000000 !important;
 }
 
@@ -519,13 +520,13 @@
 .dashboard-modal-content .dashboard-status-select[open],
 .dashboard-modal-content .dashboard-status-select:focus-within {
   background: #000000 !important;
-  color: #00ff00 !important;
+  color: #5858FB !important;
 }
 
 .dashboard-modal-close-btn {
   background: transparent;
   border: none;
-  color: #00ff00;
+  color: #5858FB;
   font-size: 1.8rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -548,12 +549,12 @@
 
 .dashboard-modal-title {
   margin: 0 0 2rem;
-  color: #00ff00;
+  color: #5858FB;
   font-size: 1.8rem;
-  text-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+  text-shadow: 0 0 15px rgba(88, 88, 251, 0.4);
   letter-spacing: 1px;
   padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+  border-bottom: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .dashboard-modal-body {
@@ -575,7 +576,7 @@
 
 .dashboard-modal-body li {
   padding: 0.3rem 0;
-  border-bottom: 1px solid rgba(0, 255, 0, 0.1);
+  border-bottom: 1px solid rgba(88, 88, 251, 0.1);
 }
 
 .dashboard-modal-actions {
@@ -584,53 +585,53 @@
   align-items: center;
   gap: 0.5rem;
   margin-top: 2rem;
-  border-top: 1px solid rgba(0, 255, 0, 0.2);
+  border-top: 1px solid rgba(88, 88, 251, 0.2);
   padding: 1rem 0;
 }
 
 .dashboard-status-select {
-  background: linear-gradient(45deg, #006600, #00aa00);
-  border: 1px solid #00ff00;
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
+  border: 1px solid #5858FB;
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
   min-width: 150px;
 }
 
 .dashboard-status-select:focus {
   outline: none;
-  border-color: #00ff00;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  border-color: #5858FB;
+  box-shadow: 0 0 20px rgba(88, 88, 251, 0.5);
 }
 
 .dashboard-status-select:hover {
-  background: linear-gradient(45deg, #008800, #00cc00);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
   transform: translateY(-2px);
 }
 
 .dashboard-close-btn {
-  background: linear-gradient(45deg, #006600, #00aa00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   padding: 0.75rem 2rem;
   border-radius: 8px;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
 }
 
 .dashboard-close-btn:hover {
-  background: linear-gradient(45deg, #008800, #00cc00);
-  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
   transform: translateY(-2px);
 }
 
@@ -639,7 +640,7 @@
   text-align: center;
   padding: 40px;
   font-size: 18px;
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .error {
@@ -736,6 +737,7 @@
     padding: 1rem;
     margin: 1rem auto;
     width: 95%;
+    margin-top: 4rem;
   }
 
   .title-admin {
@@ -788,14 +790,25 @@
     margin: 1rem 0;
     border-radius: 12px;
     overflow: hidden;
+    background: transparent !important; /* Fondo transparente */
+    border: none !important; /* Sin borde en el contenedor */
+    box-shadow: none !important; /* Sin sombra en el contenedor */
   }
 
   .pedidos-table {
     width: 100%;
+    background: transparent !important; /* Fondo transparente para la tabla */
   }
 
   .pedidos-table thead {
     display: none;
+  }
+
+    .pedidos-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Espacio entre filas */
+    background: transparent !important; /* Fondo transparente */
   }
 
   .pedidos-table tbody tr {
@@ -804,8 +817,8 @@
     background: rgba(30, 40, 50, 0.95);
     border-radius: 12px;
     padding: 1.2rem;
-    border: 1px solid rgba(0, 255, 0, 0.4);
-    box-shadow: 0 4px 20px rgba(0, 255, 0, 0.15);
+    border: 1px solid rgba(88, 88, 251, 0.4);
+    box-shadow: 0 4px 20px rgba(88, 88, 251, 0.15);
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -818,13 +831,13 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #00ff00, #00cc00);
+    background: linear-gradient(90deg, #5858FB, #1860b0);
   }
 
   .pedidos-table tbody tr:hover {
     background: rgba(40, 50, 60, 0.98);
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.25);
+    box-shadow: 0 8px 25px rgba(88, 88, 251, 0.25);
   }
 
   /* ESTRUCTURA UNIFICADA PARA TODAS LAS CELDAS - CORREGIDA */
@@ -834,7 +847,7 @@
     align-items: center !important;
     width: 100% !important;
     padding: 0.9rem 0;
-    border-bottom: 1px solid rgba(0, 255, 0, 0.15);
+    border-bottom: 1px solid rgba(88, 88, 251, 0.15);
     position: relative;
     font-size: 0.92rem;
     min-height: 44px;
@@ -853,8 +866,8 @@
   .pedidos-table tbody td::before {
     content: attr(data-label);
     font-weight: 600;
-    color: #00ff00;
-    text-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+    color: #5858FB;
+    text-shadow: 0 0 10px rgba(88, 88, 251, 0.4);
     font-size: 0.88rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -885,7 +898,7 @@
 
   .total-cell {
     font-weight: bold;
-    color: #00ff00 !important;
+    color: #5858FB !important;
     font-size: 1rem !important;
     justify-content: flex-end !important;
     text-align: right !important;
@@ -904,7 +917,7 @@
 
   .payment-method svg,
   .delivery-method svg {
-    color: #00ff00;
+    color: #5858FB;
     font-size: 1rem;
   }
 
@@ -935,17 +948,17 @@
     justify-content: center;
     width: 36px;
     height: 36px;
-    background: rgba(0, 255, 0, 0.15);
-    border: 1px solid rgba(0, 255, 0, 0.4);
+    background: rgba(88, 88, 251, 0.15);
+    border: 1px solid rgba(88, 88, 251, 0.4);
     border-radius: 6px;
-    color: #00ff00;
+    color: #5858FB;
     cursor: pointer;
     transition: all 0.3s ease;
     flex-shrink: 0;
   }
 
   .view-btn:hover {
-    background: rgba(0, 255, 0, 0.3);
+    background: rgba(88, 88, 251, 0.3);
     transform: scale(1.05);
   }
 
@@ -954,20 +967,20 @@
     min-width: 140px;
     max-width: 200px;
     padding: 0.6rem 0.8rem;
-    border: 1px solid rgba(0, 255, 0, 0.4);
+    border: 1px solid rgba(88, 88, 251, 0.4);
     border-radius: 6px;
-    background: rgba(0, 20, 40, 0.8);
+    background: rgba(10, 46, 92, 0.8);
     color: #fff;
     font-size: 0.85rem;
-    font-family: "Zen Dots", sans-serif;
+    font-family: "Archivo", sans-serif;
     cursor: pointer;
     transition: all 0.3s ease;
   }
 
   .status-select:focus {
     outline: none;
-    border-color: #00ff00;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    border-color: #5858FB;
+    box-shadow: 0 0 15px rgba(88, 88, 251, 0.3);
   }
 
   /* PRODUCTOS CON MEJOR FORMATO - CORREGIDO */
@@ -1010,20 +1023,20 @@
     padding: 1.2rem 0.8rem;
     text-align: center;
     background: rgba(30, 40, 50, 0.95);
-    border: 1px solid rgba(0, 255, 0, 0.3);
+    border: 1px solid rgba(88, 88, 251, 0.3);
     border-radius: 10px;
     transition: all 0.3s ease;
   }
 
   .stat-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 5px 20px rgba(88, 88, 251, 0.2);
   }
 
   .stat-card h3 {
     font-size: 0.85rem;
     margin-bottom: 0.5rem;
-    color: #00ff00;
+    color: #5858FB;
   }
 
   .stat-card p {
@@ -1041,7 +1054,7 @@
     width: 100%;
     padding: 1rem;
     font-size: 0.95rem;
-    background: linear-gradient(45deg, #006600, #00aa00);
+    background: linear-gradient(45deg, #0a2e5c, #1860b0);
     color: white;
     border: none;
     border-radius: 10px;
@@ -1053,8 +1066,8 @@
   }
 
   .ver-mas-btn:hover {
-    background: linear-gradient(45deg, #008800, #00cc00);
-    box-shadow: 0 5px 20px rgba(0, 255, 0, 0.3);
+    background: linear-gradient(45deg, #1860b0, #5858FB);
+    box-shadow: 0 5px 20px rgba(88, 88, 251, 0.3);
   }
 }
 
@@ -1064,6 +1077,7 @@
     padding: 0.8rem;
     margin: 0.5rem auto;
     width: 98%;
+    margin-top: 3rem;
   }
 
   .title-admin h1 {
@@ -1145,5 +1159,128 @@
       opacity: 1;
       transform: scale(1);
     }
+  }
+}
+
+/* Estilos para la sección del comprobante */
+.receipt-section {
+  background: rgba(88, 88, 251, 0.1);
+  border: 1px solid rgba(88, 88, 251, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.receipt-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.receipt-actions {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.receipt-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-family: "Archivo", sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.view-receipt-btn {
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
+  color: white;
+  box-shadow: 0 2px 8px rgba(10, 46, 92, 0.3);
+}
+
+.view-receipt-btn:hover {
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 4px 12px rgba(88, 88, 251, 0.4);
+  transform: translateY(-2px);
+}
+
+.download-receipt-btn {
+  background: linear-gradient(45deg, #28a745, #20c997);
+  color: white;
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+.download-receipt-btn:hover {
+  background: linear-gradient(45deg, #20c997, #28a745);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Estilos para las secciones del modal */
+.address-section,
+.products-section,
+.order-summary {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+}
+
+.products-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.products-section li {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.products-section li:last-child {
+  border-bottom: none;
+}
+
+.item-subtotal {
+  font-size: 0.85rem;
+  color: #5858FB;
+  margin-top: 0.3rem;
+  font-weight: 600;
+}
+
+.order-summary {
+  background: rgba(88, 88, 251, 0.1);
+  border: 1px solid rgba(88, 88, 251, 0.3);
+}
+
+.total-amount {
+  font-size: 1.2rem;
+  color: #5858FB;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive para el modal */
+@media (max-width: 768px) {
+  .receipt-actions {
+    flex-direction: column;
+  }
+  
+  .receipt-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .address-section,
+  .products-section,
+  .order-summary {
+    padding: 0.8rem;
   }
 }

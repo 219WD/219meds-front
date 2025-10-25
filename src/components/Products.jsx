@@ -9,6 +9,7 @@ import NuevoProductoModal from "./Productos/NuevoProductoModal.jsx";
 import EditarProductoModal from "./Productos/EditarProductoModal.jsx";
 import "./css/productos.css";
 import API_URL from "../common/constants";
+import VerProductoModal from "./Productos/VerProductoModal.jsx";
 
 const Products = () => {
   const [productos, setProductos] = useState([]);
@@ -16,9 +17,12 @@ const Products = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("todos");
   const [categoryFilter, setCategoryFilter] = useState("todos");
+  const [vencimientoFilter, setVencimientoFilter] = useState("todos"); // 🔥 NUEVO
   const [showNuevoProductoModal, setShowNuevoProductoModal] = useState(false);
   const [showEditarProductoModal, setShowEditarProductoModal] = useState(false);
   const [productoAEditar, setProductoAEditar] = useState(null);
+  const [showVerProductoModal, setShowVerProductoModal] = useState(false);
+  const [productoAVer, setProductoAVer] = useState(null);
 
   const productosContainerRef = useRef(null);
   const token = useAuthStore((state) => state.token);
@@ -66,7 +70,10 @@ const Products = () => {
         if (!res.ok) throw new Error(data.error || "Error al guardar producto");
 
         await fetchProductos();
-        notify(isEditing ? "Producto actualizado" : "Producto creado", "success");
+        notify(
+          isEditing ? "Producto actualizado" : "Producto creado",
+          "success"
+        );
 
         setShowNuevoProductoModal(false);
         setShowEditarProductoModal(false);
@@ -89,12 +96,18 @@ const Products = () => {
         });
 
         const data = await res.json();
-        if (!res.ok) throw new Error(data.message || "Error al cambiar el estado");
+        if (!res.ok)
+          throw new Error(data.message || "Error al cambiar el estado");
 
         setProductos((prev) =>
-          prev.map((prod) => (prod._id === id ? { ...prod, isActive: !prod.isActive } : prod))
+          prev.map((prod) =>
+            prod._id === id ? { ...prod, isActive: !prod.isActive } : prod
+          )
         );
-        notify(`Producto ${data.product.isActive ? "activado" : "desactivado"}`, "success");
+        notify(
+          `Producto ${data.product.isActive ? "activado" : "desactivado"}`,
+          "success"
+        );
       });
     } catch (err) {
       console.error(err.message);
@@ -130,31 +143,82 @@ const Products = () => {
     setShowEditarProductoModal(true);
   };
 
-  const filterProductos = () => {
-    return productos
-      .filter((producto) => {
-        if (!producto) return false;
+  const handleView = (producto) => {
+    setProductoAVer(producto);
+    setShowVerProductoModal(true);
+  };
 
-        const query = searchQuery.toLowerCase();
-        const title = producto.title?.toLowerCase() || "";
-        const description = producto.description?.toLowerCase() || "";
-        const category = producto.category?.toLowerCase() || "";
-
-        const matchesSearch =
-          title.includes(query) ||
-          description.includes(query) ||
-          category.includes(query);
-
-        const matchesStatus =
-          statusFilter === "todos" || 
-          (statusFilter === "activos" && producto.isActive) ||
-          (statusFilter === "inactivos" && !producto.isActive);
-
-        const matchesCategory =
-          categoryFilter === "todos" || producto.category === categoryFilter;
-
-        return matchesSearch && matchesStatus && matchesCategory;
+  // 🔥 NUEVO: Función para obtener reportes de vencimiento
+  const obtenerProductosProximosAVencer = async () => {
+    try {
+      const res = await fetch(`${API_URL}/products/proximos-a-vencer`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+      const data = await res.json();
+      setProductos(data.productos);
+      notify(`Mostrando ${data.count} productos próximos a vencer`, "info");
+    } catch (error) {
+      notify("Error al obtener productos próximos a vencer", "error");
+    }
+  };
+
+  const obtenerProductosVencidos = async () => {
+    try {
+      const res = await fetch(`${API_URL}/products/vencidos`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      setProductos(data.productos);
+      notify(`Mostrando ${data.count} productos vencidos`, "warning");
+    } catch (error) {
+      notify("Error al obtener productos vencidos", "error");
+    }
+  };
+
+  const filterProductos = () => {
+    return productos.filter((producto) => {
+      if (!producto) return false;
+
+      const query = searchQuery.toLowerCase();
+      const title = producto.title?.toLowerCase() || "";
+      const description = producto.description?.toLowerCase() || "";
+      const category = producto.category?.toLowerCase() || "";
+      const lote = producto.lote?.toLowerCase() || ""; // 🔥 NUEVO
+
+      const matchesSearch =
+        title.includes(query) ||
+        description.includes(query) ||
+        category.includes(query) ||
+        lote.includes(query); // 🔥 NUEVO
+
+      const matchesStatus =
+        statusFilter === "todos" ||
+        (statusFilter === "activos" && producto.isActive) ||
+        (statusFilter === "inactivos" && !producto.isActive);
+
+      const matchesCategory =
+        categoryFilter === "todos" || producto.category === categoryFilter;
+
+      // 🔥 NUEVO: Filtro por estado de vencimiento
+      const matchesVencimiento =
+        vencimientoFilter === "todos" ||
+        (vencimientoFilter === "vencido" &&
+          producto.estadoVencimiento === "vencido") ||
+        (vencimientoFilter === "proximo" &&
+          producto.estadoVencimiento === "proximo-a-vencer") ||
+        (vencimientoFilter === "vigente" &&
+          producto.estadoVencimiento === "vigente") ||
+        (vencimientoFilter === "sin-vencimiento" &&
+          producto.estadoVencimiento === "sin-vencimiento");
+
+      return (
+        matchesSearch && matchesStatus && matchesCategory && matchesVencimiento
+      );
+    });
   };
 
   // GSAP Animation
@@ -233,7 +297,12 @@ const Products = () => {
             <h1>Gestión de Productos</h1>
             <div className="search-container">
               <button type="button">
-                <svg width="17" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  width="17"
+                  height="16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
                     stroke="currentColor"
@@ -245,7 +314,7 @@ const Products = () => {
               </button>
               <input
                 className="input-search"
-                placeholder="Buscar por nombre, descripción o categoría..."
+                placeholder="Buscar por nombre, descripción, categoría o lote..."
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -255,7 +324,12 @@ const Products = () => {
                 type="reset"
                 onClick={() => setSearchQuery("")}
               >
-                <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  width="16"
+                  height="16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     d="M12 4L4 12M4 4l8 8"
                     stroke="currentColor"
@@ -266,11 +340,30 @@ const Products = () => {
                 </svg>
               </button>
             </div>
-            <button 
+            <button
               className="btn-nuevo-producto"
               onClick={() => setShowNuevoProductoModal(true)}
             >
               Nuevo Producto
+            </button>
+          </div>
+
+          {/* 🔥 NUEVO: Botones de reportes de vencimiento */}
+          <div className="reportes-vencimiento">
+            <button
+              className="btn-reporte proximo"
+              onClick={obtenerProductosProximosAVencer}
+            >
+              Próximos a Vencer
+            </button>
+            <button
+              className="btn-reporte vencido"
+              onClick={obtenerProductosVencidos}
+            >
+              Productos Vencidos
+            </button>
+            <button className="btn-reporte todos" onClick={fetchProductos}>
+              Ver Todos
             </button>
           </div>
 
@@ -300,6 +393,20 @@ const Products = () => {
                 ))}
               </select>
             </div>
+            {/* 🔥 NUEVO: Filtro por estado de vencimiento */}
+            <div className="filter-group">
+              <label>Vencimiento:</label>
+              <select
+                value={vencimientoFilter}
+                onChange={(e) => setVencimientoFilter(e.target.value)}
+              >
+                <option value="todos">Todos</option>
+                <option value="vigente">Vigente</option>
+                <option value="proximo">Próximo a Vencer</option>
+                <option value="vencido">Vencido</option>
+                <option value="sin-vencimiento">Sin Vencimiento</option>
+              </select>
+            </div>
           </div>
 
           <ProductTable
@@ -308,9 +415,17 @@ const Products = () => {
             onEdit={handleEdit}
             onDelete={handleDelete}
             onToggleEstado={handleToggleEstado}
+            onView={handleView}
           />
         </div>
       </div>
+
+      {showVerProductoModal && productoAVer && (
+        <VerProductoModal
+          producto={productoAVer}
+          onClose={() => setShowVerProductoModal(false)}
+        />
+      )}
 
       {showNuevoProductoModal && (
         <NuevoProductoModal

@@ -1,3 +1,413 @@
+/* Reset y base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #5B5BFB;
+  --primary-dark: #4A4AFA;
+  --secondary: #1860b0;
+  --accent: #0a2e5c;
+  --dark: #0a0e17;
+  --light: #ffffff;
+  --gray: #666;
+  --gray-light: #f8faff;
+  --success: #10b981;
+  --error: #ef4444;
+}
+
+/* Contenedor principal dividido */
+.auth-split-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-family: "Archivo", sans-serif;
+  overflow: hidden;
+}
+
+/* Lado izquierdo - Imagen/Ilustración */
+.auth-hero-side {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.auth-hero-content {
+  text-align: center;
+  color: var(--light);
+  z-index: 2;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+.auth-hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  line-height: 1.1;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.auth-hero-subtitle {
+  font-size: 1.3rem;
+  opacity: 0.9;
+  line-height: 1.6;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Partículas en el lado hero */
+.auth-hero-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.auth-hero-particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+}
+
+/* Lado derecho - Formulario */
+.auth-form-side {
+  background: var(--light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-form-container {
+  width: 100%;
+  max-width: 420px;
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+/* Logo */
+.auth-form-logo {
+  text-align: center;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.auth-logo-text {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Título del formulario */
+.auth-form-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.auth-form-subtitle {
+  text-align: center;
+  color: var(--gray);
+  margin-bottom: 40px;
+  font-size: 1rem;
+}
+
+/* Formulario */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Grupos de input mejorados */
+.auth-input-group {
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.auth-input-wrapper {
+  position: relative;
+}
+
+.auth-input-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.auth-input-group input {
+  width: 100%;
+  padding: 16px 16px 16px 48px;
+  border: 2px solid rgba(91, 91, 251, 0.1);
+  border-radius: 12px;
+  background: var(--light);
+  color: var(--dark);
+  font-size: 1rem;
+  font-family: "Archivo", sans-serif;
+  transition: all 0.3s ease;
+  outline: none;
+  position: relative;
+  z-index: 1;
+}
+
+.auth-input-group input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(91, 91, 251, 0.1);
+  transform: translateY(-1px);
+}
+
+.auth-input-group input:focus + .auth-input-icon {
+  color: var(--primary);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.auth-input-group label {
+  display: block;
+  color: var(--dark);
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+/* Olvidé contraseña */
+.auth-forgot {
+  text-align: right;
+  margin-top: -10px;
+  opacity: 0;
+}
+
+.auth-forgot a {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.auth-forgot a:hover {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+/* Botón principal mejorado */
+.auth-sign-btn {
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--light);
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: "Archivo", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.auth-sign-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(91, 91, 251, 0.3);
+}
+
+.auth-sign-btn:active {
+  transform: translateY(0);
+}
+
+.auth-sign-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.auth-sign-btn:hover::before {
+  left: 100%;
+}
+
+/* Enlace de registro/login */
+.auth-signin {
+  text-align: center;
+  color: var(--gray);
+  font-size: 0.9rem;
+  margin-top: 32px;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.auth-signin a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 4px;
+  transition: all 0.3s ease;
+}
+
+.auth-signin a:hover {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+/* Mensajes de error */
+.auth-error {
+  text-align: center;
+  color: var(--error);
+  font-size: 0.875rem;
+  padding: 12px 16px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 8px;
+  margin-top: 16px;
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Efecto de carga */
+.auth-sign-btn.auth-loading {
+  position: relative;
+  color: transparent;
+}
+
+.auth-sign-btn.auth-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid var(--light);
+  border-radius: 50%;
+  animation: auth-spin 1s linear infinite;
+}
+
+@keyframes auth-spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Animaciones de partículas */
+@keyframes auth-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+.auth-hero-particle {
+  animation: auth-float 6s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .auth-split-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .auth-hero-side {
+    display: none;
+  }
+  
+  .auth-form-side {
+    padding: 60px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-split-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .auth-form-side {
+    padding: 40px 24px;
+  }
+  
+  .auth-hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .auth-form-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-form-side {
+    padding: 32px 20px;
+  }
+  
+  .auth-form-title {
+    font-size: 1.6rem;
+  }
+  
+  .auth-input-group input {
+    padding: 14px 14px 14px 44px;
+  }
+  
+  .auth-sign-btn {
+    padding: 14px 20px;
+  }
+}
+
+/* Modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .auth-form-side {
+    background: var(--dark);
+  }
+  
+  .auth-form-title {
+    color: var(--light);
+  }
+  
+  .auth-input-group input {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--light);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .auth-input-group label {
+    color: var(--light);
+  }
+  
+  .auth-signin {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
 /* Estilos para el modal de restablecimiento de contraseña */
 .password-reset-modal-overlay {
   position: fixed;
@@ -17,7 +427,7 @@
   transition: opacity 0.3s ease;
   margin: 0;
   padding: 0;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
 }
 
 @supports not (backdrop-filter: blur(10px)) {
@@ -32,13 +442,13 @@
 }
 
 .password-reset-modal-container {
-  background: linear-gradient(145deg, #0a0e17, #0f1623);
-  border: 1px solid #00ff00;
+  background: linear-gradient(145deg, var(--dark), #0f1623);
+  border: 1px solid var(--primary);
   border-radius: 16px;
   padding: 2.5rem;
   width: 90%;
   max-width: 500px;
-  box-shadow: 0 0 30px rgba(0, 255, 0, 0.3), 0 0 60px rgba(0, 128, 0, 0.2);
+  box-shadow: 0 0 30px rgba(91, 91, 251, 0.3), 0 0 60px rgba(24, 96, 176, 0.2);
   position: relative;
   overflow: hidden;
   transform: translateY(20px);
@@ -62,10 +472,10 @@
   background: linear-gradient(
     to bottom right,
     transparent 0%,
-    rgba(0, 255, 0, 0.05) 50%,
+    rgba(91, 91, 251, 0.05) 50%,
     transparent 100%
   );
-  animation: rotate 15s linear infinite;
+  animation: auth-rotate 15s linear infinite;
   z-index: -1;
 }
 
@@ -75,21 +485,21 @@
   align-items: center;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+  border-bottom: 1px solid rgba(91, 91, 251, 0.3);
 }
 
 .password-reset-modal-header h2 {
   margin: 0;
-  color: #00ff00;
+  color: var(--primary);
   font-size: 1.8rem;
-  text-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+  text-shadow: 0 0 15px rgba(91, 91, 251, 0.4);
   letter-spacing: 1px;
 }
 
 .password-reset-modal-close-btn {
   background: transparent;
   border: none;
-  color: #00ff00;
+  color: var(--primary);
   font-size: 1.8rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -102,8 +512,8 @@
 }
 
 .password-reset-modal-close-btn:hover {
-  background: rgba(255, 0, 0, 0.2);
-  color: #ff5555;
+  background: rgba(239, 68, 68, 0.2);
+  color: var(--error);
   transform: rotate(90deg);
 }
 
@@ -125,7 +535,7 @@
 .password-reset-input-group label {
   display: block;
   margin-bottom: 0.8rem;
-  color: #00ff00;
+  color: var(--primary);
   font-size: 1rem;
   letter-spacing: 0.5px;
 }
@@ -133,19 +543,19 @@
 .password-reset-input-group input {
   width: 100%;
   padding: 1rem;
-  background: rgba(0, 20, 10, 0.7);
-  border: 1px solid rgba(0, 255, 0, 0.4);
+  background: rgba(10, 15, 25, 0.7);
+  border: 1px solid rgba(91, 91, 251, 0.4);
   border-radius: 8px;
   color: white;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   font-size: 1rem;
   transition: all 0.3s ease;
 }
 
 .password-reset-input-group input:focus {
   outline: none;
-  border-color: #00ff00;
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+  border-color: var(--primary);
+  box-shadow: 0 0 15px rgba(91, 91, 251, 0.4);
 }
 
 .password-reset-modal-footer {
@@ -157,7 +567,7 @@
 .password-reset-modal-btn {
   padding: 1rem 2rem;
   border-radius: 8px;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -179,7 +589,7 @@
 }
 
 .password-reset-modal-btn-primary {
-  background: linear-gradient(45deg, #006600, #00aa00);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -187,8 +597,8 @@
 }
 
 .password-reset-modal-btn-primary:hover {
-  background: linear-gradient(45deg, #008800, #00cc00);
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+  background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+  box-shadow: 0 0 20px rgba(91, 91, 251, 0.4);
   transform: translateY(-2px);
 }
 
@@ -217,20 +627,20 @@
   border-radius: 8px;
   margin-top: 2rem;
   text-align: center;
-  animation: pulse 2s infinite;
+  animation: auth-pulse 2s infinite;
   font-size: 1rem;
 }
 
 .password-reset-modal-success {
-  background: rgba(0, 255, 0, 0.15);
-  border: 1px solid rgba(0, 255, 0, 0.4);
-  color: #00ff00;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: var(--success);
 }
 
 .password-reset-modal-error {
-  background: rgba(255, 0, 0, 0.15);
-  border: 1px solid rgba(255, 0, 0, 0.4);
-  color: #ff5555;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: var(--error);
 }
 
 .password-reset-loading-indicator {
@@ -246,412 +656,18 @@
   height: 1.2rem;
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  border-top-color: #00ff00;
-  animation: spin 1s linear infinite;
+  border-top-color: var(--primary);
+  animation: auth-spin 1s linear infinite;
 }
 
-/* Estilos para ChangePasswordForm */
-.change-overlay-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(rgba(0, 10, 20, 0.8), rgba(0, 5, 15, 0.9)),
-    url("/src/assets/jamrock.png") center/cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-
-.change-form-container {
-  width: 320px;
-  border-radius: 12px;
-  background-color: rgba(20, 30, 40, 0.85);
-  padding: 2rem;
-  color: #fff;
-  font-family: "Zen Dots", sans-serif;
-  border: 1px solid rgba(0, 255, 0, 0.3);
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
-  backdrop-filter: blur(5px);
-  position: relative;
-  overflow: hidden;
-  z-index: 1000;
-}
-
-.change-form-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: linear-gradient(rgba(0, 255, 0, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 0, 0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.change-title {
-  text-align: center;
-  font-size: 1.5rem;
-  line-height: 2rem;
-  font-weight: 700;
-  color: #00ff00;
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-  margin-bottom: 1.5rem;
-  position: relative;
-}
-
-.change-title::after {
-  content: "";
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #00ff00, transparent);
-}
-
-.change-input-group {
-  margin-top: 1rem;
-  position: relative;
-}
-
-.change-input-group label {
-  display: block;
-  color: #00ff00;
-  margin-bottom: 8px;
-  font-size: 0.875rem;
-}
-
-.change-input-group input {
-  width: 100%;
-  border-radius: 6px;
-  border: 1px solid rgba(0, 255, 0, 0.5);
-  outline: 0;
-  background-color: rgba(0, 20, 10, 0.5);
-  padding: 0.75rem 1rem;
-  color: #fff;
-  font-family: "Zen Dots", sans-serif;
-  transition: all 0.3s ease;
-}
-
-.change-input-group input:focus {
-  border-color: #00ff00;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-}
-
-.change-input-group input::placeholder {
-  color: rgba(200, 200, 200, 0.5);
-}
-
-.change-btn-primary {
-  display: block;
-  width: 100%;
-  background: linear-gradient(45deg, #006600, #00aa00);
-  padding: 0.75rem;
-  text-align: center;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  position: relative;
-  overflow: hidden;
-  margin-top: 1.5rem;
-}
-
-.change-btn-primary:hover {
-  background: linear-gradient(45deg, #008800, #00cc00);
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
-}
-
-.change-btn-primary::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: 0.5s;
-}
-
-.change-btn-primary:hover::after {
-  left: 100%;
-}
-
-.change-message {
-  text-align: center;
-  color: #00ff00;
-  margin-top: 1rem;
-  font-size: 0.85rem;
-  background: rgba(0, 255, 0, 0.15);
-  border: 1px solid rgba(0, 255, 0, 0.4);
-  padding: 0.75rem;
-  border-radius: 6px;
-}
-
-.change-error {
-  text-align: center;
-  color: #ff5555;
-  margin-top: 1rem;
-  font-size: 0.85rem;
-  background: rgba(255, 0, 0, 0.15);
-  border: 1px solid rgba(255, 0, 0, 0.4);
-  padding: 0.75rem;
-  border-radius: 6px;
-}
-
-.change-loading-text {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.change-loading-text::after {
-  content: "";
-  display: inline-block;
-  width: 1.2rem;
-  height: 1.2rem;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: #00ff00;
-  animation: spin 1s linear infinite;
-}
-
-/* Estilos originales para otros componentes (registro, login, etc.) */
-.overlay-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(rgba(0, 10, 20, 0.8), rgba(0, 5, 15, 0.9)),
-    url("/src/assets/jamrock.png") center/cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-
-.form-container {
-  width: 320px;
-  border-radius: 12px;
-  background-color: rgba(20, 30, 40, 0.85);
-  padding: 2rem;
-  color: #fff;
-  font-family: "Zen Dots", sans-serif;
-  border: 1px solid rgba(0, 255, 0, 0.3);
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
-  backdrop-filter: blur(5px);
-  position: relative;
-  overflow: hidden;
-  z-index: 1000;
-}
-
-.form-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: linear-gradient(rgba(0, 255, 0, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 0, 0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.title {
-  text-align: center;
-  font-size: 1.5rem;
-  line-height: 2rem;
-  font-weight: 700;
-  color: #00ff00;
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-  margin-bottom: 1.5rem;
-  position: relative;
-  opacity: 0;
-  transform: translateY(-20px);
-}
-
-.title::after {
-  content: "";
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #00ff00, transparent);
-}
-
-.form {
-  margin-top: 1.5rem;
-}
-
-.input-group {
-  margin-top: 1rem;
-  position: relative;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.input-group label {
-  display: block;
-  color: #00ff00;
-  margin-bottom: 8px;
-  font-size: 0.875rem;
-}
-
-.input-group input {
-  width: 100%;
-  border-radius: 6px;
-  border: 1px solid rgba(0, 255, 0, 0.5);
-  outline: 0;
-  background-color: rgba(0, 20, 40, 0.5);
-  padding: 0.75rem 1rem;
-  color: #fff;
-  font-family: "Zen Dots", sans-serif;
-  transition: all 0.3s ease;
-}
-
-.input-group input:focus {
-  border-color: #00ff00;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-}
-
-.input-group input::placeholder {
-  color: rgba(200, 200, 200, 0.5);
-}
-
-.password-group {
-  position: relative;
-  margin-bottom: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.forgot {
-  font-size: 0.75rem;
-  align-self: flex-end;
-  margin-bottom: 1.5rem;
-  opacity: 0;
-}
-
-.sign {
-  display: block;
-  width: 100%;
-  background: linear-gradient(45deg, #006600, #00aa00);
-  padding: 0.75rem;
-  text-align: center;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  position: relative;
-  overflow: hidden;
-  margin-top: 10px;
-  opacity: 0;
-  transform: scale(0.9);
-}
-
-.sign:hover {
-  background: linear-gradient(45deg, #008800, #00cc00);
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
-}
-
-.sign::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: 0.5s;
-}
-
-.sign:hover::after {
-  left: 100%;
-}
-
-.signin {
-  display: flex;
-  justify-content: center;
-  margin-top: 15px;
-  font-size: 0.85rem;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.forgot a,
-.signin a {
-  color: #00ff00;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.forgot a:hover,
-.signin a:hover {
-  text-decoration: underline;
-  text-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
-}
-
-.error {
-  text-align: center;
-  color: #ff5555;
-  margin-top: 10px;
-  font-size: 0.85rem;
-  text-shadow: 0 0 5px rgba(255, 85, 85, 0.3);
-}
-
-.overlay-container::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(0, 255, 0, 0.1) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 998;
-  animation: rotate 20s linear infinite;
-}
-
-@keyframes spin {
-  to {
+/* Animaciones específicas para el modal */
+@keyframes auth-rotate {
+  100% {
     transform: rotate(360deg);
   }
 }
 
-@keyframes pulse {
+@keyframes auth-pulse {
   0% {
     opacity: 0.8;
   }
@@ -663,8 +679,40 @@
   }
 }
 
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
-  }
+/* Botón para mostrar/ocultar contraseña */
+.auth-password-toggle {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--gray);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-password-toggle:hover:not(:disabled) {
+  background: rgba(91, 91, 251, 0.1);
+  color: var(--primary);
+}
+
+.auth-password-toggle:active:not(:disabled) {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.auth-password-toggle:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.auth-eye-icon {
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
 }

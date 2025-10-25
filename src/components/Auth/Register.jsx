@@ -5,90 +5,216 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuthStore from "../../store/authStore";
 import withGlobalLoader from "../../utils/withGlobalLoader";
 import API_URL from "../../common/constants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEnvelope,
+  faLock,
+  faUser,
+  faStethoscope,
+  faEye,
+  faEyeSlash,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const login = useAuthStore((state) => state.login);
 
-  // Referencias para los elementos animados
+  // Referencias para GSAP
   const containerRef = useRef(null);
-  const formRef = useRef(null);
+  const heroContentRef = useRef(null);
+  const formContainerRef = useRef(null);
+  const logoRef = useRef(null);
   const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
   const nameGroupRef = useRef(null);
   const emailGroupRef = useRef(null);
   const passwordGroupRef = useRef(null);
-  const forgotRef = useRef(null);
   const buttonRef = useRef(null);
   const signinRef = useRef(null);
   const errorRef = useRef(null);
+  const particlesRef = useRef([]);
+  const passwordInputRef = useRef(null);
 
-  // Animación inicial
-  useEffect(() => {
-    const elements = [
-      containerRef.current,
-      formRef.current,
-      titleRef.current,
-      nameGroupRef.current,
-      emailGroupRef.current,
-      passwordGroupRef.current,
-      forgotRef.current,
-      buttonRef.current,
-      signinRef.current,
-    ];
+  // Misma función togglePasswordVisibility del Login
+  const togglePasswordVisibility = () => {
+    if (!password) return;
 
-    if (elements.every((el) => el !== null)) {
-      console.log("Todos los elementos están listos para animar");
+    const input = passwordInputRef.current;
+    const originalType = input.type;
+    const originalValue = password;
 
-      // Resetear estados iniciales
-      gsap.set(
-        [
-          formRef.current,
-          titleRef.current,
-          nameGroupRef.current,
-          emailGroupRef.current,
-          passwordGroupRef.current,
-          forgotRef.current,
-          buttonRef.current,
-          signinRef.current,
-        ],
-        {
-          opacity: 0,
-          y: 20,
+    if (!showPassword) {
+      input.type = "text";
+
+      let iterations = 0;
+      const maxIterations = 8;
+      const characters =
+        "01!@#$%&*abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+      const interval = setInterval(() => {
+        const randomText = Array.from(
+          { length: originalValue.length },
+          () => characters[Math.floor(Math.random() * characters.length)]
+        ).join("");
+
+        setPassword(randomText);
+        iterations++;
+
+        if (iterations >= maxIterations) {
+          clearInterval(interval);
+          setPassword(originalValue);
+          gsap.fromTo(
+            input,
+            { scale: 1.02 },
+            { scale: 1, duration: 0.1, ease: "power2.out" }
+          );
         }
-      );
-
-      // Timeline de animación
-      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
-
-      tl.to(containerRef.current, { opacity: 1, duration: 0.5 })
-        .to(formRef.current, { opacity: 1, y: 0, duration: 0.6 })
-        .to(titleRef.current, { opacity: 1, y: 0, duration: 0.4 }, "-=0.3")
-        .to(nameGroupRef.current, { opacity: 1, y: 0, duration: 0.4 }, "-=0.2")
-        .to(emailGroupRef.current, { opacity: 1, y: 0, duration: 0.4 }, "-=0.2")
-        .to(
-          passwordGroupRef.current,
-          { opacity: 1, y: 0, duration: 0.4 },
-          "-=0.2"
-        )
-        .to(forgotRef.current, { opacity: 1, duration: 0.3 }, "-=0.2")
-        .to(buttonRef.current, { opacity: 1, y: 0, duration: 0.5 }, "-=0.2")
-        .to(signinRef.current, { opacity: 1, y: 0, duration: 0.4 }, "-=0.2");
+      }, 40);
     } else {
-      console.error("Algunos elementos no están disponibles:", elements);
+      input.type = "password";
+      gsap.fromTo(
+        input,
+        { scale: 0.98 },
+        { scale: 1, duration: 0.1, ease: "power2.out" }
+      );
     }
+
+    setShowPassword(!showPassword);
+  };
+
+  // Crear partículas
+  useEffect(() => {
+    const createParticles = () => {
+      const particles = [];
+      for (let i = 0; i < 15; i++) {
+        const particle = document.createElement("div");
+        particle.className = "auth-hero-particle";
+        particle.style.width = `${Math.random() * 8 + 4}px`;
+        particle.style.height = particle.style.width;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.opacity = Math.random() * 0.6 + 0.2;
+        particle.style.animationDelay = `${Math.random() * 6}s`;
+        particles.push(particle);
+      }
+      return particles;
+    };
+
+    if (containerRef.current) {
+      const heroSide = containerRef.current.querySelector(".auth-hero-side");
+      const particles = createParticles();
+      particles.forEach((particle) => heroSide.appendChild(particle));
+      particlesRef.current = particles;
+    }
+  }, []);
+
+  // Animación principal con GSAP
+  useEffect(() => {
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    // Animación del contenedor principal
+    tl.fromTo(
+      containerRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.4 }
+    )
+      // Animación del lado hero
+      .fromTo(
+        heroContentRef.current,
+        { x: -100, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.5, ease: "back.out(1.2)" },
+        "-=0.3"
+      )
+      // Animación de partículas
+      .fromTo(
+        particlesRef.current,
+        { scale: 0, rotation: 0 },
+        {
+          scale: 1,
+          rotation: 360,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: "elastic.out(1, 0.5)",
+        },
+        "-=0.8"
+      )
+      // Animación del formulario
+      .fromTo(
+        formContainerRef.current,
+        { x: 100, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.5, ease: "back.out(1.2)" },
+        "-=1"
+      )
+      // Animación en cascada de los elementos del formulario
+      .fromTo(
+        logoRef.current,
+        { y: -30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3 },
+        "-=0.5"
+      )
+      .fromTo(
+        titleRef.current,
+        { y: -20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3 },
+        "-=0.4"
+      )
+      .fromTo(
+        subtitleRef.current,
+        { y: -15, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.2 },
+        "-=0.3"
+      )
+      .fromTo(
+        [nameGroupRef.current, emailGroupRef.current, passwordGroupRef.current],
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "back.out(1.3)",
+        },
+        "-=0.2"
+      )
+      .fromTo(
+        buttonRef.current,
+        { y: 25, opacity: 0, scale: 0.8 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.3,
+          ease: "elastic.out(1, 0.8)",
+        },
+        "-=0.2"
+      )
+      .fromTo(
+        signinRef.current,
+        { y: 15, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5 },
+        "-=0.3"
+      );
   }, []);
 
   // Animación para errores
   useEffect(() => {
     if (error && errorRef.current) {
-      gsap.fromTo(
+      const tl = gsap.timeline();
+      tl.fromTo(
         errorRef.current,
-        { opacity: 0, y: -10 },
-        { opacity: 1, y: 0, duration: 0.4 }
+        { scale: 0.8, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.5,
+          ease: "back.out(1.5)",
+        }
       );
     }
   }, [error]);
@@ -96,108 +222,196 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+    setIsSubmitting(true);
 
-    // Animación de carga del botón
+    // Animación del botón
     if (buttonRef.current) {
-      gsap.to(buttonRef.current, {
-        duration: 0.3,
-        backgroundColor: "#00aaaa",
-        yoyo: true,
-        repeat: 1,
+      const tl = gsap.timeline();
+      tl.to(buttonRef.current, {
+        scale: 0.95,
+        duration: 0.1,
+        ease: "power2.in",
+      }).to(buttonRef.current, {
+        scale: 1,
+        duration: 0.2,
+        ease: "elastic.out(1, 0.5)",
       });
     }
 
-    await withGlobalLoader(async () => {
-      const res = await fetch(`${API_URL}/register/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, password }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Registro fallido");
-      }
-
-      // Guardar token y usuario en el store
-      login(data.token, data.user);
-
-      // Limpiar formulario
-      setName("");
-      setEmail("");
-      setPassword("");
-      setError(null);
-
-      // Animación de salida
-      if (formRef.current) {
-        gsap.to(formRef.current, {
-          opacity: 0,
-          y: -30,
-          duration: 0.5,
-          onComplete: () => {
-            navigate("/login");
+    try {
+      await withGlobalLoader(async () => {
+        const res = await fetch(`${API_URL}/register/register`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
+          body: JSON.stringify({ name, email, password }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Registro fallido");
+        }
+
+        login(data.token, data.user);
+
+        // Animación de éxito
+        const tl = gsap.timeline();
+        tl.to(formContainerRef.current, {
+          y: -50,
+          opacity: 0,
+          duration: 0.6,
+          ease: "power2.in",
+        }).to(
+          heroContentRef.current,
+          {
+            x: -100,
+            opacity: 0,
+            duration: 0.6,
+            ease: "power2.in",
+            onComplete: () => {
+              navigate("/login");
+            },
+          },
+          "-=0.3"
+        );
+      });
+    } catch (err) {
+      setError(err.message);
+      // Animación de error
+      if (formContainerRef.current) {
+        gsap.to(formContainerRef.current, {
+          x: 10,
+          duration: 0.1,
+          yoyo: true,
+          repeat: 3,
+          ease: "power1.inOut",
         });
       }
-    }).catch((err) => setError(err.message));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="overlay-container" ref={containerRef}>
-      <div className="form-container" ref={formRef}>
-        <p className="title" ref={titleRef}>
-          Registro
-        </p>
-        <form className="form" onSubmit={handleSubmit}>
-          <div className="input-group" ref={nameGroupRef}>
-            <label htmlFor="name">Nombre Completo</label>
-            <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="input-group" ref={emailGroupRef}>
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="input-group password-group" ref={passwordGroupRef}>
-            <label htmlFor="password">Contraseña</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <div className="forgot" ref={forgotRef}>
-              <a href="#">¿Olvidaste tu contraseña?</a>
-            </div>
-          </div>
-          <button className="sign" type="submit" ref={buttonRef}>
-            Registrarse
-          </button>
-          {error && (
-            <p className="error" ref={errorRef}>
-              {error}
-            </p>
-          )}
-          <p className="signin" ref={signinRef}>
-            ¿Tenés una cuenta?
-            <Link to="/login"> Iniciar Sesión</Link>
+    <div className="auth-split-container" ref={containerRef}>
+      {/* Lado izquierdo - Hero */}
+      <div className="auth-hero-side">
+        <div className="auth-hero-particles" />
+        <div className="auth-hero-content" ref={heroContentRef}>
+          <h1 className="auth-hero-title">Comienza tu viaje</h1>
+          <p className="auth-hero-subtitle">
+            Unite a la plataforma que está revolucionando la gestión médica.
+            Optimizá tu consultorio y mejorá la experiencia de tus pacientes.
           </p>
-        </form>
+        </div>
+      </div>
+
+      {/* Lado derecho - Formulario */}
+      <div className="auth-form-side">
+        <div className="auth-form-container" ref={formContainerRef}>
+          <div className="auth-form-logo" ref={logoRef}>
+            <div className="auth-logo-text">219Meds</div>
+          </div>
+
+          <h2 className="auth-form-title" ref={titleRef}>
+            Crear Cuenta
+          </h2>
+          <p className="auth-form-subtitle" ref={subtitleRef}>
+            Registrate para empezar a usar la plataforma
+          </p>
+
+          <form className="auth-form" onSubmit={handleSubmit}>
+            <div className="auth-input-group" ref={nameGroupRef}>
+              <label htmlFor="name">Nombre Completo</label>
+              <div className="auth-input-wrapper">
+                <FontAwesomeIcon icon={faUser} className="auth-input-icon" />
+                <input
+                  type="text"
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  disabled={isSubmitting}
+                  placeholder="Tu nombre completo"
+                />
+              </div>
+            </div>
+
+            <div className="auth-input-group" ref={emailGroupRef}>
+              <label htmlFor="email">Email</label>
+              <div className="auth-input-wrapper">
+                <FontAwesomeIcon
+                  icon={faEnvelope}
+                  className="auth-input-icon"
+                />
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  disabled={isSubmitting}
+                  placeholder="tu@email.com"
+                />
+              </div>
+            </div>
+
+            <div className="auth-input-group" ref={passwordGroupRef}>
+              <label htmlFor="password">Contraseña</label>
+              <div className="auth-input-wrapper">
+                <FontAwesomeIcon icon={faLock} className="auth-input-icon" />
+                <input
+                  ref={passwordInputRef}
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  disabled={isSubmitting}
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  className="auth-password-toggle"
+                  onClick={togglePasswordVisibility}
+                  disabled={!password || isSubmitting}
+                >
+                  <FontAwesomeIcon
+                    icon={showPassword ? faEyeSlash : faEye}
+                    className="auth-eye-icon"
+                  />
+                </button>
+              </div>
+            </div>
+
+            <button
+              className={`auth-sign-btn ${isSubmitting ? "auth-loading" : ""}`}
+              type="submit"
+              ref={buttonRef}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "" : "Crear Cuenta"}
+            </button>
+
+            {error && (
+              <p className="auth-error" ref={errorRef}>
+                {error}
+              </p>
+            )}
+
+            <p className="auth-signin" ref={signinRef}>
+              ¿Ya tenés una cuenta?
+              <Link
+                to="/login"
+                style={{ pointerEvents: isSubmitting ? "none" : "auto" }}
+              >
+                Iniciar Sesión
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );

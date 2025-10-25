@@ -1,11 +1,11 @@
-/* ESTILOS DESKTOP EXISTENTES - SE MANTIENEN IGUAL */
+/* ESTILOS DESKTOP EXISTENTES - ACTUALIZADOS SOLO PALETA DE COLORES */
 .dashboard.products {
-  background-image: url("/src/assets/jamrock.png");
+  background-image: url("/src/assets/bg-products.jpg");
   background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   min-height: 100vh;
 }
 
@@ -26,8 +26,8 @@
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(16px);
   border-radius: 16px;
-  border: 1px solid #00ff00;
-  box-shadow: 0 8px 32px rgba(0, 255, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  border: 1px solid #5858FB;
+  box-shadow: 0 8px 32px rgba(88, 88, 251, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 
 .title-admin {
@@ -40,30 +40,30 @@
 }
 
 .title-admin h1 {
-  color: #00ff00;
+  color: #5858FB;
   margin: 0;
   font-size: 1.8rem;
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  text-shadow: 0 0 10px rgba(88, 88, 251, 0.3);
 }
 
 .btn-nuevo-producto {
-  background: linear-gradient(45deg, #006600, #00cc00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(10, 46, 92, 0.3);
 }
 
 .btn-nuevo-producto:hover {
-  background: linear-gradient(45deg, #008800, #00ff00);
-  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
   transform: translateY(-2px);
 }
 
@@ -77,8 +77,8 @@
   padding-inline: 0.8em;
   border-radius: 30px;
   transition: border-radius 0.5s ease;
-  background: rgba(0, 20, 40, 0.5);
-  border: 1px solid rgba(0, 255, 0, 0.5);
+  background: rgba(10, 46, 92, 0.5);
+  border: 1px solid rgba(88, 88, 251, 0.5);
 }
 
 .input-search {
@@ -90,13 +90,13 @@
   padding-block: 0.7em;
   border: none;
   color: #fff;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
 }
 
 .search-container:before {
   content: "";
   position: absolute;
-  background: #00ff00;
+  background: #5858FB;
   transform: scaleX(0);
   transform-origin: center;
   width: 100%;
@@ -122,13 +122,13 @@
 .search-container button {
   border: none;
   background: none;
-  color: #00ff00;
+  color: #5858FB;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
 .search-container button:hover {
-  color: #00cc00;
+  color: #1860b0;
 }
 
 .search-container svg {
@@ -140,7 +140,7 @@
 .reset {
   border: none;
   background: none;
-  color: #00ff00;
+  color: #5858FB;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -158,10 +158,10 @@
   margin-top: 1rem;
   margin-bottom: 20px;
   gap: 15px;
-  background: linear-gradient(135deg, rgba(31, 123, 0, 0.2), rgba(31, 123, 0, 0.1));
+  background: linear-gradient(135deg, rgba(10, 46, 92, 0.2), rgba(88, 88, 251, 0.1));
   border-radius: 12px;
   padding: 1.5rem;
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  border: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .filter-group {
@@ -171,27 +171,27 @@
 }
 
 .filter-group label {
-  color: #00ff00;
+  color: #5858FB;
   font-size: 0.9rem;
   white-space: nowrap;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
 }
 
 .filter-group select {
   padding: 0.5rem;
   border-radius: 4px;
-  border: 1px solid rgba(0, 255, 0, 0.5);
-  background-color: rgba(0, 20, 40, 0.5);
+  border: 1px solid rgba(88, 88, 251, 0.5);
+  background-color: rgba(10, 46, 92, 0.5);
   color: white;
   font-size: 0.9rem;
   min-width: 150px;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
 }
 
 .filter-group select:focus {
   outline: none;
-  border-color: #00ff00;
-  box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  border-color: #5858FB;
+  box-shadow: 0 0 5px rgba(88, 88, 251, 0.5);
 }
 
 .table-container {
@@ -199,8 +199,8 @@
   margin-bottom: 30px;
   background: rgba(20, 30, 40, 0.85);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 255, 0, 0.1);
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  box-shadow: 0 2px 4px rgba(88, 88, 251, 0.1);
+  border: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .productos-table {
@@ -212,18 +212,18 @@
 .productos-table td {
   padding: 1rem;
   text-align: left;
-  border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+  border-bottom: 1px solid rgba(88, 88, 251, 0.2);
 }
 
 .productos-table th {
-  background: linear-gradient(to bottom, #006600, #00cc00);
+  background: linear-gradient(to bottom, #0a2e5c, #1860b0);
   font-weight: 600;
   color: #fff;
   padding: 1rem;
 }
 
 .productos-table tr:hover {
-  background-color: rgba(0, 255, 0, 0.1);
+  background-color: rgba(88, 88, 251, 0.1);
 }
 
 .productos-table td {
@@ -344,7 +344,7 @@
   text-align: center;
   padding: 40px;
   font-size: 18px;
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .no-productos {
@@ -358,7 +358,7 @@
 }
 
 /* ========================================================================== */
-/* ESTILOS RESPONSIVE PARA MOBILE - NUEVOS */
+/* ESTILOS RESPONSIVE PARA MOBILE - MANTENIENDO TODOS LOS ESTILOS ORIGINALES */
 /* ========================================================================== */
 
 @media (max-width: 990px) {
@@ -422,8 +422,8 @@
     background: rgba(30, 40, 50, 0.95);
     border-radius: 12px;
     padding: 1.2rem;
-    border: 1px solid rgba(0, 255, 0, 0.4);
-    box-shadow: 0 4px 20px rgba(0, 255, 0, 0.15);
+    border: 1px solid rgba(88, 88, 251, 0.4);
+    box-shadow: 0 4px 20px rgba(88, 88, 251, 0.15);
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -436,13 +436,13 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #00ff00, #00cc00);
+    background: linear-gradient(90deg, #5858FB, #1860b0);
   }
 
   .productos-table tbody tr:hover {
     background: rgba(40, 50, 60, 0.98);
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.25);
+    box-shadow: 0 8px 25px rgba(88, 88, 251, 0.25);
   }
 
   .productos-table tbody td {
@@ -451,7 +451,7 @@
     align-items: center !important;
     width: 100% !important;
     padding: 0.9rem 0;
-    border-bottom: 1px solid rgba(0, 255, 0, 0.15);
+    border-bottom: 1px solid rgba(88, 88, 251, 0.15);
     position: relative;
     font-size: 0.92rem;
     min-height: 44px;
@@ -469,8 +469,8 @@
   .productos-table tbody td::before {
     content: attr(data-label);
     font-weight: 600;
-    color: #00ff00;
-    text-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+    color: #5858FB;
+    text-shadow: 0 0 10px rgba(88, 88, 251, 0.4);
     font-size: 0.88rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -584,7 +584,7 @@
 
   .btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 2px 8px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(88, 88, 251, 0.2);
   }
 }
 
@@ -660,5 +660,672 @@
       opacity: 1;
       transform: translateY(0);
     }
+  }
+}
+
+/* 🔥 NUEVO: Estilos para reportes de vencimiento */
+.reportes-vencimiento {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-reporte {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-reporte.proximo {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.btn-reporte.vencido {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.btn-reporte.todos {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+.btn-reporte:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* 🔥 NUEVO: Estilos para estados de vencimiento */
+.status-badge.vencido {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.status-badge.proximo {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.status-badge.vigente {
+  background-color: #d1edff;
+  color: #0c5460;
+  border: 1px solid #b3d7ff;
+}
+
+.status-badge.sin-vencimiento {
+  background-color: #e2e3e5;
+  color: #383d41;
+  border: 1px solid #d6d8db;
+}
+
+/* 🔥 NUEVO: Fila vencida */
+.fila-vencida {
+  background-color: #ff3333 !important;
+}
+
+.fila-vencida:hover {
+  background-color: #ff1b1b !important;
+}
+
+/* 🔥 NUEVO: Form responsive */
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.help-text {
+  color: #6c757d;
+  font-size: 0.85em;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .reportes-vencimiento {
+    flex-direction: column;
+  }
+}
+
+/* 🔥 NUEVO: Estilos para tabla compacta */
+.compact-table {
+  font-size: 0.9em;
+}
+
+.compact-table th,
+.compact-table td {
+  padding: 8px 12px;
+}
+
+.producto-info-cell {
+  max-width: 250px;
+}
+
+.producto-compact-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.product-image-small {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.producto-texto {
+  min-width: 0;
+  flex: 1;
+}
+
+.producto-titulo {
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.producto-categoria {
+  font-size: 0.85em;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.producto-lote {
+  font-size: 0.8em;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 🔥 NUEVO: Estilos para badges pequeños */
+.status-badge-small {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75em;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stock-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85em;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  min-width: 40px;
+}
+
+.stock-badge.con-stock {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.stock-badge.poco-stock {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.stock-badge.sin-stock {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* 🔥 NUEVO: Estilos para celdas específicas */
+.precio-cell {
+  font-weight: 600;
+  color: #2c5aa0;
+}
+
+.vencimiento-cell {
+  text-align: center;
+}
+
+.rating-compact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.rating-compact .rating-value {
+  font-size: 0.75em;
+  color: #666;
+}
+
+/* 🔥 NUEVO: Botón Ver */
+.btn-view {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-view:hover {
+  background-color: #138496;
+}
+
+/* 🔥 NUEVO: Estilos para modal de ver producto */
+.ver-producto-modal {
+  max-width: 700px;
+}
+
+.producto-detalles {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detalle-seccion {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  background: #f8f9fa;
+}
+
+.detalle-seccion h4 {
+  margin-bottom: 15px;
+  color: #495057;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detalle-imagen {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.detalle-imagen img {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.detalle-info-principal h3 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 1.5em;
+}
+
+.descripcion {
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.info-item strong {
+  color: #495057;
+  font-size: 0.9em;
+}
+
+.precio-destacado {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #28a745;
+}
+
+.stock-destacado {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+}
+
+.stock-destacado.con-stock {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.stock-destacado.poco-stock {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.stock-destacado.sin-stock {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.rating-detalle {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.rating-stars {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rating-valor {
+  font-weight: 600;
+  color: #333;
+  margin-left: 5px;
+}
+
+.rating-reviews {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.vencimiento-info .info-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.product-id {
+  font-family: monospace;
+  background: #e9ecef;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  word-break: break-all;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .producto-compact-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .product-image-small {
+    align-self: center;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .rating-detalle {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .compact-table .action-buttons {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .compact-table .action-buttons .btn {
+    padding: 6px;
+  }
+}
+
+/* Estilos para tabla compacta pero con vencimiento completo */
+.compact-table {
+  font-size: 0.85em;
+}
+
+.compact-table th,
+.compact-table td {
+  padding: 8px 10px;
+}
+
+.producto-info-cell {
+  max-width: 200px;
+}
+
+.producto-compact-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.product-image-small {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.producto-texto {
+  min-width: 0;
+  flex: 1;
+}
+
+.producto-titulo {
+  font-weight: 600;
+  color: #fff;
+  font-size: 0.9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.producto-categoria {
+  font-size: 0.8em;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.producto-descripcion {
+  font-size: 0.75em;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+/* Estilos para badges normales (como antes) */
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75em;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.status-badge.vencido {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.status-badge.proximo {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.status-badge.vigente {
+  background-color: #d1edff;
+  color: #0c5460;
+  border: 1px solid #b3d7ff;
+}
+
+.status-badge.sin-vencimiento {
+  background-color: #e2e3e5;
+  color: #383d41;
+  border: 1px solid #d6d8db;
+}
+
+.status-badge.activo {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-badge.inactivo {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Stock badges */
+.stock-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  min-width: 35px;
+}
+
+.stock-badge.con-stock {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.stock-badge.poco-stock {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.stock-badge.sin-stock {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Estilos específicos para celdas */
+.precio-cell {
+  font-weight: 600;
+  color: #2c5aa0;
+  font-size: 0.9em;
+}
+
+.lote-cell {
+  font-size: 0.8em;
+  color: #666;
+  font-family: monospace;
+}
+
+.vencimiento-cell {
+  font-size: 0.8em;
+  color: #555;
+  white-space: nowrap;
+}
+
+.estado-vencimiento-cell {
+  text-align: center;
+}
+
+.rating-cell {
+  text-align: center;
+}
+
+.rating-compact {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2px;
+}
+
+.rating-compact .rating-value {
+  font-size: 0.7em;
+  color: #666;
+}
+
+/* Botones de acción compactos */
+.action-buttons {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+
+.action-buttons .btn {
+  padding: 6px 8px;
+  font-size: 0.8em;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-view {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-view:hover {
+  background-color: #138496;
+}
+
+.btn-edit {
+  background-color: #ffc107;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #e0a800;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+}
+
+.btn-toggle.activo {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-toggle.inactivo {
+  background-color: #6c757d;
+  color: white;
+}
+
+/* Fila vencida */
+.fila-vencida {
+  background-color: #fff5f5 !important;
+}
+
+.fila-vencida:hover {
+  background-color: #ffe6e6 !important;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .compact-table {
+    font-size: 0.8em;
+  }
+  
+  .compact-table th,
+  .compact-table td {
+    padding: 6px 8px;
+  }
+  
+  .producto-info-cell {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .producto-compact-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .product-image-small {
+    align-self: center;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 3px;
+  }
+  
+  .action-buttons .btn {
+    width: 28px;
+    height: 28px;
+    padding: 4px 6px;
   }
 }
