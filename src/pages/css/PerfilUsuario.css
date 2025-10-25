@@ -2,7 +2,7 @@
 .perfil {
   display: flex;
   min-height: 100vh;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
 }
 
 .perfil-layout {
@@ -17,13 +17,13 @@
 }
 
 .dashboard-title-perfil {
-  color: #00ff00;
+  color: #5858FB;
   margin-bottom: 1rem;
-  border-bottom: 2px solid rgba(0, 255, 0, 0.5);
+  border-bottom: 2px solid rgba(88, 88, 251, 0.5);
   padding-bottom: 0.5rem;
-  font-family: "Zen Dots", sans-serif;
+  font-family: "Archivo", sans-serif;
   font-size: 1.8rem;
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  text-shadow: 0 0 10px rgba(88, 88, 251, 0.3);
 }
 
 /* Pestañas */
@@ -31,7 +31,7 @@
   display: flex;
   gap: 10px;
   margin-bottom: 25px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid rgba(88, 88, 251, 0.3);
   padding-bottom: 10px;
   flex-wrap: wrap; /* Allow tabs to wrap if they exceed container width */
   max-width: 100%; /* Ensure tabs stay within perfil-container */
@@ -42,8 +42,8 @@
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
-  background: #f5f5f5;
-  color: #555;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f0f0f0;
   font-weight: 500;
   cursor: pointer;
   display: flex;
@@ -52,16 +52,18 @@
   transition: all 0.3s ease;
   flex: 1 0 auto; /* Allow tabs to adjust size but not shrink too much */
   min-width: 120px; /* Minimum width to prevent tabs from being too small */
+  border: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .tab-btn-perfil:hover {
-  background: #e0e0e0;
+  background: rgba(88, 88, 251, 0.2);
 }
 
 .tab-btn-perfil.active {
-  background: #1f7b00;
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   font-weight: bold;
+  border-color: #5858FB;
 }
 
 .tab-btn-perfil svg {
@@ -75,14 +77,14 @@
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  box-shadow: 0 0 20px rgba(88, 88, 251, 0.1);
+  border: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .section-title-perfil {
   font-size: 20px;
   margin-bottom: 20px;
-  color: #00ff00;
+  color: #5858FB;
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -90,7 +92,7 @@
 }
 
 .section-title-perfil svg {
-  color: #00ff00;
+  color: #5858FB;
 }
 
 /* Formulario de perfil */
@@ -114,21 +116,24 @@
 
 .perfil-label {
   font-size: 14px;
-  color: #555;
+  color: #f0f0f0;
   font-weight: 500;
 }
 
 .perfil-input {
   padding: 10px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid rgba(88, 88, 251, 0.3);
   border-radius: 8px;
   font-size: 14px;
   transition: border 0.3s;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f0f0f0;
 }
 
 .perfil-input:focus {
-  border-color: #3498db;
+  border-color: #5858FB;
   outline: none;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .form-actions-perfil {
@@ -138,33 +143,37 @@
 }
 
 .perfil-submit-btn {
-  background: #27ae60;
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
 }
 
 .perfil-submit-btn:hover {
-  background: #219653;
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  transform: translateY(-2px);
 }
 
 .perfil-password-btn {
-  background: #3498db;
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
 }
 
 .perfil-password-btn:hover {
-  background: #2980b9;
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  transform: translateY(-2px);
 }
 
 /* Info grid */
@@ -182,7 +191,7 @@
 
 .info-label-perfil {
   font-size: 13px;
-  color: #7f8c8d;
+  color: #b0b0b0;
 }
 
 .info-value-perfil {
@@ -202,9 +211,10 @@
   align-items: center;
   gap: 12px;
   padding: 12px;
-  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  background: linear-gradient(135deg, #0a2e5c, #5858FB);
   border-radius: 10px;
   color: white;
+  border: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .product-thumbnail-perfil {
@@ -212,6 +222,7 @@
   height: 50px;
   object-fit: cover;
   border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .product-details-perfil {
@@ -238,15 +249,17 @@
 }
 
 .order-card-perfil {
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  box-shadow: 0 0 20px rgba(88, 88, 251, 0.1);
+  border: 1px solid rgba(88, 88, 251, 0.3);
   border-radius: 10px;
   padding: 15px;
-  transition: box-shadow 0.3s;
+  transition: all 0.3s ease;
+  background: rgba(30, 40, 50, 0.9);
 }
 
 .order-card-perfil:hover {
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 30px rgba(88, 88, 251, 0.2);
+  transform: translateY(-2px);
 }
 
 .order-header-perfil {
@@ -254,12 +267,12 @@
   justify-content: space-between;
   margin-bottom: 10px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #00ff00;
+  border-bottom: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .order-date-perfil {
   font-size: 14px;
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .order-status-perfil,
@@ -276,7 +289,7 @@
 }
 
 .order-method-perfil span {
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .order-status-perfil.pendiente,
@@ -292,12 +305,12 @@
 }
 
 .order-status-perfil.preparacion {
-  background: #f1c40f; /* Nuevo estilo para preparación */
+  background: #f1c40f;
   color: white;
 }
 
 .order-status-perfil.pagado {
-  background: #3498db; /* Nuevo estilo para pagado */
+  background: #3498db;
   color: white;
 }
 
@@ -316,7 +329,7 @@
 
 .order-details-perfil span {
   font-weight: 500;
-  color: #555;
+  color: #5858FB;
 }
 
 .order-products-perfil {
@@ -326,7 +339,7 @@
 .order-products-perfil h4 {
   font-size: 14px;
   margin-bottom: 8px;
-  color: #555;
+  color: #5858FB;
 }
 
 .order-products-perfil ul {
@@ -338,7 +351,7 @@
 .order-products-perfil li {
   color: #fff;
   padding: 5px 0;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid rgba(88, 88, 251, 0.2);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -350,17 +363,19 @@
 }
 
 .rate-btn-perfil {
-  background: #f1c40f;
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   border: none;
   padding: 3px 8px;
   border-radius: 4px;
   font-size: 12px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
+  color: white;
 }
 
 .rate-btn-perfil:hover {
-  background: #f39c12;
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  transform: translateY(-1px);
 }
 
 /* Turnos */
@@ -373,8 +388,9 @@
 .appointment-card-perfil {
   border-radius: 10px;
   padding: 15px;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  box-shadow: 0 0 20px rgba(88, 88, 251, 0.1);
+  border: 1px solid rgba(88, 88, 251, 0.3);
+  background: rgba(30, 40, 50, 0.9);
 }
 
 .appointment-header-perfil {
@@ -382,12 +398,12 @@
   justify-content: space-between;
   margin-bottom: 10px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #00ff00;
+  border-bottom: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .appointment-date-perfil {
   font-weight: 500;
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .appointment-status-perfil {
@@ -433,7 +449,7 @@
 
 .appointment-details-perfil span {
   font-weight: 500;
-  color: #555;
+  color: #5858FB;
 }
 
 .appointment-products-perfil {
@@ -443,7 +459,7 @@
 .appointment-products-perfil h4 {
   font-size: 14px;
   margin-bottom: 8px;
-  color: #555;
+  color: #5858FB;
 }
 
 .appointment-products-perfil ul {
@@ -454,8 +470,9 @@
 
 .appointment-products-perfil li {
   padding: 5px 0;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid rgba(88, 88, 251, 0.2);
   font-size: 13px;
+  color: #fff;
 }
 
 /* Recetas */
@@ -466,10 +483,11 @@
 }
 
 .prescription-card-perfil {
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  box-shadow: 0 0 20px rgba(88, 88, 251, 0.1);
+  border: 1px solid rgba(88, 88, 251, 0.3);
   border-radius: 10px;
   padding: 15px;
+  background: rgba(30, 40, 50, 0.9);
 }
 
 .prescription-header-perfil {
@@ -477,17 +495,17 @@
   justify-content: space-between;
   margin-bottom: 10px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #00ff00;
+  border-bottom: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .prescription-date-perfil {
   font-weight: 500;
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .prescription-doctor-perfil {
   font-size: 14px;
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .prescription-products-perfil {
@@ -497,7 +515,7 @@
 .prescription-products-perfil h4 {
   font-size: 14px;
   margin-bottom: 8px;
-  color: #555;
+  color: #5858FB;
 }
 
 .prescription-products-perfil ul {
@@ -508,12 +526,12 @@
 
 .prescription-products-perfil li {
   padding: 8px 0;
-  border-bottom: 1px solid #00ff00;
+  border-bottom: 1px solid rgba(88, 88, 251, 0.3);
   font-size: 14px;
   display: flex;
   flex-direction: column;
   gap: 3px;
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .prescription-products-perfil li strong {
@@ -522,7 +540,7 @@
 
 .dosis-perfil {
   font-size: 12px;
-  color: #7f8c8d;
+  color: #b0b0b0;
   font-style: italic;
 }
 
@@ -533,7 +551,7 @@
 .prescription-notes-perfil h4 {
   font-size: 14px;
   margin-bottom: 8px;
-  color: #555;
+  color: #5858FB;
 }
 
 .prescription-notes-perfil p {
@@ -550,10 +568,11 @@
 }
 
 .history-card-perfil {
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  box-shadow: 0 0 20px rgba(88, 88, 251, 0.1);
+  border: 1px solid rgba(88, 88, 251, 0.3);
   border-radius: 10px;
   padding: 15px;
+  background: rgba(30, 40, 50, 0.9);
 }
 
 .history-header-perfil {
@@ -561,17 +580,17 @@
   justify-content: space-between;
   margin-bottom: 15px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #00ff00;
+  border-bottom: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .history-date-perfil {
   font-weight: 500;
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .history-doctor-perfil {
   font-size: 14px;
-  color: #555;
+  color: #5858FB;
 }
 
 .history-content-perfil {
@@ -588,7 +607,7 @@
 
 .history-section-perfil h4 {
   font-size: 14px;
-  color: #555;
+  color: #5858FB;
   margin: 0;
 }
 
@@ -600,7 +619,7 @@
 }
 
 .product-list-perfil {
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .history-section-perfil ul {
@@ -611,8 +630,9 @@
 
 .history-section-perfil li {
   padding: 5px 0;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid rgba(88, 88, 251, 0.2);
   font-size: 13px;
+  color: #fff;
 }
 
 .history-section-perfil li:last-child {
@@ -623,10 +643,11 @@
 .no-data-perfil {
   text-align: center;
   padding: 20px;
-  color: #7f8c8d;
+  color: #b0b0b0;
   font-style: italic;
-  background: #f9f9f9;
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
+  border: 1px solid rgba(88, 88, 251, 0.2);
 }
 
 /* Estilos para el sistema de calificación */
@@ -636,8 +657,8 @@
 
 .rate-btn-perfil,
 .view-rating-btn-perfil {
-  background: none;
-  border: 1px solid #ddd;
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
+  border: 1px solid rgba(88, 88, 251, 0.3);
   border-radius: 4px;
   padding: 4px 8px;
   font-size: 0.8rem;
@@ -647,6 +668,7 @@
   align-items: center;
   gap: 4px;
   transition: all 0.2s;
+  color: white;
 }
 
 .rate-btn-perfil {
@@ -655,7 +677,8 @@
 }
 
 .rate-btn-perfil:hover {
-  background-color: #fff8e1;
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  transform: translateY(-1px);
 }
 
 .view-rating-btn-perfil {
@@ -664,7 +687,8 @@
 }
 
 .view-rating-btn-perfil:hover {
-  background-color: #e3f2fd;
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  transform: translateY(-1px);
 }
 
 /* Estilos para el modal de calificación en modo visualización */
@@ -689,20 +713,21 @@
 .existing-comment-perfil {
   margin: 20px 0;
   padding: 15px;
-  background-color: #f9f9f9;
+  background-color: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   text-align: left;
+  border: 1px solid rgba(88, 88, 251, 0.2);
 }
 
 .existing-comment-perfil h4 {
   margin-top: 0;
-  color: #333;
+  color: #5858FB;
 }
 
 .existing-comment-perfil p {
   margin-bottom: 0;
   line-height: 1.5;
-  color: #555;
+  color: #f0f0f0;
 }
 
 /* Responsive */
