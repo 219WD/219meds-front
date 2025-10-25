@@ -1,9 +1,12 @@
-// store/loadingStore.js
-import { create } from 'zustand';
+// src/store/loadingStore.js
+import { create } from "zustand";
 
 const useLoadingStore = create((set) => ({
   isLoading: false,
-  setLoading: (loading) => set({ isLoading: loading }),
+  loadingText: "Cargando...",
+
+  setLoading: (value) => set({ isLoading: value }),
+  setLoadingText: (text) => set({ loadingText: text }),
 }));
 
 export default useLoadingStore;

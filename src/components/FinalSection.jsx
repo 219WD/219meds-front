@@ -228,7 +228,7 @@ const FinalSection = () => {
               <span>Agendá tu demo gratuita</span>
               <div className="cta-arrow">→</div>
             </button>
-            <p className="cta-note">
+            <p className="cta-note-white">
               Descubrí cómo trabajás mejor cuando todo está conectado
             </p>
           </div>

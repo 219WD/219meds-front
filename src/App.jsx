@@ -1,6 +1,5 @@
 // App.jsx
-import React from "react";
-import { lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -9,7 +8,12 @@ import NavBar from "./components/NavBar.jsx";
 import useCartStore from "./store/cartStore";
 import PartnerRoute from "./routes/PartnerRoute";
 import ChangePasswordForm from "./components/ChangePasswordForm";
+import { Toaster } from "react-hot-toast";
+import GlobalLoader from "./components/GlobalLoader.jsx";
+import Dashboard from "./components/Dashboard.jsx";
+import Pacientes from "./pages/Pacientes.jsx";
 
+// Páginas lazy
 const HomeScreen = lazy(() => import("./pages/HomeScreen"));
 const Productos = lazy(() => import("./pages/Productos"));
 const Individual = lazy(() => import("./pages/Individual"));
@@ -32,36 +36,7 @@ const Caja = lazy(() => import("./pages/Caja.jsx"));
 const LoaderGsap = lazy(() => import("./components/LoaderGsap.jsx"));
 const AboutUs = lazy(() => import("./pages/AboutUs.jsx"));
 
-import Pacientes from "./pages/Pacientes.jsx";
-
-import { Toaster } from "react-hot-toast";
-import GlobalLoader from "./components/GlobalLoader.jsx";
-import Dashboard from "./components/Dashboard.jsx";
-
-// Componente simple para el fallback de Suspense
-const SuspenseFallback = () => (
-  <div
-    style={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100vw",
-      height: "100vh",
-      backgroundColor: "rgba(0, 5, 10, 0.9)",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      zIndex: 9998,
-      fontFamily: '"Zen Dots", sans-serif',
-      color: "#00ff00",
-      fontSize: "1.2rem",
-    }}
-  >
-    <div>Cargando sección...</div>
-  </div>
-);
-
-// Componente principal que usa useLocation
+// Componente principal
 function AppContent() {
   const {
     cart,
@@ -72,7 +47,7 @@ function AppContent() {
     updateQuantity,
   } = useCartStore();
 
-  const location = useLocation(); // Ahora funciona porque está dentro de BrowserRouter
+  const location = useLocation();
 
   const hideNavRoutes = [
     "/admin",
@@ -94,8 +69,10 @@ function AppContent() {
   return (
     <>
       <GlobalLoader />
-      <Suspense fallback={<SuspenseFallback />}>
+
+      <Suspense fallback={<></>}>
         <Toaster position="top-right" reverseOrder={false} />
+
         <Helmet>
           <title>219Meds - Plataforma de Gestión Médica y Farmacéutica</title>
           <link rel="icon" type="image/png" href="/219Meds.png" />
@@ -184,7 +161,6 @@ function AppContent() {
 
         <Routes>
           <Route path="/" element={<HomeScreen addToCart={addToCart} />} />
-          {/* Rutas protegidas solo para partners */}
           <Route
             path="/productos"
             element={
@@ -202,7 +178,7 @@ function AppContent() {
             }
           />
 
-          {/* Resto de rutas públicas */}
+          {/* Rutas públicas */}
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/socio" element={<Socio />} />
@@ -234,7 +210,7 @@ function AppContent() {
   );
 }
 
-// Componente wrapper principal
+// Wrapper principal
 function App() {
   return (
     <BrowserRouter>
