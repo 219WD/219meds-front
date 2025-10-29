@@ -287,7 +287,7 @@ const Login = () => {
               } else if (data.user.isPartner) {
                 navigate("/");
               } else {
-                navigate("/socio");
+                navigate("/solicitud");
               }
             },
           },

@@ -10,6 +10,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
+  min-height: 100vh;
   background-image: url("/src/assets/pexels-shvetsa-4769118.jpg");
   background-position: top;
   background-size: cover;

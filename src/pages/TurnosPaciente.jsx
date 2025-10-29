@@ -167,16 +167,29 @@ const TurnosPaciente = () => {
         throw new Error("Todos los campos obligatorios deben completarse");
       }
 
-      // ✅ CORREGIDO: Formatear fecha correctamente para evitar problemas de zona horaria
+      // ✅ SOLUCIÓN: Agregar la zona horaria manualmente
       const fechaTurno = new Date(nuevoTurno.fecha);
 
-      // Asegurarse de que la fecha se envíe en formato ISO sin ajustes de zona
-      const fechaParaBackend = fechaTurno.toISOString();
+      if (isNaN(fechaTurno.getTime())) {
+        throw new Error("La fecha seleccionada no es válida");
+      }
 
       const ahora = new Date();
       if (fechaTurno <= ahora) {
         throw new Error("La fecha y hora deben ser futuras");
       }
+
+      // ✅ CORRECCIÓN DEFINITIVA: Convertir a UTC manualmente
+      const fechaParaBackend = new Date(
+        fechaTurno.getTime() - fechaTurno.getTimezoneOffset() * 60000
+      ).toISOString();
+
+      console.log("📅 Fecha enviada al backend:", {
+        fechaInput: nuevoTurno.fecha,
+        fechaEnviada: fechaParaBackend,
+        horaLocal: fechaTurno.toLocaleString("es-ES"),
+        timezoneOffset: fechaTurno.getTimezoneOffset(),
+      });
 
       const response = await fetch(`${API_URL}/turnos`, {
         method: "POST",
@@ -185,15 +198,31 @@ const TurnosPaciente = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ...nuevoTurno,
-          fecha: fechaParaBackend, // Enviar en formato ISO
-          userId: user._id,
+          especialistaId: nuevoTurno.especialistaId,
+          fecha: fechaParaBackend, // ← Ahora enviamos en UTC
+          motivo: nuevoTurno.motivo,
+          reprocannRelacionado: nuevoTurno.reprocannRelacionado || false,
+          notas: nuevoTurno.notas || "",
         }),
       });
 
       const result = await response.json();
 
       if (!response.ok) {
+        if (
+          result.error &&
+          result.error.includes("ya tiene un turno asignado")
+        ) {
+          throw new Error(
+            "El especialista ya tiene un turno en ese horario. Por favor, elige otro horario."
+          );
+        }
+        if (
+          result.error &&
+          result.error.includes("fecha del turno debe ser futura")
+        ) {
+          throw new Error("El turno debe ser para una fecha y hora futuras.");
+        }
         throw new Error(
           result.error || result.message || "Error al crear turno"
         );
@@ -203,7 +232,7 @@ const TurnosPaciente = () => {
       setShowNuevoTurnoModal(false);
       await fetchTurnosPaciente();
     } catch (err) {
-      console.error("Error al crear turno:", err);
+      console.error("❌ Error al crear turno:", err);
       notify(err.message, "error");
     } finally {
       setLoading(false);
@@ -212,13 +241,24 @@ const TurnosPaciente = () => {
 
   const handleEditarTurno = async (turnoId, turnoActualizado) => {
     try {
+      // ✅ CORRECCIÓN: Convertir la fecha a UTC antes de enviar
+      const fechaTurno = new Date(turnoActualizado.fecha);
+      const fechaParaBackend = new Date(
+        fechaTurno.getTime() - fechaTurno.getTimezoneOffset() * 60000
+      ).toISOString();
+
+      const turnoData = {
+        ...turnoActualizado,
+        fecha: fechaParaBackend, // ← Enviar en formato UTC
+      };
+
       const response = await fetch(`${API_URL}/turnos/paciente/${turnoId}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(turnoActualizado),
+        body: JSON.stringify(turnoData),
       });
 
       if (!response.ok) {
@@ -284,19 +324,16 @@ const TurnosPaciente = () => {
     return statusClasses[status] || "";
   };
 
-const toLocalDateTimeString = (date) => {
-  const pad = (n) => n.toString().padStart(2, "0");
-  const local = new Date(date);
-  
-  // ✅ CORREGIDO: Usar métodos UTC para coincidir con lo almacenado en la DB
-  const year = local.getUTCFullYear();
-  const month = pad(local.getUTCMonth() + 1);
-  const day = pad(local.getUTCDate());
-  const hours = pad(local.getUTCHours());    // ← Ahora usa UTC
-  const minutes = pad(local.getUTCMinutes()); // ← Ahora usa UTC
-  
-  return `${year}-${month}-${day}T${hours}:${minutes}`;
-};
+  const toLocalDateTimeString = (date) => {
+    const local = new Date(date);
+
+    // ✅ CORRECCIÓN: Ajustar por la diferencia de zona horaria
+    // Sumar el offset para convertir UTC a local
+    const timezoneOffset = local.getTimezoneOffset() * 60000;
+    const adjustedDate = new Date(local.getTime() + timezoneOffset);
+
+    return adjustedDate.toISOString().slice(0, 16);
+  };
 
   if (!user) {
     return (
@@ -447,7 +484,7 @@ const toLocalDateTimeString = (date) => {
                         day: "2-digit",
                         hour: "2-digit",
                         minute: "2-digit",
-                        timeZone: "UTC", // ✅ Forzar mostrar la hora como fue almacenada
+                        timeZone: "UTC", // Forzar mostrar la hora como está en la DB
                       })}
                     </td>
                     <td data-label="Especialista">
@@ -506,12 +543,14 @@ const toLocalDateTimeString = (date) => {
       </div>
 
       {/* MODAL CREAR */}
+      {/* MODAL CREAR */}
       {showNuevoTurnoModal && (
         <div className="modal-overlay">
           <div className="modal-content">
             <button
               className="close-modal"
               onClick={() => setShowNuevoTurnoModal(false)}
+              disabled={loading}
             >
               &times;
             </button>
@@ -520,7 +559,19 @@ const toLocalDateTimeString = (date) => {
               onSubmit={(e) => {
                 e.preventDefault();
                 const formData = new FormData(e.target);
+
+                // Validación básica frontend
                 const fecha = formData.get("fecha");
+                const motivo = formData.get("motivo");
+                const especialistaId = formData.get("especialistaId");
+
+                if (!fecha || !motivo || !especialistaId) {
+                  notify(
+                    "Todos los campos obligatorios deben completarse",
+                    "error"
+                  );
+                  return;
+                }
 
                 if (new Date(fecha) <= new Date()) {
                   notify("La fecha del turno debe ser futura", "error");
@@ -528,19 +579,20 @@ const toLocalDateTimeString = (date) => {
                 }
 
                 const nuevoTurno = {
-                  fecha: formData.get("fecha"),
-                  motivo: formData.get("motivo"),
+                  fecha: fecha,
+                  motivo: motivo,
                   reprocannRelacionado:
                     formData.get("reprocannRelacionado") === "on",
-                  especialistaId: formData.get("especialistaId"),
+                  especialistaId: especialistaId,
+                  notas: formData.get("notas") || "",
                 };
 
                 handleCrearTurno(nuevoTurno);
               }}
             >
               <div className="form-group">
-                <label>Especialista:</label>
-                <select name="especialistaId" required>
+                <label>Especialista: *</label>
+                <select name="especialistaId" required disabled={loading}>
                   <option value="">Seleccionar especialista</option>
                   {especialistas.map((especialista) => (
                     <option key={especialista._id} value={especialista._id}>
@@ -551,18 +603,44 @@ const toLocalDateTimeString = (date) => {
               </div>
 
               <div className="form-group">
-                <label>Fecha y Hora:</label>
-                <input type="datetime-local" name="fecha" required />
+                <label>Fecha y Hora: *</label>
+                <input
+                  type="datetime-local"
+                  name="fecha"
+                  required
+                  disabled={loading}
+                  min={new Date().toISOString().slice(0, 16)} // No permitir fechas pasadas
+                />
               </div>
 
               <div className="form-group">
-                <label>Motivo:</label>
-                <input type="text" name="motivo" required />
+                <label>Motivo: *</label>
+                <input
+                  type="text"
+                  name="motivo"
+                  required
+                  disabled={loading}
+                  placeholder="Describe el motivo de la consulta"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Notas adicionales:</label>
+                <textarea
+                  name="notas"
+                  disabled={loading}
+                  placeholder="Información adicional que quieras agregar (opcional)"
+                  rows="3"
+                />
               </div>
 
               <div className="form-group checkbox">
                 <label>
-                  <input type="checkbox" name="reprocannRelacionado" />
+                  <input
+                    type="checkbox"
+                    name="reprocannRelacionado"
+                    disabled={loading}
+                  />
                   Relacionado a Reprocann
                 </label>
               </div>
@@ -572,11 +650,16 @@ const toLocalDateTimeString = (date) => {
                   type="button"
                   onClick={() => setShowNuevoTurnoModal(false)}
                   className="close-btn"
+                  disabled={loading}
                 >
-                  Cancelar
+                  {loading ? "Cancelando..." : "Cancelar"}
                 </button>
-                <button type="submit" className="approve-btn">
-                  Crear Turno
+                <button
+                  type="submit"
+                  className="approve-btn"
+                  disabled={loading}
+                >
+                  {loading ? "Creando..." : "Crear Turno"}
                 </button>
               </div>
             </form>
@@ -600,37 +683,48 @@ const toLocalDateTimeString = (date) => {
                 e.preventDefault();
                 const formData = new FormData(e.target);
                 const fecha = formData.get("fecha");
+                const motivo = formData.get("motivo");
 
-                if (new Date(fecha) <= new Date()) {
+                if (!fecha || !motivo) {
+                  notify("Todos los campos son obligatorios", "error");
+                  return;
+                }
+
+                const fechaSeleccionada = new Date(fecha);
+                const ahora = new Date();
+
+                if (fechaSeleccionada <= ahora) {
                   notify("La fecha del turno debe ser futura", "error");
                   return;
                 }
 
                 const turnoActualizado = {
-                  fecha: formData.get("fecha"),
-                  motivo: formData.get("motivo"),
+                  fecha: fecha,
+                  motivo: motivo,
                 };
 
                 handleEditarTurno(turnoAEditar._id, turnoActualizado);
               }}
             >
               <div className="form-group">
-                <label>Fecha y Hora:</label>
+                <label>Fecha y Hora: *</label>
                 <input
                   type="datetime-local"
                   name="fecha"
                   defaultValue={toLocalDateTimeString(turnoAEditar.fecha)}
                   required
+                  min={new Date().toISOString().slice(0, 16)}
                 />
               </div>
 
               <div className="form-group">
-                <label>Motivo:</label>
+                <label>Motivo: *</label>
                 <input
                   type="text"
                   name="motivo"
                   defaultValue={turnoAEditar.motivo}
                   required
+                  placeholder="Describe el motivo de la consulta"
                 />
               </div>
 

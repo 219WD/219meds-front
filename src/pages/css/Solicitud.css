@@ -1,374 +1,596 @@
-/* Solicitud.css */
-.solicitud-membership-container {
+/* Reset y base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #5B5BFB;
+  --primary-dark: #4A4AFA;
+  --secondary: #1860b0;
+  --accent: #0a2e5c;
+  --dark: #0a0e17;
+  --light: #ffffff;
+  --gray: #666;
+  --gray-light: #f8faff;
+  --success: #10b981;
+  --error: #ef4444;
+}
+
+/* Contenedor principal dividido - FIXED HEIGHT */
+.solicitud-split-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: 
-    linear-gradient(rgba(0, 10, 20, 0.8), rgba(0, 5, 15, 0.9)),
-    url("/src/assets/jamrock.png") center/cover no-repeat;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-family: "Archivo", sans-serif;
+  overflow: hidden;
+}
+
+/* Lado izquierdo - Hero MEJORADO */
+.solicitud-hero-side {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999;
-  font-family: "Zen Dots", sans-serif;
-  color: #fff;
-  overflow: hidden;
+  padding: 60px 40px;
+  min-height: 100vh;
 }
 
-.solicitud-membership-container::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(0, 255, 0, 0.1) 0%,
-    transparent 70%
-  );
-  pointer-events: none;
-  z-index: 0;
-  animation: rotate 20s linear infinite;
-}
-
-.solicitud-membership-form {
-  width: 320px;
-  border-radius: 12px;
-  background-color: rgba(20, 30, 40, 0.85);
-  padding: 2rem;
-  color: #fff;
-  font-family: "Zen Dots", sans-serif;
-  border: 1px solid rgba(0, 255, 0, 0.3);
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
-  backdrop-filter: blur(5px);
+.solicitud-hero-content {
+  text-align: center;
+  color: var(--light);
+  z-index: 2;
   position: relative;
-  overflow: hidden;
-  z-index: 1000;
+  max-width: 600px;
+  opacity: 0;
+  animation: solicitud-fadeInLeft 0.8s ease-out 0.3s forwards;
 }
 
-.solicitud-membership-form::before {
-  content: "";
+.solicitud-hero-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  line-height: 1.1;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.solicitud-hero-subtitle {
+  font-size: 1.3rem;
+  opacity: 0.9;
+  line-height: 1.6;
+  margin: 0 auto 40px;
+  max-width: 500px;
+}
+
+/* Características del hero */
+.solicitud-hero-features {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.solicitud-feature {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.solicitud-feature:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(10px);
+}
+
+.solicitud-feature-icon {
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+.solicitud-feature span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--light);
+}
+
+/* Partículas en el lado hero */
+.solicitud-hero-particles {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    linear-gradient(rgba(0, 255, 0, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 0, 0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
-  z-index: -1;
 }
 
-.solicitud-title {
-  text-align: center;
-  font-size: 1.5rem;
-  line-height: 2rem;
-  font-weight: 700;
-  color: #00ff00;
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-  margin-bottom: 1.5rem;
-  position: relative;
-}
-
-.solicitud-title::after {
-  content: "";
+.solicitud-hero-particle {
   position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #00ff00, transparent);
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  animation: solicitud-float 8s ease-in-out infinite;
 }
 
-.solicitud-user-name {
-  color: #fff;
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
+/* Lado derecho - Formulario CORREGIDO */
+.solicitud-form-side {
+  background: var(--light);
+  display: flex;
+  align-items: flex-start; /* Cambiado de center a flex-start */
+  justify-content: center;
+  padding: 40px; /* Reducido el padding */
+  position: relative;
+  overflow-y: auto;
+  min-height: 100vh;
+  /* ELIMINADO: padding-top: 25rem y height: auto */
+}
+
+.solicitud-form-container {
+  width: 100%;
+  max-width: 480px;
+  margin-top: 2rem; /* Espacio desde la parte superior */
+  /* ELIMINADA LA ANIMACIÓN INICIAL PARA QUE SEA VISIBLE INMEDIATAMENTE */
+  opacity: 1;
+  transform: none;
+}
+
+/* Header del formulario - VISIBLE INMEDIATAMENTE */
+.solicitud-form-header {
+  margin-bottom: 40px;
   text-align: center;
-  background-color: rgba(0, 255, 0, 0.1);
-  padding: 0.5rem;
-  border-radius: 4px;
+  padding-top: 1rem; /* Pequeño espacio adicional */
 }
 
+.solicitud-form-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 12px;
+  text-align: center;
+  line-height: 1.2;
+  /* VISIBLE INMEDIATAMENTE */
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+.solicitud-form-subtitle {
+  text-align: center;
+  color: var(--gray);
+  font-size: 1.1rem;
+  line-height: 1.5;
+  /* VISIBLE INMEDIATAMENTE */
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+/* Información del usuario MEJORADA */
+.solicitud-user-info {
+  background: linear-gradient(135deg, var(--gray-light), #f0f4ff);
+  padding: 25px;
+  border-radius: 16px;
+  margin-bottom: 40px;
+  border: 2px solid rgba(91, 91, 251, 0.15);
+  text-align: center;
+  opacity: 0;
+  animation: solicitud-fadeInUp 0.8s ease-out 0.3s forwards;
+  box-shadow: 0 4px 20px rgba(91, 91, 251, 0.1);
+}
+
+.solicitud-user-welcome {
+  font-size: 1.2rem;
+  color: var(--light);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.solicitud-user-welcome strong {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.solicitud-user-email {
+  color: var(--gray);
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+/* Formulario */
+.solicitud-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Grupos de input mejorados */
 .solicitud-input-group {
-  margin-bottom: 1.2rem;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: solicitud-fadeInUp 0.8s ease-out forwards;
+}
+
+.solicitud-input-group:nth-child(1) { animation-delay: 0.4s; }
+.solicitud-input-group:nth-child(2) { animation-delay: 0.5s; }
+.solicitud-input-group:nth-child(3) { animation-delay: 0.6s; }
+
+.solicitud-input-label {
+  display: block;
+  color: var(--dark);
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.solicitud-input-wrapper {
   position: relative;
 }
 
-.solicitud-label {
-  display: block;
-  color: #00ff00;
-  margin-bottom: 8px;
-  font-size: 0.875rem;
+.solicitud-input-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray);
+  transition: all 0.3s ease;
+  z-index: 2;
 }
 
 .solicitud-input {
   width: 100%;
-  border-radius: 6px;
-  border: 1px solid rgba(0, 255, 0, 0.5);
-  outline: 0;
-  background-color: rgba(0, 20, 40, 0.5);
-  padding: 0.75rem 1rem;
-  color: #fff;
-  font-family: "Zen Dots", sans-serif;
+  padding: 18px 18px 18px 52px;
+  border: 2px solid rgba(91, 91, 251, 0.15);
+  border-radius: 14px;
+  background: var(--light);
+  color: var(--dark);
+  font-size: 1rem;
+  font-family: "Archivo", sans-serif;
   transition: all 0.3s ease;
+  outline: none;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 2px 10px rgba(91, 91, 251, 0.05);
 }
 
 .solicitud-input:focus {
-  border-color: #00ff00;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(91, 91, 251, 0.1);
+  transform: translateY(-2px);
+}
+
+.solicitud-input:focus + .solicitud-input-icon {
+  color: var(--primary);
+  transform: translateY(-50%) scale(1.1);
 }
 
 .solicitud-input::placeholder {
-  color: rgba(200, 200, 200, 0.5);
+  color: var(--gray);
+  opacity: 0.6;
 }
 
-.solicitud-checkbox-group {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  padding: 0.5rem;
-  background-color: rgba(0, 255, 0, 0.1);
-  border-radius: 6px;
-}
-
-.solicitud-checkbox-label {
-  color: #00ff00;
-  font-size: 0.875rem;
-  cursor: pointer;
-  margin-bottom: 0;
-}
-
-.solicitud-checkbox {
-  width: 18px;
-  height: 18px;
-  margin: 0;
-  accent-color: #00ff00;
-  cursor: pointer;
-}
-
+/* Botón principal MEJORADO */
 .solicitud-submit-btn {
-  display: block;
   width: 100%;
-  background: linear-gradient(45deg, #006600, #00aa00);
-  padding: 0.75rem;
-  text-align: center;
-  color: white;
+  padding: 18px 28px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--light);
   border: none;
-  border-radius: 6px;
+  border-radius: 14px;
+  font-size: 1.1rem;
   font-weight: 600;
+  font-family: "Archivo", sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   position: relative;
   overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: solicitud-fadeInUp 0.8s ease-out 0.7s forwards;
+  box-shadow: 0 4px 20px rgba(91, 91, 251, 0.3);
+  margin-top: 10px;
 }
 
-.solicitud-submit-btn:hover {
-  background: linear-gradient(45deg, #008800, #00cc00);
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+.solicitud-submit-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(91, 91, 251, 0.4);
 }
 
-.solicitud-submit-btn::after {
-  content: "";
+.solicitud-submit-btn:active:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.solicitud-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.solicitud-submit-btn::before {
+  content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: 0.5s;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
 }
 
-.solicitud-submit-btn:hover::after {
+.solicitud-submit-btn:hover:not(:disabled)::before {
   left: 100%;
 }
 
-.solicitud-error {
-  text-align: center;
-  color: #ff5555;
-  margin-top: 15px;
-  font-size: 0.85rem;
-  text-shadow: 0 0 5px rgba(255, 85, 85, 0.3);
-  padding: 0.5rem;
-  background-color: rgba(255, 85, 85, 0.1);
-  border-radius: 4px;
+/* Estado de carga */
+.solicitud-submit-btn.solicitud-loading {
+  position: relative;
+  color: transparent;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .solicitud-membership-form {
-    width: 90%;
-    padding: 1.5rem;
-  }
-
-  .solicitud-title {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
-  .solicitud-user-name {
-    font-size: 0.8rem;
-  }
-
-  .solicitud-input {
-    padding: 0.6rem 0.8rem;
-    font-size: 0.85rem;
-  }
-
-  .solicitud-label,
-  .solicitud-checkbox-label {
-    font-size: 0.8rem;
-  }
-
-  .solicitud-submit-btn {
-    padding: 0.7rem;
-    font-size: 0.85rem;
-  }
-}
-
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* Animación adicional para inputs */
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(0, 255, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0); }
-}
-
-.solicitud-input:focus {
-  animation: pulse 2s infinite;
-}
-
-/* Estilos adicionales para SolicitudPendiente */
-.solicitud-loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  color: #fff;
-}
-
-.solicitud-loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid rgba(255, 255, 255, 0.3);
+.solicitud-submit-btn.solicitud-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  border: 3px solid transparent;
+  border-top: 3px solid var(--light);
   border-radius: 50%;
-  border-top-color: #00ff00;
-  animation: spin 1s ease-in-out infinite;
-  margin-bottom: 1rem;
+  animation: solicitud-spin 1s linear infinite;
 }
 
+.solicitud-loading-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--light);
+}
+
+/* Mensaje de error */
 .solicitud-error-message {
   text-align: center;
-  color: #ff5555;
-  padding: 1rem;
-  background-color: rgba(255, 85, 85, 0.1);
-  border-radius: 4px;
-  margin: 1rem;
+  color: var(--error);
+  font-size: 0.9rem;
+  padding: 16px 20px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 12px;
+  margin-top: 20px;
+  opacity: 0;
+  animation: solicitud-fadeInUp 0.8s ease-out forwards;
+  line-height: 1.5;
 }
 
-.solicitud-success-message {
+/* Información adicional MEJORADA */
+.solicitud-additional-info {
   text-align: center;
-  color: #00ff00;
-  padding: 1rem;
-  background-color: rgba(0, 255, 0, 0.1);
-  border-radius: 4px;
-  margin-bottom: 1rem;
+  color: var(--gray);
+  font-size: 0.9rem;
+  margin-top: 40px;
+  padding: 25px;
+  background: var(--gray-light);
+  border-radius: 12px;
+  opacity: 0;
+  animation: solicitud-fadeInUp 0.8s ease-out 0.8s forwards;
+  line-height: 1.6;
+  border: 1px solid rgba(91, 91, 251, 0.1);
 }
 
-.solicitud-user-info {
-  background-color: rgba(0, 255, 0, 0.1);
-  padding: 1rem;
-  border-radius: 6px;
-  margin-bottom: 1.5rem;
-}
-
-.solicitud-user-status {
-  color: #00ff00;
-  margin-bottom: 0.5rem;
-}
-
-.solicitud-button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.solicitud-cancel-btn {
-  display: block;
-  width: 100%;
-  background: transparent;
-  padding: 0.75rem;
-  text-align: center;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 6px;
+.solicitud-additional-info strong {
+  color: var(--primary);
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
-.solicitud-cancel-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+/* Animaciones */
+@keyframes solicitud-fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.solicitud-view-mode p {
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 0.5rem;
-  border-radius: 4px;
-  margin-top: 0.5rem;
+@keyframes solicitud-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.solicitud-no-partner {
-  text-align: center;
-  padding: 1.5rem;
+@keyframes solicitud-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-25px) rotate(180deg); }
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+@keyframes solicitud-spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* Botón de volver atrás */
-.solicitud-back-btn {
-  display: block;
-  width: 100%;
-  background: linear-gradient(45deg, #333, #555);
-  padding: 0.75rem;
-  text-align: center;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 1rem;
+/* Responsive MEJORADO */
+@media (max-width: 1024px) {
+  .solicitud-split-container {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 100vh;
+    position: relative;
+  }
+  
+  .solicitud-hero-side {
+    padding: 40px 20px;
+    min-height: 40vh;
+  }
+  
+  .solicitud-form-side {
+    padding: 40px 20px;
+    min-height: 60vh;
+    align-items: flex-start; /* Mantener en móvil */
+  }
+
+  .solicitud-form-container {
+    margin-top: 1rem; /* Menos espacio en móvil */
+  }
+
+  .solicitud-hero-title {
+    font-size: 2.5rem;
+  }
+
+  .solicitud-hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .solicitud-form-title {
+    font-size: 2.2rem;
+  }
 }
 
-.solicitud-back-btn:hover {
-  background: linear-gradient(45deg, #444, #666);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
+@media (max-width: 768px) {
+  .solicitud-split-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .solicitud-form-side {
+    padding: 30px 20px;
+  }
+  
+  .solicitud-hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .solicitud-form-title {
+    font-size: 2rem;
+  }
+  
+  .solicitud-form-container {
+    max-width: 100%;
+  }
+
+  .solicitud-hero-features {
+    gap: 15px;
+  }
+
+  .solicitud-feature {
+    padding: 14px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .solicitud-form-side {
+    padding: 25px 15px;
+  }
+  
+  .solicitud-form-title {
+    font-size: 1.8rem;
+  }
+
+  .solicitud-form-subtitle {
+    font-size: 1rem;
+  }
+  
+  .solicitud-input {
+    padding: 16px 16px 16px 48px;
+  }
+  
+  .solicitud-submit-btn {
+    padding: 16px 24px;
+    font-size: 1rem;
+  }
+  
+  .solicitud-user-info {
+    padding: 20px;
+  }
+
+  .solicitud-hero-side {
+    padding: 30px 15px;
+  }
+
+  .solicitud-hero-title {
+    font-size: 1.8rem;
+  }
+
+  .solicitud-hero-subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* Modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .solicitud-form-side {
+    background: var(--dark);
+  }
+  
+  .solicitud-form-title {
+    color: var(--light);
+  }
+  
+  .solicitud-form-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .solicitud-input {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--light);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .solicitud-input-label {
+    color: var(--light);
+  }
+  
+  .solicitud-user-info {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .solicitud-additional-info {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+/* Mejoras de accesibilidad */
+.solicitud-input:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.solicitud-submit-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Estados de validación */
+.solicitud-input:valid {
+  border-color: rgba(91, 91, 251, 0.4);
+}
+
+.solicitud-input:invalid:not(:focus):not(:placeholder-shown) {
+  border-color: rgba(239, 68, 68, 0.4);
 }
