@@ -1,7 +1,7 @@
-/* TurnosPaciente.css - Versión actualizada */
+/* TurnosPaciente.css - Versión actualizada con paleta azul/violeta */
 
 .turnos-paciente-panel {
-  background-image: url("/src/assets/jamrock.png");
+  background-image: url("/src/assets/pexels-cottonbro-5721384.jpg");
   background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
@@ -18,8 +18,8 @@
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(16px);
   border-radius: 16px;
-  border: 1px solid #00ff00;
-  box-shadow: 0 8px 32px rgba(0, 255, 0, 0.3),
+  border: 1px solid #5858FB;
+  box-shadow: 0 8px 32px rgba(88, 88, 251, 0.3),
     inset 0 1px 1px rgba(255, 255, 255, 0.1);
   width: 100%;
 }
@@ -34,9 +34,9 @@
 }
 
 .title-paciente h1 {
-  color: #00ff00;
+  color: #5858FB;
   margin: 0;
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  text-shadow: 0 0 10px rgba(88, 88, 251, 0.3);
 }
 
 .filtros-container {
@@ -47,7 +47,7 @@
   padding: 1rem;
   background-color: rgba(20, 30, 40, 0.7);
   border-radius: 8px;
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  border: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .search-container {
@@ -60,8 +60,8 @@
   padding-inline: 0.8em;
   border-radius: 30px;
   transition: border-radius 0.5s ease;
-  background: rgba(0, 20, 40, 0.5);
-  border: 1px solid rgba(0, 255, 0, 0.5);
+  background: rgba(10, 46, 92, 0.5);
+  border: 1px solid rgba(88, 88, 251, 0.5);
 }
 
 .input-search {
@@ -78,7 +78,7 @@
 .search-container:before {
   content: "";
   position: absolute;
-  background: #00ff00;
+  background: #5858FB;
   transform: scaleX(0);
   transform-origin: center;
   width: 100%;
@@ -108,7 +108,7 @@
 }
 
 .status-filter label {
-  color: #00ff00;
+  color: #5858FB;
   font-size: 0.9rem;
   white-space: nowrap;
 }
@@ -117,8 +117,8 @@
 .status-filter input {
   padding: 0.5rem;
   border-radius: 4px;
-  border: 1px solid rgba(0, 255, 0, 0.5);
-  background-color: rgba(0, 20, 40, 0.5);
+  border: 1px solid rgba(88, 88, 251, 0.5);
+  background-color: rgba(10, 46, 92, 0.5);
   color: white;
   font-size: 0.9rem;
   min-width: 150px;
@@ -127,8 +127,8 @@
 .status-filter select:focus,
 .status-filter input:focus {
   outline: none;
-  border-color: #00ff00;
-  box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  border-color: #5858FB;
+  box-shadow: 0 0 5px rgba(88, 88, 251, 0.5);
 }
 
 .table-container {
@@ -143,25 +143,25 @@
   backdrop-filter: blur(4px);
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  box-shadow: 0 0 20px rgba(88, 88, 251, 0.1);
+  border: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .turnos-table th,
 .turnos-table td {
   padding: 1rem;
   text-align: left;
-  border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+  border-bottom: 1px solid rgba(88, 88, 251, 0.2);
   color: #fff;
 }
 
 .turnos-table thead {
-  background: linear-gradient(45deg, #006600, #00cc00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
 }
 
 .turnos-table tbody tr:hover {
-  background-color: rgba(0, 255, 0, 0.1);
+  background-color: rgba(88, 88, 251, 0.1);
 }
 
 .status-badge {
@@ -193,7 +193,7 @@
 }
 
 .add-btn {
-  background: linear-gradient(45deg, #006600, #00cc00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -204,12 +204,12 @@
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
 }
 
 .add-btn:hover {
-  background: linear-gradient(45deg, #008800, #00cc00);
-  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
   transform: translateY(-2px);
 }
 
@@ -285,14 +285,14 @@
 
 .modal-content {
   background: linear-gradient(145deg, #0a0e17, #0f1623);
-  border: 1px solid #00ff00;
+  border: 1px solid #5858FB;
   border-radius: 16px;
   padding: 2.5rem 15px 2.5rem 2.5rem;
   width: 90%;
   max-width: 600px;
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 0 30px rgba(0, 255, 0, 0.3), 0 0 60px rgba(0, 128, 0, 0.2);
+  box-shadow: 0 0 30px rgba(88, 88, 251, 0.3), 0 0 60px rgba(10, 46, 92, 0.2);
   position: relative;
   transform: translateY(20px);
   animation: slideUp 0.3s ease forwards;
@@ -324,18 +324,18 @@
 
 .modal-content h3 {
   margin: 0 0 2rem;
-  color: #00ff00;
+  color: #5858FB;
   font-size: 1.8rem;
-  text-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+  text-shadow: 0 0 15px rgba(88, 88, 251, 0.4);
   letter-spacing: 1px;
   padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+  border-bottom: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .close-modal {
   background: transparent;
   border: none;
-  color: #00ff00;
+  color: #5858FB;
   font-size: 1.8rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -367,7 +367,7 @@
 .form-group label {
   font-weight: bold;
   margin-bottom: 0.4rem;
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .form-group input,
@@ -377,16 +377,16 @@
   padding: 0.5rem;
   font-size: 1rem;
   border-radius: 4px;
-  border: 1px solid rgba(0, 255, 0, 0.5);
-  background-color: rgba(0, 20, 40, 0.5);
+  border: 1px solid rgba(88, 88, 251, 0.5);
+  background-color: rgba(10, 46, 92, 0.5);
   color: #fff;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #00ff00;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  border-color: #5858FB;
+  box-shadow: 0 0 10px rgba(88, 88, 251, 0.3);
   outline: none;
 }
 
@@ -418,7 +418,7 @@
 }
 
 .close-btn {
-  background: linear-gradient(45deg, #006600, #00aa00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   padding: 0.75rem 2rem;
@@ -429,17 +429,17 @@
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
 }
 
 .close-btn:hover {
-  background: linear-gradient(45deg, #008800, #00cc00);
-  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
   transform: translateY(-2px);
 }
 
 .approve-btn {
-  background: linear-gradient(45deg, #006600, #00aa00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   padding: 0.75rem 2rem;
@@ -450,12 +450,12 @@
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
 }
 
 .approve-btn:hover {
-  background: linear-gradient(45deg, #008800, #00cc00);
-  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
   transform: translateY(-2px);
 }
 
@@ -485,71 +485,9 @@
   color: #ff5555;
 }
 
-@media (max-width: 768px) {
-  .turnos-paciente-container {
-    padding: 1rem;
-    margin: 1rem;
-  }
-
-  .title-paciente {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .filtros-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .search-container {
-    max-width: 100%;
-  }
-
-  .status-filter {
-    width: 100%;
-  }
-
-  .status-filter select,
-  .status-filter input {
-    min-width: unset;
-    width: 100%;
-  }
-
-  .turnos-table {
-    display: block;
-    overflow-x: auto;
-  }
-
-  .actions-cell {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .modal-content {
-    width: 95%;
-    padding: 1rem;
-  }
-
-  .modal-content h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .modal-actions {
-    flex-direction: column;
-  }
-
-  .close-btn,
-  .approve-btn {
-    width: 100%;
-  }
-}
-
 /* Estilos para el botón de ver en paciente */
 .btn-ver-paciente {
-  background: linear-gradient(45deg, #0066cc, #0099ff);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   padding: 0.5rem;
@@ -558,7 +496,7 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 153, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -568,8 +506,8 @@
 }
 
 .btn-ver-paciente:hover {
-  background: linear-gradient(45deg, #0088ff, #00aaff);
-  box-shadow: 0 6px 20px rgba(0, 153, 255, 0.5);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
   transform: translateY(-2px);
 }
 
@@ -606,10 +544,10 @@
 .seccion-productos,
 .seccion-comprobante,
 .seccion-notas {
-  background: rgba(0, 20, 40, 0.3);
+  background: rgba(10, 46, 92, 0.3);
   border-radius: 8px;
   padding: 1rem;
-  border: 1px solid rgba(0, 255, 0, 0.2);
+  border: 1px solid rgba(88, 88, 251, 0.2);
 }
 
 .seccion-turno h3,
@@ -619,11 +557,11 @@
 .seccion-productos h3,
 .seccion-comprobante h3,
 .seccion-notas h3 {
-  color: #00ff00;
+  color: #5858FB;
   margin-top: 0;
   margin-bottom: 1rem;
   font-size: 1.1rem;
-  border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+  border-bottom: 1px solid rgba(88, 88, 251, 0.3);
   padding-bottom: 0.5rem;
   display: flex;
   align-items: center;
@@ -646,14 +584,14 @@
   background: rgba(0, 0, 0, 0.2);
   padding: 0.5rem;
   border-radius: 4px;
-  border-left: 3px solid #00ff00;
+  border-left: 3px solid #5858FB;
   min-height: 60px;
 }
 
 /* Estilos específicos para facturación */
 .precio {
   font-weight: bold;
-  color: #00ff00;
+  color: #5858FB;
   font-size: 1.1rem;
 }
 
@@ -696,9 +634,9 @@
 
 .adjunto-item {
   padding: 0.75rem;
-  background: rgba(0, 20, 40, 0.5);
+  background: rgba(10, 46, 92, 0.5);
   border-radius: 6px;
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  border: 1px solid rgba(88, 88, 251, 0.3);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -712,13 +650,13 @@
 }
 
 .adjunto-link {
-  color: #00ff00;
+  color: #5858FB;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .adjunto-link:hover {
-  color: #00cc00;
+  color: #1860b0;
   text-decoration: underline;
 }
 
@@ -742,9 +680,9 @@
 
 .producto-item {
   padding: 0.75rem;
-  background: rgba(0, 20, 40, 0.3);
+  background: rgba(10, 46, 92, 0.3);
   border-radius: 6px;
-  border-left: 3px solid #0099ff;
+  border-left: 3px solid #1860b0;
 }
 
 .producto-header {
@@ -756,12 +694,12 @@
 
 .producto-nombre {
   font-weight: bold;
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .producto-precio {
   font-weight: bold;
-  color: #00cc00;
+  color: #1860b0;
 }
 
 .producto-detalle {
@@ -771,11 +709,11 @@
 
 /* Botón de descargar todo */
 .modal-btn.descargar-todo {
-  background: linear-gradient(45deg, #0066cc, #0099ff);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
 }
 
 .modal-btn.descargar-todo:hover {
-  background: linear-gradient(45deg, #0088ff, #00aaff);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
 }
 
 /* Responsive */
@@ -849,7 +787,7 @@
   }
 
   .actions-cell::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 255, 0, 0.5);
+    background-color: rgba(88, 88, 251, 0.5);
     border-radius: 2px;
   }
 }
@@ -908,10 +846,20 @@
     margin: 1rem 0;
     border-radius: 12px;
     overflow: hidden;
+    background: transparent !important; /* Fondo transparente */
+    border: none !important; /* Sin borde en el contenedor */
+    box-shadow: none !important; /* Sin sombra en el contenedor */
   }
 
   .turnos-table thead {
     display: none;
+  }
+
+  .turnos-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Espacio entre filas */
+    background: transparent !important; /* Fondo transparente */
   }
 
   .turnos-table tbody tr {
@@ -921,8 +869,8 @@
     background: rgba(30, 40, 50, 0.95);
     border-radius: 12px;
     padding: 1.2rem;
-    border: 1px solid rgba(0, 255, 0, 0.4);
-    box-shadow: 0 4px 20px rgba(0, 255, 0, 0.15);
+    border: 1px solid rgba(88, 88, 251, 0.4);
+    box-shadow: 0 4px 20px rgba(88, 88, 251, 0.15);
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -935,13 +883,13 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #00ff00, #00cc00);
+    background: linear-gradient(90deg, #5858FB, #1860b0);
   }
 
   .turnos-table tbody tr:hover {
     background: rgba(40, 50, 60, 0.98);
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.25);
+    box-shadow: 0 8px 25px rgba(88, 88, 251, 0.25);
   }
 
   .turnos-table tbody td {
@@ -950,7 +898,7 @@
     align-items: center;
     width: 100%;
     padding: 0.9rem 0;
-    border-bottom: 1px solid rgba(0, 255, 0, 0.15);
+    border-bottom: 1px solid rgba(88, 88, 251, 0.15);
     position: relative;
     font-size: 0.92rem;
     min-height: 44px;
@@ -968,8 +916,8 @@
   .turnos-table tbody td::before {
     content: attr(data-label);
     font-weight: 600;
-    color: #00ff00;
-    text-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+    color: #5858FB;
+    text-shadow: 0 0 10px rgba(88, 88, 251, 0.4);
     font-size: 0.88rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -1018,14 +966,14 @@
   }
 
   .turnos-table .btn-ver-paciente {
-    background: rgba(255, 193, 7, 0.15);
-    border: 1px solid rgba(255, 193, 7, 0.4);
-    color: #ffc107;
+    background: rgba(88, 88, 251, 0.15);
+    border: 1px solid rgba(88, 88, 251, 0.4);
+    color: #5858FB;
   }
 
   .turnos-table .btn-ver-paciente:hover {
     transform: scale(1.05);
-    box-shadow: 0 2px 8px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(88, 88, 251, 0.2);
   }
 
   .turnos-table .edit-btn {
@@ -1036,7 +984,7 @@
 
   .turnos-table .edit-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 2px 8px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(88, 88, 251, 0.2);
   }
 
   .turnos-table .cancel-btn {
@@ -1047,7 +995,7 @@
 
   .turnos-table .cancel-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 2px 8px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(88, 88, 251, 0.2);
   }
 
   /* Ocultar texto en botones solo en mobile */
@@ -1082,9 +1030,9 @@
     margin: 0.5rem 0;
     border-radius: 25px;
     padding: 0 1rem;
-    background: rgba(0, 20, 40, 0.7);
-    border: 2px solid rgba(0, 255, 0, 0.4);
-    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.2);
+    background: rgba(10, 46, 92, 0.7);
+    border: 2px solid rgba(88, 88, 251, 0.4);
+    box-shadow: 0 4px 15px rgba(88, 88, 251, 0.2);
   }
 
   .input-search {
@@ -1113,7 +1061,7 @@
     flex-direction: column;
     padding: 1rem;
     margin-bottom: 1.2rem;
-    border: 1px solid rgba(0, 255, 0, 0.3);
+    border: 1px solid rgba(88, 88, 251, 0.3);
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.05);
     width: 100%;
@@ -1128,7 +1076,7 @@
     font-size: 0.88rem;
     width: 100% !important;
     border: none;
-    border-bottom: 1px solid rgba(0, 255, 0, 0.1);
+    border-bottom: 1px solid rgba(88, 88, 251, 0.1);
   }
 
   .turnos-table tbody td:last-child {
@@ -1141,7 +1089,7 @@
     font-weight: bold;
     min-width: 100px;
     text-align: left;
-    color: #00ff00;
+    color: #5858FB;
   }
 
   .turnos-table tbody td.actions-cell {
@@ -1177,6 +1125,24 @@
     .turnos-table button {
       width: 100%;
       justify-content: center;
+    }
+  }
+}
+
+/* ANIMACIONES MEJORADAS */
+@media (max-width: 768px) {
+  .turnos-table tbody tr {
+    animation: fadeInUp 0.5s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }

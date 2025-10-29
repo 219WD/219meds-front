@@ -1,6 +1,6 @@
 /* Estilos para la página de turnos */
 .turnos-panel {
-  background-image: url("/src/assets/jamrock.png");
+  background-image: url("/src/assets/pexels-cottonbro-5721384.jpg");
   background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
@@ -26,8 +26,8 @@
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(16px);
   border-radius: 16px;
-  border: 1px solid #00ff00;
-  box-shadow: 0 8px 32px rgba(0, 255, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  border: 1px solid #5858FB;
+  box-shadow: 0 8px 32px rgba(88, 88, 251, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 
 .title-admin {
@@ -40,10 +40,10 @@
 }
 
 .title-admin h1 {
-  color: #00ff00;
+  color: #5858FB;
   margin: 0;
   font-size: 1.8rem;
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  text-shadow: 0 0 10px rgba(88, 88, 251, 0.3);
 }
 
 /* Estilos de búsqueda */
@@ -57,8 +57,8 @@
   padding-inline: 0.8em;
   border-radius: 30px;
   transition: border-radius 0.5s ease;
-  background: rgba(0, 20, 40, 0.5);
-  border: 1px solid rgba(0, 255, 0, 0.5);
+  background: rgba(10, 46, 92, 0.5);
+  border: 1px solid rgba(88, 88, 251, 0.5);
 }
 
 .input-search {
@@ -76,7 +76,7 @@
 .search-container:before {
   content: "";
   position: absolute;
-  background: #00ff00;
+  background: #5858FB;
   transform: scaleX(0);
   transform-origin: center;
   width: 100%;
@@ -102,13 +102,13 @@
 .search-container button {
   border: none;
   background: none;
-  color: #00ff00;
+  color: #5858FB;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
 .search-container button:hover {
-  color: #00cc00;
+  color: #1860b0;
 }
 
 .search-container svg {
@@ -120,7 +120,7 @@
 .reset {
   border: none;
   background: none;
-  color: #00ff00;
+  color: #5858FB;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -139,10 +139,10 @@
   margin-top: 1rem;
   margin-bottom: 20px;
   gap: 15px;
-  background: linear-gradient(135deg, rgba(31, 123, 0, 0.2), rgba(31, 123, 0, 0.1));
+  background: linear-gradient(135deg, rgba(88, 88, 251, 0.2), rgba(10, 46, 92, 0.1));
   border-radius: 12px;
   padding: 1.5rem;
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  border: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .filter-group {
@@ -152,7 +152,7 @@
 }
 
 .filter-group label {
-  color: #00ff00;
+  color: #5858FB;
   font-size: 0.9rem;
   white-space: nowrap;
   font-family: "Zen Dots", sans-serif;
@@ -162,8 +162,8 @@
 .filter-group input {
   padding: 0.5rem;
   border-radius: 4px;
-  border: 1px solid rgba(0, 255, 0, 0.5);
-  background-color: rgba(0, 20, 40, 0.5);
+  border: 1px solid rgba(88, 88, 251, 0.5);
+  background-color: rgba(10, 46, 92, 0.5);
   color: white;
   font-size: 0.9rem;
   min-width: 150px;
@@ -173,8 +173,8 @@
 .filter-group select:focus,
 .filter-group input:focus {
   outline: none;
-  border-color: #00ff00;
-  box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  border-color: #5858FB;
+  box-shadow: 0 0 5px rgba(88, 88, 251, 0.5);
 }
 
 .filter-group input:disabled {
@@ -190,7 +190,7 @@
 }
 
 .today-btn {
-  background: linear-gradient(45deg, #006600, #00cc00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -199,18 +199,18 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
 }
 
 .today-btn:hover {
-  background: linear-gradient(45deg, #008800, #00ff00);
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 0 10px rgba(88, 88, 251, 0.4);
   transform: translateY(-2px);
 }
 
 .today-btn.active {
-  background: linear-gradient(45deg, #008800, #00ff00);
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 0 10px rgba(88, 88, 251, 0.4);
 }
 
 /* Estilos de la tabla */
@@ -222,25 +222,25 @@
   backdrop-filter: blur(4px);
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  box-shadow: 0 0 20px rgba(88, 88, 251, 0.1);
+  border: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .turnos-table th,
 .turnos-table td {
   padding: 1rem;
   text-align: left;
-  border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+  border-bottom: 1px solid rgba(88, 88, 251, 0.2);
   color: #fff;
 }
 
 .turnos-table thead {
-  background: linear-gradient(45deg, #006600, #00cc00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
 }
 
 .turnos-table .turno-row:hover {
-  background-color: rgba(0, 255, 0, 0.1);
+  background-color: rgba(88, 88, 251, 0.1);
 }
 
 .status-badge {
@@ -277,40 +277,38 @@
 }
 
 .estado-select {
-  background: linear-gradient(45deg, #006600, #00aa00);
-  border: 1px solid #00ff00;
-  color: #00ff00; /* ✅ Cambiado a verde para escritorio */
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
+  border: 1px solid #5858FB;
+  color: white;
   padding: 0.5rem;
   border-radius: 8px;
   font-family: "Zen Dots", sans-serif;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
 }
 
-/* Estilizar los <option> dentro del select */
 .estado-select option {
-  color: #00ff00; /* ✅ Verde para los <option> */
-  background: #0a0e17; /* ✅ Fondo oscuro para legibilidad */
+  color: #5858FB;
+  background: #0a0e17;
   font-family: "Zen Dots", sans-serif;
   font-size: 0.9rem;
 }
 
 .estado-select:focus {
   outline: none;
-  border-color: #00ff00;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  border-color: #5858FB;
+  box-shadow: 0 0 20px rgba(88, 88, 251, 0.5);
 }
 
 .estado-select:hover {
-  background: linear-gradient(45deg, #008800, #00cc00);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
   transform: translateY(-2px);
-  background:rgba(0, 20, 40, 0.5);
 }
 
 .btn-reprogramar {
-  background: linear-gradient(45deg, #006600, #00cc00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   padding: 0.5rem 1rem;
   border: none;
@@ -319,12 +317,12 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
 }
 
 .btn-reprogramar:hover {
-  background: linear-gradient(45deg, #008800, #00cc00);
-  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
   transform: translateY(-2px);
 }
 
@@ -376,14 +374,14 @@
 
 .modal-container {
   background: linear-gradient(145deg, #0a0e17, #0f1623);
-  border: 1px solid #00ff00;
+  border: 1px solid #5858FB;
   border-radius: 16px;
   padding: 2.5rem 15px 2.5rem 2.5rem;
   width: 90%;
   max-width: 600px;
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 0 30px rgba(0, 255, 0, 0.3), 0 0 60px rgba(0, 128, 0, 0.2);
+  box-shadow: 0 0 30px rgba(88, 88, 251, 0.3), 0 0 60px rgba(10, 46, 92, 0.2);
   position: relative;
   transform: translateY(20px);
   animation: slideUp 0.3s ease forwards;
@@ -413,15 +411,15 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+  border-bottom: 1px solid rgba(88, 88, 251, 0.3);
   padding-bottom: 1rem;
 }
 
 .modal-header h2 {
   margin: 0;
-  color: #00ff00;
+  color: #5858FB;
   font-size: 1.8rem;
-  text-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+  text-shadow: 0 0 15px rgba(88, 88, 251, 0.4);
   letter-spacing: 1px;
   font-family: "Zen Dots", sans-serif;
 }
@@ -429,7 +427,7 @@
 .modal-close-btn {
   background: transparent;
   border: none;
-  color: #00ff00;
+  color: #5858FB;
   font-size: 1.8rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -477,7 +475,7 @@
 .form-group label {
   font-weight: bold;
   margin-bottom: 0.4rem;
-  color: #00ff00;
+  color: #5858FB;
   font-family: "Zen Dots", sans-serif;
 }
 
@@ -488,8 +486,8 @@
   padding: 0.5rem;
   font-size: 1rem;
   border-radius: 8px;
-  border: 1px solid rgba(0, 255, 0, 0.5);
-  background-color: rgba(0, 20, 40, 0.5);
+  border: 1px solid rgba(88, 88, 251, 0.5);
+  background-color: rgba(10, 46, 92, 0.5);
   color: #fff;
   font-family: "Zen Dots", sans-serif;
 }
@@ -497,8 +495,8 @@
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #00ff00;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  border-color: #5858FB;
+  box-shadow: 0 0 10px rgba(88, 88, 251, 0.3);
   outline: none;
 }
 
@@ -513,7 +511,7 @@
 }
 
 .form-group.checkbox input[type="checkbox"] {
-  accent-color: #00ff00;
+  accent-color: #5858FB;
   width: 16px;
   height: 16px;
   margin-right: 0.5rem;
@@ -528,7 +526,7 @@
 }
 
 .modal-btn {
-  background: linear-gradient(45deg, #006600, #00aa00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   padding: 0.75rem 2rem;
@@ -539,12 +537,12 @@
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
 }
 
 .modal-btn:hover:not(:disabled) {
-  background: linear-gradient(45deg, #008800, #00cc00);
-  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
   transform: translateY(-2px);
 }
 
@@ -601,7 +599,7 @@
 }
 
 .btn-ver {
-  background: linear-gradient(45deg, #0066cc, #0099ff);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   padding: 0.5rem;
@@ -610,7 +608,7 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 153, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -619,8 +617,8 @@
 }
 
 .btn-ver:hover {
-  background: linear-gradient(45deg, #0088ff, #00aaff);
-  box-shadow: 0 6px 20px rgba(0, 153, 255, 0.5);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
   transform: translateY(-2px);
 }
 
@@ -639,13 +637,13 @@
 
 .adjunto-item {
   padding: 0.5rem;
-  background: rgba(0, 20, 40, 0.3);
+  background: rgba(10, 46, 92, 0.3);
   border-radius: 4px;
-  border: 1px solid rgba(0, 255, 0, 0.2);
+  border: 1px solid rgba(88, 88, 251, 0.2);
 }
 
 .adjunto-link {
-  color: #00ff00;
+  color: #5858FB;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -654,7 +652,7 @@
 }
 
 .adjunto-link:hover {
-  color: #00cc00;
+  color: #1860b0;
   text-decoration: underline;
 }
 
@@ -703,7 +701,7 @@
 
 /* Botón de Ver */
 .btn-ver {
-  background: linear-gradient(45deg, #0066cc, #0099ff);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   border: none;
   padding: 0.5rem;
@@ -712,7 +710,7 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 153, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -722,8 +720,8 @@
 }
 
 .btn-ver:hover {
-  background: linear-gradient(45deg, #0088ff, #00aaff);
-  box-shadow: 0 6px 20px rgba(0, 153, 255, 0.5);
+  background: linear-gradient(45deg, #1860b0, #5858FB);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
   transform: translateY(-2px);
 }
 
@@ -734,8 +732,8 @@
 
 /* Select de estado más compacto */
 .estado-select {
-  background: linear-gradient(45deg, #006600, #00aa00);
-  border: 1px solid #00ff00;
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
+  border: 1px solid #5858FB;
   color: white;
   padding: 0.5rem;
   border-radius: 8px;
@@ -743,14 +741,14 @@
   font-size: 0.8rem; /* Un poco más pequeño */
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
   min-width: 120px; /* Ancho mínimo fijo */
   height: 36px;
 }
 
 /* Botón reprogramar más compacto */
 .btn-reprogramar {
-  background: linear-gradient(45deg, #006600, #00cc00);
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
   padding: 0.5rem 0.8rem; /* Padding reducido */
   border: none;
@@ -759,7 +757,7 @@
   font-size: 0.8rem; /* Un poco más pequeño */
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
   height: 36px;
   white-space: nowrap;
 }
@@ -782,10 +780,10 @@
 .seccion-adjuntos,
 .seccion-productos,
 .seccion-comprobante {
-  background: rgba(0, 20, 40, 0.3);
+  background: rgba(10, 46, 92, 0.3);
   border-radius: 8px;
   padding: 1rem;
-  border: 1px solid rgba(0, 255, 0, 0.2);
+  border: 1px solid rgba(88, 88, 251, 0.2);
 }
 
 .seccion-turno h3,
@@ -794,11 +792,11 @@
 .seccion-adjuntos h3,
 .seccion-productos h3,
 .seccion-comprobante h3 {
-  color: #00ff00;
+  color: #5858FB;
   margin-top: 0;
   margin-bottom: 1rem;
   font-size: 1.1rem;
-  border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+  border-bottom: 1px solid rgba(88, 88, 251, 0.3);
   padding-bottom: 0.5rem;
 }
 
@@ -818,7 +816,7 @@
   background: rgba(0, 0, 0, 0.2);
   padding: 0.5rem;
   border-radius: 4px;
-  border-left: 3px solid #00ff00;
+  border-left: 3px solid #5858FB;
 }
 
 /* Estilos para adjuntos mejorados */
@@ -830,16 +828,16 @@
 
 .adjunto-item {
   padding: 0.75rem;
-  background: rgba(0, 20, 40, 0.5);
+  background: rgba(10, 46, 92, 0.5);
   border-radius: 6px;
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  border: 1px solid rgba(88, 88, 251, 0.3);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .adjunto-link {
-  color: #00ff00;
+  color: #5858FB;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -849,7 +847,7 @@
 }
 
 .adjunto-link:hover {
-  color: #00cc00;
+  color: #1860b0;
   text-decoration: underline;
 }
 
@@ -873,14 +871,14 @@
 
 .producto-item {
   padding: 0.5rem;
-  background: rgba(0, 20, 40, 0.3);
+  background: rgba(10, 46, 92, 0.3);
   border-radius: 4px;
-  border-left: 3px solid #0099ff;
+  border-left: 3px solid #1860b0;
 }
 
 .producto-nombre {
   font-weight: bold;
-  color: #00ff00;
+  color: #5858FB;
 }
 
 .producto-detalle {
@@ -916,7 +914,7 @@
   }
   
   .acciones-turno::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 255, 0, 0.5);
+    background-color: rgba(88, 88, 251, 0.5);
     border-radius: 2px;
   }
 }
@@ -990,10 +988,20 @@
     margin: 1rem 0;
     border-radius: 12px;
     overflow: hidden;
+    background: transparent !important; /* Fondo transparente */
+    border: none !important; /* Sin borde en el contenedor */
+    box-shadow: none !important; /* Sin sombra en el contenedor */
   }
 
   .turnos-table thead {
     display: none;
+  }
+
+  .turnos-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Espacio entre filas */
+    background: transparent !important; /* Fondo transparente */
   }
 
   .turnos-table tbody tr.turno-row {
@@ -1003,8 +1011,8 @@
     background: rgba(30, 40, 50, 0.95);
     border-radius: 12px;
     padding: 1.2rem;
-    border: 1px solid rgba(0, 255, 0, 0.4);
-    box-shadow: 0 4px 20px rgba(0, 255, 0, 0.15);
+    border: 1px solid rgba(88, 88, 251, 0.4);
+    box-shadow: 0 4px 20px rgba(88, 88, 251, 0.15);
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -1017,13 +1025,13 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #00ff00, #00cc00);
+    background: linear-gradient(90deg, #5858FB, #1860b0);
   }
 
   .turnos-table tbody tr.turno-row:hover {
     background: rgba(40, 50, 60, 0.98);
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.25);
+    box-shadow: 0 8px 25px rgba(88, 88, 251, 0.25);
   }
 
   .turnos-table tbody td {
@@ -1032,7 +1040,7 @@
     align-items: center;
     width: 100%;
     padding: 0.9rem 0;
-    border-bottom: 1px solid rgba(0, 255, 0, 0.15);
+    border-bottom: 1px solid rgba(88, 88, 251, 0.15);
     position: relative;
     font-size: 0.92rem;
     min-height: 44px;
@@ -1050,8 +1058,8 @@
   .turnos-table tbody td::before {
     content: attr(data-label);
     font-weight: 600;
-    color: #00ff00;
-    text-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+    color: #5858FB;
+    text-shadow: 0 0 10px rgba(88, 88, 251, 0.4);
     font-size: 0.88rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -1105,36 +1113,36 @@
   }
 
   .turnos-table .btn-ver {
-    background: rgba(255, 193, 7, 0.15);
-    border: 1px solid rgba(255, 193, 7, 0.4);
-    color: #ffc107;
+    background: rgba(88, 88, 251, 0.15);
+    border: 1px solid rgba(88, 88, 251, 0.4);
+    color: #5858FB;
   }
 
   .turnos-table .btn-ver:hover {
     transform: scale(1.05);
-    box-shadow: 0 2px 8px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(88, 88, 251, 0.2);
   }
 
   .turnos-table .estado-select {
-    background: rgba(40, 167, 69, 0.15);
-    border: 1px solid rgba(40, 167, 69, 0.4);
-    color: #28a745;
+    background: rgba(88, 88, 251, 0.15);
+    border: 1px solid rgba(88, 88, 251, 0.4);
+    color: #5858FB;
   }
 
   .turnos-table .estado-select:hover {
     transform: scale(1.05);
-    box-shadow: 0 2px 8px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(88, 88, 251, 0.2);
   }
 
   .turnos-table .btn-reprogramar {
-    background: rgba(0, 123, 255, 0.15);
-    border: 1px solid rgba(0, 123, 255, 0.4);
-    color: #007bff;
+    background: rgba(88, 88, 251, 0.15);
+    border: 1px solid rgba(88, 88, 251, 0.4);
+    color: #5858FB;
   }
 
   .turnos-table .btn-reprogramar:hover {
     transform: scale(1.05);
-    box-shadow: 0 2px 8px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(88, 88, 251, 0.2);
   }
 
   /* Ocultar texto en botones solo en mobile */
@@ -1160,77 +1168,36 @@
     font-size: 1.3rem;
   }
 
-  /* Cambia la estructura de la tabla a bloque */
-  .turnos-table, 
-  .turnos-table tbody, 
-  .turnos-table tr, 
-  .turnos-table td {
-    display: block;
-    width: 100% !important;
-    box-sizing: border-box;
-  }
-
   .turnos-table tbody tr.turno-row {
-    display: flex;
-    flex-direction: column;
     padding: 1rem;
     margin-bottom: 1.2rem;
-    border: 1px solid rgba(0, 255, 0, 0.3);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    width: 100%;
   }
 
   .turnos-table tbody td {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     gap: 0.8rem;
     padding: 0.7rem 0;
     font-size: 0.88rem;
-    width: 100% !important;
-    border: none;
-    border-bottom: 1px solid rgba(0, 255, 0, 0.1);
-  }
-
-  .turnos-table tbody td:last-child {
-    border-bottom: none;
   }
 
   .turnos-table tbody td::before {
-    content: attr(data-label);
     font-size: 0.82rem;
-    font-weight: bold;
     min-width: 100px;
-    text-align: left;
-    color: #00ff00;
   }
 
-  .turnos-table tbody td.acciones-turno {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-    min-width: auto;
-  }
-
-  .turnos-table button,
-  .turnos-table .estado-select {
-    flex: 1;
-    width: auto;
-    height: 32px;
-    padding: 0.4rem;
-    font-size: 0.85rem;
+  .status-badge {
+    min-width: 80px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
   }
 
   .turnos-table .estado-select {
-    min-width: auto;
+    min-width: 120px;
+    font-size: 0.8rem;
   }
 
   .turnos-table .btn-reprogramar {
     font-size: 0.75rem;
-    padding: 0.4rem 0.6rem;
+    padding: 0.5rem;
   }
 
   /* En móviles muy pequeños, los botones de acciones se apilan verticalmente */
