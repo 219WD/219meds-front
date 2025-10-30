@@ -8,7 +8,6 @@ import PacientesHeader from "../components/Pacientes/PacientesHeader.jsx";
 import TablaPacientes from "../components/Pacientes/TablaPacientes.jsx";
 import TablaTodosUsuarios from "../components/Pacientes/TablaTodosUsuarios";
 import ModalDetallesPaciente from "../components/Pacientes/ModalDetallesPaciente.jsx";
-import PacientesVencimiento from "../components/Pacientes/PacientesVencimiento.jsx";
 import NuevoTurnoModal from "../components/Turnos/NuevoTurnoModal.jsx";
 import useNotify from "../hooks/useToast.jsx";
 import API_URL from "../common/constants";
@@ -39,12 +38,10 @@ const Pacientes = () => {
   const hasAnimated = useRef(false);
   const pacientesContainerRef = useRef(null);
   const headerRef = useRef(null);
-  const vencimientoRef = useRef(null);
   const pacientesTitleRef = useRef(null);
   const usuariosTitleRef = useRef(null);
   const pacientesTableRef = useRef(null);
   const usuariosTableRef = useRef(null);
-  const buttonsRef = useRef(null);
 
   // Función para obtener todos los usuarios
   const fetchAllUsers = async () => {
@@ -80,70 +77,72 @@ const Pacientes = () => {
   };
 
   // Función para obtener especialistas
-const fetchEspecialistas = async () => {
-  try {
-    console.log("🟡 Iniciando fetchEspecialistas...");
-    const currentToken = useAuthStore.getState().token;
-    console.log("🟡 Token para especialistas:", currentToken ? "✅ Existe" : "❌ No existe");
-    
-    const res = await fetch(`${API_URL}/especialistas`, {
-      headers: { Authorization: `Bearer ${currentToken}` },
-    });
-    
-    console.log("🟡 Response status:", res.status);
-    
-    if (res.status === 401) {
-      console.log("🔴 Token expirado en fetchEspecialistas");
-      useAuthStore.getState().logout();
-      throw new Error("Sesión expirada. Por favor ingresa nuevamente");
+  const fetchEspecialistas = async () => {
+    try {
+      console.log("🟡 Iniciando fetchEspecialistas...");
+      const currentToken = useAuthStore.getState().token;
+      console.log(
+        "🟡 Token para especialistas:",
+        currentToken ? "✅ Existe" : "❌ No existe"
+      );
+
+      const res = await fetch(`${API_URL}/especialistas`, {
+        headers: { Authorization: `Bearer ${currentToken}` },
+      });
+
+      console.log("🟡 Response status:", res.status);
+
+      if (res.status === 401) {
+        console.log("🔴 Token expirado en fetchEspecialistas");
+        useAuthStore.getState().logout();
+        throw new Error("Sesión expirada. Por favor ingresa nuevamente");
+      }
+
+      const response = await res.json();
+      console.log("🟡 Respuesta de especialistas:", response);
+
+      if (!res.ok)
+        throw new Error(response.error || "Error al obtener especialistas");
+
+      setEspecialistas(response.data || []);
+      console.log("🟢 Especialistas cargados:", response.data?.length || 0);
+    } catch (err) {
+      console.error("🔴 ERROR CRÍTICO en fetchEspecialistas:", err.message);
+      setError(err.message);
+      setEspecialistas([]);
     }
+  };
 
-    const response = await res.json();
-    console.log("🟡 Respuesta de especialistas:", response);
+  const fetchPacientes = async () => {
+    try {
+      setLoading(true);
+      console.log("🟡 Fetching pacientes...");
 
-    if (!res.ok) throw new Error(response.error || "Error al obtener especialistas");
-    
-    setEspecialistas(response.data || []);
-    console.log("🟢 Especialistas cargados:", response.data?.length || 0);
-    
-  } catch (err) {
-    console.error("🔴 ERROR CRÍTICO en fetchEspecialistas:", err.message);
-    setError(err.message);
-    setEspecialistas([]);
-  }
-};
+      const res = await fetch(`${API_URL}/pacientes`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-const fetchPacientes = async () => {
-  try {
-    setLoading(true);
-    console.log("🟡 Fetching pacientes...");
-    
-    const res = await fetch(`${API_URL}/pacientes`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    
-    console.log("🟡 Response status:", res.status);
-    const data = await res.json();
-    console.log("🟡 Respuesta COMPLETA:", JSON.stringify(data, null, 2));
-    
-    if (!res.ok) throw new Error(data.error || "Error al obtener pacientes");
-    
-    // DEBUG: Verifica exactamente qué viene
-    console.log("🟡 data.data:", data.data);
-    console.log("🟡 data.pacientes:", data.pacientes); 
-    console.log("🟡 data.count:", data.count);
-    console.log("🟡 Tipo de data.data:", typeof data.data);
-    console.log("🟡 Es array?", Array.isArray(data.data));
-    
-    setPacientes(data.data);
-    
-  } catch (err) {
-    console.error("❌ Error fetching pacientes:", err);
-    setError(err.message);
-  } finally {
-    setLoading(false);
-  }
-};
+      console.log("🟡 Response status:", res.status);
+      const data = await res.json();
+      console.log("🟡 Respuesta COMPLETA:", JSON.stringify(data, null, 2));
+
+      if (!res.ok) throw new Error(data.error || "Error al obtener pacientes");
+
+      // DEBUG: Verifica exactamente qué viene
+      console.log("🟡 data.data:", data.data);
+      console.log("🟡 data.pacientes:", data.pacientes);
+      console.log("🟡 data.count:", data.count);
+      console.log("🟡 Tipo de data.data:", typeof data.data);
+      console.log("🟡 Es array?", Array.isArray(data.data));
+
+      setPacientes(data.data);
+    } catch (err) {
+      console.error("❌ Error fetching pacientes:", err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const fetchAntecedentes = async () => {
     try {
@@ -301,41 +300,18 @@ const fetchPacientes = async () => {
     setVisibleUsersCount((prev) => prev + 10);
   };
 
-  const getPacientesPorVencer = () => {
-    const hoy = new Date();
-    const limite = new Date();
-    limite.setDate(hoy.getDate() + 30);
-
-    return pacientes.filter((paciente) => {
-      if (!paciente.reprocann?.fechaVencimiento) return false;
-      const vencimiento = new Date(paciente.reprocann.fechaVencimiento);
-      return vencimiento >= hoy && vencimiento <= limite;
-    });
-  };
-
-  const getReprocannClass = (fechaVencimiento) => {
-    if (!fechaVencimiento) return "";
-    const hoy = new Date();
-    const vencimiento = new Date(fechaVencimiento);
-    const diffDias = Math.ceil((vencimiento - hoy) / (1000 * 60 * 60 * 24));
-
-    if (diffDias <= 10) return "reprocann-rojo";
-    if (diffDias <= 30) return "reprocann-amarillo";
-    return "";
-  };
-
   const handleCreateTurnoClick = (paciente) => {
     setPacienteForTurno(paciente);
     setShowCreateTurnoModal(true);
   };
 
-useEffect(() => {
-  console.log("🏁 Iniciando carga de datos...");
-  fetchPacientes();  // ← Esta primero, que es la importante
-  fetchAntecedentes();
-  fetchAllUsers();
-  fetchEspecialistas(); // ← Esta al final
-}, []);
+  useEffect(() => {
+    console.log("🏁 Iniciando carga de datos...");
+    fetchPacientes(); // ← Esta primero, que es la importante
+    fetchAntecedentes();
+    fetchAllUsers();
+    fetchEspecialistas(); // ← Esta al final
+  }, []);
 
   useEffect(() => {
     setVisiblePacientesCount(10);
@@ -369,16 +345,6 @@ useEffect(() => {
         { opacity: 0, y: -20 },
         { opacity: 1, y: 0, duration: 0.3 },
         "-=0.3"
-      );
-    }
-
-    // Animación de la sección de vencimiento
-    if (vencimientoRef.current) {
-      tl.fromTo(
-        vencimientoRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.4 },
-        "-=0.2"
       );
     }
 
@@ -480,13 +446,6 @@ useEffect(() => {
           />
         </div>
 
-        <div ref={vencimientoRef}>
-          <PacientesVencimiento
-            pacientesPorVencer={getPacientesPorVencer()}
-            getReprocannClass={getReprocannClass}
-          />
-        </div>
-
         <h2 ref={pacientesTitleRef}>Todos los pacientes</h2>
 
         <div ref={pacientesTableRef}>
@@ -511,17 +470,17 @@ useEffect(() => {
         <h2 ref={usuariosTitleRef}>Todos los Usuarios</h2>
 
         <div className="search-container" style={{ marginBottom: "1rem" }}>
-          <button>
+          <button className="search-icon-btn">
             <svg
-              width="17"
-              height="16"
+              width="20"
+              height="20"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+                d="M9.167 15.833A6.667 6.667 0 109.167 2.5a6.667 6.667 0 000 13.333zM17.5 17.5l-3.625-3.625"
                 stroke="currentColor"
-                strokeWidth="1.333"
+                strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />

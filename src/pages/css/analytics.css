@@ -1,0 +1,551 @@
+/* Estilos para la página de Analytics - Integrado con NavDashboard */
+.dashboard.futurista .analytics-container {
+  background-image: url("/assets/jamrock.png");
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: calc(100vh - 80px);
+  font-family: "Zen Dots", sans-serif;
+  padding: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+  margin-left: 0;
+  width: 100%;
+}
+
+.dashboard.futurista .analytics-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.analytics-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 1400px;
+  margin: 1rem auto;
+  padding: 2rem;
+  font-family: "Zen Dots", sans-serif;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 16px;
+  border: 1px solid #5858FB;
+  box-shadow: 0 8px 32px rgba(88, 88, 251, 0.3), 
+              inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@supports not (backdrop-filter: blur(16px)) {
+  .analytics-content {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.analytics-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 0 1rem;
+  animation: slideDown 0.8s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.analytics-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(45deg, #5858FB, #7B68EE);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 15px rgba(88, 88, 251, 0.4);
+}
+
+.analytics-header p {
+  color: #ccc;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.time-filter {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  animation: fadeIn 0.6s ease-out 0.3s both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.time-filter button {
+  padding: 0.5rem 1.5rem;
+  border: 1px solid rgba(88, 88, 251, 0.5);
+  background: rgba(10, 46, 92, 0.5);
+  color: #5858FB;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Zen Dots", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.time-filter button.active,
+.time-filter button:hover {
+  background: linear-gradient(45deg, #5858FB, #7B68EE);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 0 15px rgba(88, 88, 251, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.stat-card {
+  background: rgba(20, 30, 40, 0.95);
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 1px solid rgba(88, 88, 251, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(88, 88, 251, 0.15);
+  position: relative;
+  overflow: hidden;
+  animation: cardSlideUp 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes cardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #5858FB, #7B68EE);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(88, 88, 251, 0.25);
+  border-color: #5858FB;
+}
+
+.stat-card h3 {
+  color: #5858FB;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(88, 88, 251, 0.3);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+  background: linear-gradient(45deg, #5858FB, #7B68EE);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 10px rgba(88, 88, 251, 0.3);
+}
+
+.stat-subtitle {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-top: 0.5rem;
+}
+
+/* Chart Grid - 6 gráficos en grid responsive */
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.chart-card {
+  background: rgba(20, 30, 40, 0.95);
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 1px solid rgba(88, 88, 251, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(88, 88, 251, 0.15);
+  position: relative;
+  overflow: hidden;
+  animation: chartFadeIn 0.8s ease-out;
+  animation-fill-mode: both;
+}
+
+.chart-card:nth-child(1) { animation-delay: 0.2s; }
+.chart-card:nth-child(2) { animation-delay: 0.3s; }
+.chart-card:nth-child(3) { animation-delay: 0.4s; }
+.chart-card:nth-child(4) { animation-delay: 0.5s; }
+.chart-card:nth-child(5) { animation-delay: 0.6s; }
+.chart-card:nth-child(6) { animation-delay: 0.7s; }
+
+@keyframes chartFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chart-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #5858FB, #7B68EE);
+}
+
+.chart-card h3 {
+  margin-bottom: 1.5rem;
+  color: #5858FB;
+  font-size: 1.2rem;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(88, 88, 251, 0.3);
+  font-family: "Zen Dots", sans-serif;
+}
+
+.chart-container {
+  height: 300px;
+  position: relative;
+  width: 100%;
+}
+
+/* Loading States */
+.analytics-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  color: #5858FB;
+}
+
+.analytics-loading .spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(88, 88, 251, 0.3);
+  border-top: 4px solid #5858FB;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ==================== */
+/* RESPONSIVE DESIGN CON NAVDASHBOARD */
+/* ==================== */
+
+/* Tablets y pantallas medianas (768px - 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .analytics-content {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .analytics-header h1 {
+    font-size: 2rem;
+  }
+  
+  .chart-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .chart-container {
+    height: 280px;
+  }
+}
+
+/* Móviles (767px y menos) */
+@media (max-width: 767px) {
+  .dashboard.futurista .analytics-container {
+    padding: 0.5rem;
+    min-height: calc(100vh - 70px);
+    overflow-x: hidden;
+  }
+  
+  .analytics-content {
+    padding: 1rem;
+    margin: 0.5rem 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    border-radius: 12px;
+  }
+  
+  .analytics-header {
+    margin-bottom: 2rem;
+    padding: 0;
+  }
+  
+  .analytics-header h1 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  
+  .analytics-header p {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  
+  .time-filter {
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .time-filter button {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    flex: 1;
+    min-width: 80px;
+  }
+  
+  /* Stats Grid - 2 columnas en móvil */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .stat-card {
+    padding: 1rem;
+    margin: 0;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .stat-card h3 {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .stat-number {
+    font-size: 1.8rem;
+    margin: 0.2rem 0;
+  }
+  
+  .stat-subtitle {
+    font-size: 0.8rem;
+  }
+  
+  /* Chart Grid - 1 columna en móvil */
+  .chart-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .chart-card {
+    padding: 1rem;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .chart-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .chart-container {
+    height: 250px;
+    min-height: 250px;
+  }
+}
+
+/* Móviles muy pequeños (480px y menos) */
+@media (max-width: 480px) {
+  .dashboard.futurista .analytics-container {
+    padding: 0.3rem;
+  }
+  
+  .analytics-content {
+    padding: 0.8rem;
+    margin: 0.3rem 0;
+    border-radius: 10px;
+  }
+  
+  .analytics-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .analytics-header p {
+    font-size: 0.9rem;
+  }
+  
+  /* Stats Grid - 2 columnas ajustadas */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+  
+  .stat-card {
+    padding: 0.8rem;
+    min-height: 110px;
+  }
+  
+  .stat-card h3 {
+    font-size: 0.8rem;
+  }
+  
+  .stat-number {
+    font-size: 1.5rem;
+  }
+  
+  .stat-subtitle {
+    font-size: 0.75rem;
+  }
+  
+  /* Charts ajustados */
+  .chart-card {
+    padding: 0.8rem;
+  }
+  
+  .chart-card h3 {
+    font-size: 1rem;
+  }
+  
+  .chart-container {
+    height: 220px;
+    min-height: 220px;
+  }
+  
+  .time-filter button {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Asegurar que los gráficos de Chart.js sean responsive */
+.chart-container canvas {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Prevenir scroll horizontal en móvil */
+@media (max-width: 767px) {
+  .dashboard.futurista .analytics-container {
+    overflow-x: hidden;
+  }
+  
+  .analytics-content {
+    overflow: hidden;
+  }
+  
+  .chart-grid,
+  .stats-grid {
+    overflow: hidden;
+  }
+}
+
+/* Estados de hover solo en desktop */
+@media (hover: hover) and (pointer: fine) {
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(88, 88, 251, 0.25);
+  }
+  
+  .chart-card:hover {
+    border-color: #5858FB;
+    box-shadow: 0 6px 25px rgba(88, 88, 251, 0.2);
+    transform: translateY(-2px);
+  }
+}
+
+/* Estilos específicos para los gráficos Chart.js */
+.chartjs-render-monitor {
+  border-radius: 8px;
+}
+
+/* Personalización de tooltips de Chart.js */
+.chartjs-tooltip {
+  background: rgba(20, 30, 40, 0.95) !important;
+  border: 1px solid rgba(88, 88, 251, 0.5) !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(10px) !important;
+  color: #fff !important;
+  font-family: "Zen Dots", sans-serif !important;
+}
+
+.chartjs-tooltip-key {
+  background: #5858FB !important;
+}
+
+/* Leyenda personalizada */
+.chartjs-legend {
+  font-family: "Zen Dots", sans-serif !important;
+}
+
+.chartjs-legend li span {
+  border-radius: 4px !important;
+}

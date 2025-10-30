@@ -1,4 +1,39 @@
 /* Estilos para la página de administración */
+.admin {
+  background-image: url("/src/assets/pexels-karola-g-4197564.jpg");
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  min-height: 100vh;
+  font-family: "Archivo", sans-serif;
+}
+
+.admin > .nav-dashboard {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 250px);
+  margin-left: 250px;
+  padding: 2rem;
+  font-family: "Archivo", sans-serif;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  border-radius: 16px;
+  border: 1px solid #5858FB;
+  box-shadow: 0 8px 32px rgba(88, 88, 251, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  min-height: calc(100vh - 4rem);
+}
+
 .dashboard.clientes {
   background-image: url("/src/assets/pexels-cottonbro-5721384.jpg");
   background-position: top;
@@ -152,6 +187,12 @@
 .users-table {
   width: 100%;
   border-collapse: collapse;
+  background-color: rgba(20, 30, 40, 0.85);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(88, 88, 251, 0.1);
+  border: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .users-table th,
@@ -346,6 +387,12 @@
 
 /* RESPONSIVE DESIGN PARA CLIENTES - MEJORADO Y PROFESIONAL */
 @media (max-width: 990px) {
+  .admin-container {
+    width: 100%;
+    padding: 1rem;
+    margin: 0.5rem;
+    margin-top: 5rem;
+  }
   .clientes-wrapper {
     padding: 0.5rem;
     margin: 0.5rem;

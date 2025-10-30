@@ -218,7 +218,7 @@ const Turnos = () => {
   ];
 
   return (
-    <div className="dashboard turnos">
+    <div className="turnos-panel">
       <NavDashboard />
       <div className="turnos-wrapper">
         <div className="turnos-container" ref={adminContainerRef}>

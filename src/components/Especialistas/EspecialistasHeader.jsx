@@ -3,8 +3,6 @@ import React from "react";
 const EspecialistasHeader = ({
   searchQuery,
   setSearchQuery,
-  statusFilter,
-  setStatusFilter,
 }) => {
   return (
     <div className="title-admin">
@@ -41,21 +39,6 @@ const EspecialistasHeader = ({
           ✖
         </button>
       </form>
-      <select
-        value={statusFilter}
-        onChange={(e) => setStatusFilter(e.target.value)}
-        style={{
-          padding: "0.5rem",
-          borderRadius: "4px",
-          border: "1px solid #ccc",
-        }}
-      >
-        <option value="todos">Todos</option>
-        <option value="inicializado">Inicializado</option>
-        <option value="pendiente">Pendiente</option>
-        <option value="aprobado">Aprobado</option>
-        <option value="cancelado">Cancelado</option>
-      </select>
     </div>
   );
 };

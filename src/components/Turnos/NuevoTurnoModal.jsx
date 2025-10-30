@@ -18,7 +18,6 @@ const NuevoTurnoModal = ({
     fecha: "",
     motivo: "",
     notas: "",
-    reprocannRelacionado: false,
     pacienteId: pacienteForTurno?._id || "",
   });
   const [error, setError] = useState("");
@@ -67,7 +66,6 @@ const NuevoTurnoModal = ({
         fecha: form.fecha,
         motivo: form.motivo,
         notas: form.notas,
-        reprocannRelacionado: form.reprocannRelacionado,
         userId: currentUser._id,
       };
       if (isAdminOrMedico) {
@@ -184,19 +182,6 @@ const NuevoTurnoModal = ({
                 onChange={(e) => setForm({ ...form, notas: e.target.value })}
                 disabled={loading}
               />
-            </div>
-            <div className="form-group checkbox">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={form.reprocannRelacionado}
-                  onChange={(e) =>
-                    setForm({ ...form, reprocannRelacionado: e.target.checked })
-                  }
-                  disabled={loading}
-                />
-                Relacionado a Reprocann
-              </label>
             </div>
             <div className="modal-footer">
               <button

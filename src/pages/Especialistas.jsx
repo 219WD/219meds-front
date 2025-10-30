@@ -4,7 +4,6 @@ import NavDashboard from "../components/NavDashboard";
 import useNotify from "../hooks/useToast";
 import EspecialistasHeader from "../components/Especialistas/EspecialistasHeader";
 import EspecialistasTable from "../components/Especialistas/EspecialistasTable";
-import EspecialistasVencimiento from "../components/Especialistas/EspecialistasVencimiento";
 import EditarEspecialistaModal from "../components/Especialistas/EditarEspecialistaModal";
 import "./css/AdminPanel.css";
 import API_URL from "../common/constants";
@@ -15,16 +14,10 @@ const Especialistas = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState("todos");
   const [selectedEspecialista, setSelectedEspecialista] = useState(null);
   const [formEspecialista, setFormEspecialista] = useState({
     especialidad: "",
     matricula: "",
-    reprocann: {
-      status: "inicializado",
-      fechaAprobacion: "",
-      fechaVencimiento: "",
-    },
   });
 
   const notify = useNotify();
@@ -78,11 +71,6 @@ const Especialistas = () => {
       setFormEspecialista({
         especialidad: "",
         matricula: "",
-        reprocann: {
-          status: "inicializado",
-          fechaAprobacion: "",
-          fechaVencimiento: "",
-        },
       });
     } catch (err) {
       setError(err.message);
@@ -97,33 +85,8 @@ const Especialistas = () => {
       const matchesSearch =
         e.userId?.name?.toLowerCase().includes(query) ||
         e.especialidad.toLowerCase().includes(query);
-      const matchesStatus =
-        statusFilter === "todos" || e.reprocann.status === statusFilter;
-      return matchesSearch && matchesStatus;
+      return matchesSearch;
     });
-  };
-
-  const getEspecialistasPorVencer = () => {
-    const hoy = new Date();
-    const limite = new Date();
-    limite.setDate(hoy.getDate() + 30);
-
-    return especialistas.filter((e) => {
-      if (!e.reprocann?.fechaVencimiento) return false;
-      const vencimiento = new Date(e.reprocann.fechaVencimiento);
-      return vencimiento >= hoy && vencimiento <= limite;
-    });
-  };
-
-  const getReprocannClass = (fechaVencimiento) => {
-    if (!fechaVencimiento) return "";
-    const hoy = new Date();
-    const vencimiento = new Date(fechaVencimiento);
-    const diffDias = Math.ceil((vencimiento - hoy) / (1000 * 60 * 60 * 24));
-
-    if (diffDias <= 10) return "reprocann-rojo";
-    if (diffDias <= 30) return "reprocann-amarillo";
-    return "";
   };
 
   useEffect(() => {
@@ -137,12 +100,6 @@ const Especialistas = () => {
         <EspecialistasHeader
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
-          statusFilter={statusFilter}
-          setStatusFilter={setStatusFilter}
-        />
-        <EspecialistasVencimiento
-          especialistasPorVencer={getEspecialistasPorVencer()}
-          getReprocannClass={getReprocannClass}
         />
         <EspecialistasTable
           especialistas={filterEspecialistas()}
@@ -160,11 +117,6 @@ const Especialistas = () => {
             setFormEspecialista({
               especialidad: "",
               matricula: "",
-              reprocann: {
-                status: "inicializado",
-                fechaAprobacion: "",
-                fechaVencimiento: "",
-              },
             });
           }}
           onSave={handleUpdateEspecialista}

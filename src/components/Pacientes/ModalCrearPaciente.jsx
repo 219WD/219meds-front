@@ -16,7 +16,6 @@ const ModalCrearPaciente = ({
   const [formData, setFormData] = useState({
     fullName: "",
     fechaDeNacimiento: "",
-    reprocann: { status: "pending" },
     userId: "",
   });
   const [antecedentes, setAntecedentes] = useState({
@@ -51,16 +50,7 @@ const ModalCrearPaciente = ({
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    if (name.includes("reprocann")) {
-      const [_, field] = name.split(".");
-      setFormData((prev) => ({
-        ...prev,
-        reprocann: {
-          ...prev.reprocann,
-          [field]: value,
-        },
-      }));
-    } else if (name in antecedentes) {
+    if (name in antecedentes) {
       setAntecedentes((prev) => ({
         ...prev,
         [name]: type === "checkbox" ? checked : value,
@@ -139,19 +129,6 @@ const ModalCrearPaciente = ({
                   onChange={handleChange}
                   required
                 />
-              </div>
-              <div className="form-group">
-                <label>Estado REPROCANN</label>
-                <select
-                  name="reprocann.status"
-                  value={formData.reprocann?.status || "pending"}
-                  onChange={handleChange}
-                >
-                  <option value="pending">Pendiente</option>
-                  <option value="approved">Aprobado</option>
-                  <option value="rejected">Rechazado</option>
-                  <option value="expired">Expirado</option>
-                </select>
               </div>
               <div className="modal-footer">
                 <button

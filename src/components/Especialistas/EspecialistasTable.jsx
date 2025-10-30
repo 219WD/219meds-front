@@ -15,7 +15,6 @@ const EspecialistasTable = ({
             <th>Email</th>
             <th>Especialidad</th>
             <th>Matrícula</th>
-            <th>Reprocann</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -26,7 +25,6 @@ const EspecialistasTable = ({
               <td data-label="Email">{e.userId?.email}</td>
               <td data-label="Especialidad">{e.especialidad}</td>
               <td data-label="Matrícula">{e.matricula}</td>
-              <td data-label="Reprocann">{e.reprocann.status}</td>
               <td className="actions" data-label="Acciones">
                 <button
                   onClick={() => {
@@ -34,13 +32,6 @@ const EspecialistasTable = ({
                     setFormEspecialista({
                       especialidad: e.especialidad,
                       matricula: e.matricula,
-                      reprocann: {
-                        status: e.reprocann.status || "inicializado",
-                        fechaAprobacion:
-                          e.reprocann.fechaAprobacion?.substring(0, 10) || "",
-                        fechaVencimiento:
-                          e.reprocann.fechaVencimiento?.substring(0, 10) || "",
-                      },
                     });
                   }}
                   className="view-btn"

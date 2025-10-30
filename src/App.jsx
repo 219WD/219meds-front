@@ -35,6 +35,7 @@ const Consultorio = lazy(() => import("./pages/Consultorio.jsx"));
 const Caja = lazy(() => import("./pages/Caja.jsx"));
 const LoaderGsap = lazy(() => import("./components/LoaderGsap.jsx"));
 const AboutUs = lazy(() => import("./pages/AboutUs.jsx"));
+const Analytics = lazy(() => import("./pages/Analytics.jsx"));
 
 // Componente principal
 function AppContent() {
@@ -62,6 +63,7 @@ function AppContent() {
     "/turnos/paciente",
     "/consultorio",
     "/caja",
+    "/analytics",
   ];
 
   const shouldHideNav = hideNavRoutes.includes(location.pathname);
@@ -199,6 +201,7 @@ function AppContent() {
           <Route path="/caja" element={<Caja />} />
           <Route path="/loader" element={<LoaderGsap />} />
           <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/analytics" element={<Analytics />} />
           <Route
             path="/reset-password/:token"
             element={<ChangePasswordForm />}

@@ -197,15 +197,17 @@
 .table-container {
   overflow-x: auto;
   margin-bottom: 30px;
-  background: rgba(20, 30, 40, 0.85);
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(88, 88, 251, 0.1);
-  border: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .productos-table {
   width: 100%;
   border-collapse: collapse;
+  background-color: rgba(20, 30, 40, 0.85);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(88, 88, 251, 0.1);
+  border: 1px solid rgba(88, 88, 251, 0.3);
 }
 
 .productos-table th,
@@ -412,8 +414,31 @@
   }
 
   /* TABLA RESPONSIVE - Mismo patrón que pedidos */
+  .table-container {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0;
+  }
+
+  .productos-table {
+    width: 100%;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0;
+  }
+
   .productos-table thead {
     display: none;
+  }
+
+  /* 🔥 CORREGIDO: ELIMINAR FONDO DEL TBODY EN MOBILE */
+  .productos-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: transparent !important;
   }
 
   .productos-table tbody tr {
@@ -455,6 +480,7 @@
     position: relative;
     font-size: 0.92rem;
     min-height: 44px;
+    background: transparent !important;
   }
 
   .productos-table tbody td:last-child {

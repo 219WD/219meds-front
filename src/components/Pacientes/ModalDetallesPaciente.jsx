@@ -34,11 +34,6 @@ const ModalDetallesPaciente = ({
 }) => {
   const [formData, setFormData] = useState({
     ...paciente,
-    reprocann: paciente.reprocann || {
-      status: "pendiente",
-      fechaAprobacion: "",
-      fechaVencimiento: "",
-    },
     evaluacionMedica: paciente.evaluacionMedica || {
       patologia: "",
       tratamientoPropuesto: "",
@@ -51,16 +46,7 @@ const ModalDetallesPaciente = ({
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name.includes("reprocann.")) {
-      const [, subKey] = name.split(".");
-      setFormData((prev) => ({
-        ...prev,
-        reprocann: {
-          ...prev.reprocann,
-          [subKey]: value,
-        },
-      }));
-    } else if (name.includes("evaluacionMedica.")) {
+    if (name.includes("evaluacionMedica.")) {
       const [, subKey] = name.split(".");
       setFormData((prev) => ({
         ...prev,
@@ -105,33 +91,6 @@ const ModalDetallesPaciente = ({
           formData.evaluacionMedica
         );
         resultados.push(resultClinicos);
-      }
-
-      // 3. Guardar REPROCANN (si hay cambios)
-      if (
-        formData.reprocann &&
-        JSON.stringify(formData.reprocann) !==
-          JSON.stringify(paciente.reprocann || {})
-      ) {
-        const response = await fetch(
-          `${API_URL}/pacientes/${paciente._id}/reprocann`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(formData.reprocann),
-          }
-        );
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || "Error al actualizar REPROCANN");
-        }
-
-        const data = await response.json();
-        resultados.push({ success: true, data });
       }
 
       // Verificar si hubo errores
@@ -185,15 +144,6 @@ const ModalDetallesPaciente = ({
                   onClick={() => setActiveTab("clinicos")}
                 >
                   Datos Clínicos
-                </button>
-              )}
-              {(isAdmin || isMedico || isPartner) && (
-                <button
-                  type="button"
-                  className={activeTab === "reprocann" ? "active" : ""}
-                  onClick={() => setActiveTab("reprocann")}
-                >
-                  REPROCANN
                 </button>
               )}
             </div>
@@ -278,47 +228,6 @@ const ModalDetallesPaciente = ({
                     value={formData.evaluacionMedica?.beneficios || ""}
                     onChange={handleChange}
                     rows="3"
-                  />
-                </div>
-              </div>
-            )}
-
-            {activeTab === "reprocann" && (
-              <div className="user-details">
-                <div className="form-group">
-                  <label>Estado REPROCANN</label>
-                  <select
-                    name="reprocann.status"
-                    value={formData.reprocann?.status || "pendiente"}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="pendiente">Pendiente</option>
-                    <option value="aprobado">Aprobado</option>
-                    <option value="rechazado">Rechazado</option>
-                    <option value="expirado">Expirado</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>Fecha de Aprobación</label>
-                  <input
-                    type="date"
-                    name="reprocann.fechaAprobacion"
-                    value={
-                      formData.reprocann?.fechaAprobacion?.split("T")[0] || ""
-                    }
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Fecha de Vencimiento</label>
-                  <input
-                    type="date"
-                    name="reprocann.fechaVencimiento"
-                    value={
-                      formData.reprocann?.fechaVencimiento?.split("T")[0] || ""
-                    }
-                    onChange={handleChange}
                   />
                 </div>
               </div>

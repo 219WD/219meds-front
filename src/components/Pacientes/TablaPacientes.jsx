@@ -24,7 +24,6 @@ const TablaPacientes = ({
             <th>Nombre</th>
             <th>Email</th>
             <th>Fecha Nacimiento</th>
-            <th>Estado</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -34,11 +33,6 @@ const TablaPacientes = ({
               <td data-label="Nombre">{paciente.fullName}</td>
               <td data-label="Email">{paciente.userId?.email || 'No asociado'}</td>
               <td data-label="Fecha Nacimiento">{paciente.fechaDeNacimiento ? new Date(paciente.fechaDeNacimiento).toLocaleDateString() : 'No especificada'}</td>
-              <td data-label="Estado">
-                <span className={`status-badge ${paciente.reprocann?.status || 'inactive'}`}>
-                  {paciente.reprocann?.status || 'Sin estado'}
-                </span>
-              </td>
               <td data-label="Acciones" className="actions">
                 <button 
                   onClick={() => handleViewDetails(paciente)} 

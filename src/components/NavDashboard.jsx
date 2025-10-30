@@ -149,7 +149,7 @@ const NavDashboard = () => {
                       />
                       <span>Productos</span>
                     </Link>
-                    <Link to="/analiticas" className="submenu-item" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Link to="/analytics" className="submenu-item" onClick={() => setIsMobileMenuOpen(false)}>
                       <FontAwesomeIcon
                         icon={faChartLine}
                         className="submenu-icon"
