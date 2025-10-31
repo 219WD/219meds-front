@@ -10,7 +10,8 @@ import {
   faCalendarCheck,
   faShieldAlt,
   faPlus,
-  faChartLine
+  faChartLine,
+  faGlobe // Icono agregado para la nueva card
 } from "@fortawesome/free-solid-svg-icons";
 import gsap from 'gsap';
 import './css/RevenueSection.css';
@@ -105,6 +106,19 @@ const RevenueSection = () => {
         { icon: faShieldAlt, text: 'Desde la agenda hasta la caja: todo es simple, rápido y seguro' }
       ],
       color: '#0a2e5c'
+    },
+    // NUEVA CARD AGREGADA - LANDING PAGE INCLUIDA
+    {
+      icon: faGlobe,
+      title: 'Landing Page Profesional Incluida',
+      description: 'Tu consultorio visible 24/7 para que los pacientes encuentren todo lo que necesitan:',
+      items: [
+        { icon: faCheckCircle, text: 'Sitio web profesional listo para usar, sin costos adicionales' },
+        { icon: faCalendarCheck, text: 'Turnos online las 24 horas desde cualquier dispositivo' },
+        { icon: faStore, text: 'Catálogo de productos y servicios disponible para compra inmediata' },
+        { icon: faShieldAlt, text: 'Registro seguro de pacientes con historial médico integrado' }
+      ],
+      color: '#5B5BFB'
     }
   ];
 

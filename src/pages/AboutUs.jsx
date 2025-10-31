@@ -1,434 +1,291 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import React, { useRef, useEffect } from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCode,
+  faLightbulb,
+  faRocket,
+  faUsers,
+  faShieldAlt,
+  faCogs,
+  faChartBar,
+  faMobileAlt,
+  faCloud,
+  faHandshake,
+  faMagic,
+  faInfinity,
+  faCheckCircle // ESTE FALTABA IMPORTAR
+} from "@fortawesome/free-solid-svg-icons";
+import gsap from 'gsap';
 import './AboutUs.css';
-
-// Importa las imágenes de la galería circular
-import image1 from '../assets/about1.jfif';
-import image2 from '../assets/about2.jfif';
-import image3 from '../assets/about3.jfif';
-import image4 from '../assets/about4.jfif';
-import image5 from '../assets/about5.jfif';
-import image6 from '../assets/about6.jfif';
-import image7 from '../assets/about7.jfif';
-import image8 from '../assets/about8.jfif';
-import image9 from '../assets/about9.jfif';
-import image10 from '../assets/about10.jfif';
-import image11 from '../assets/about11.jfif';
-import image12 from '../assets/about12.jfif';
-import image13 from '../assets/about13.jfif';
-import image14 from '../assets/about14.jfif';
-import image15 from '../assets/about15.jfif';
-
-// Importa las imágenes para las cards (reemplaza con tus propias imágenes)
-import proLogo from '../assets/logo png.png';
-import logo from '../assets/LOGOJAMROCK.png';
-import img1 from '../assets/jamrock.png';
-import img2 from '../assets/jamrock.png';
-import img3 from '../assets/jamrock.png';
-import img4 from '../assets/jamrock.png';
-import img5 from '../assets/jamrock.png';
-import img6 from '../assets/jamrock.png';
-
-// Registra el plugin de ScrollTrigger
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import Footer from '../components/Footer';
 
 const AboutUs = () => {
   const containerRef = useRef(null);
-  const itemsRef = useRef([]);
-  const isGalleryOpenRef = useRef(false);
-  const currentItemRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const missionRef = useRef(null);
+  const servicesRef = useRef([]);
+  const statsRef = useRef([]);
 
-  // Ref para las secciones nuevas
-  const heroRef = useRef(null);
-  const mainRef = useRef(null);
-  const logoRef = useRef(null);
-  const copyLinesRef = useRef([]);
-  const buttonRef = useRef(null);
-  const rowsRef = useRef([]);
-
-  const images = [
-    image1, image2, image3, image4, image5,
-    image6, image7, image8, image9, image10,
-    image11, image12, image13, image14, image15
-  ];
-
-  const cardImages = [img1, img2, img3, img4, img5, img6];
-
-  // Detectar si es mobile
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: 'top 80%',
+        end: 'bottom 20%',
+        toggleActions: 'play none none reverse'
+      }
+    });
 
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-    };
-  }, []);
-
-  // Inicializar galería circular
-  useEffect(() => {
-    const initializeGallery = () => {
-      const items = itemsRef.current;
-      const container = containerRef.current;
-      const numberOfItems = items.length;
-      const angleIncrement = (2 * Math.PI) / numberOfItems;
-      
-      const radius = isMobile ? 150 : 300;
-
-      if (!container) return;
-
-      const centerX = container.offsetWidth / 2;
-      const centerY = container.offsetHeight / 2;
-
-      const tl = gsap.timeline();
-
-      items.forEach((item, index) => {
-        const angle = index * angleIncrement;
-        const initialRotation = (angle * 180 / Math.PI) - 90;
-        const x = centerX + radius * Math.cos(angle);
-        const y = centerY + radius * Math.sin(angle);
-
-        gsap.set(item, { scale: 0 });
-
-        tl.to(item, {
-          left: x + 'px',
-          top: y + 'px',
-          rotation: initialRotation,
-          scale: 1,
-          duration: 1,
-          ease: "power2.out",
-          delay: 1,
-        }, index * 0.1);
-      });
-    };
-
-    const timer = setTimeout(() => {
-      initializeGallery();
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, [isMobile]);
-
-  // Inicializar animaciones de ScrollTrigger
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const initScrollAnimations = () => {
-      // Animación del logo
-      gsap.to(logoRef.current, {
-        scale: 1,
-        duration: 0.5,
-        ease: "power1.out",
-        scrollTrigger: {
-          trigger: mainRef.current,
-          start: "top 25%",
-          toggleActions: "play reverse play reverse",
-        },
-      });
-
-      // Animación de las líneas de texto
-      copyLinesRef.current.forEach((line, index) => {
-        if (line) {
-          gsap.to(line, {
-            y: 0,
-            duration: 0.5,
-            ease: "power1.out",
-            delay: index * 0.1,
-            scrollTrigger: {
-              trigger: mainRef.current,
-              start: "top 25%",
-              toggleActions: "play reverse play reverse",
-            },
-          });
-        }
-      });
-
-      // Animación del botón
-      gsap.to(buttonRef.current, {
+    tl.fromTo(titleRef.current, 
+      { y: 60, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out' }
+    )
+    .fromTo(subtitleRef.current,
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
+      '-=0.6'
+    )
+    .fromTo(missionRef.current,
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
+      '-=0.4'
+    )
+    .fromTo(servicesRef.current,
+      { y: 50, opacity: 0, scale: 0.95 },
+      {
         y: 0,
         opacity: 1,
-        duration: 0.5,
-        ease: "power1.out",
-        delay: 0.25,
-        scrollTrigger: {
-          trigger: mainRef.current,
-          start: "top 25%",
-          toggleActions: "play reverse play reverse",
-        },
-      });
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'back.out(1.4)'
+      },
+      '-=0.3'
+    )
+    .fromTo(statsRef.current,
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power3.out'
+      },
+      '-=0.2'
+    );
 
-      // Animaciones de las cards
-      rowsRef.current.forEach((row, index) => {
-        if (!row) return;
+  }, []);
 
-        const cardLeft = row.querySelector('.about-card-left');
-        const cardRight = row.querySelector('.about-card-right');
-
-        if (!cardLeft || !cardRight) return;
-
-        const leftXValues = isMobile ? [-200, -250, -150] : [-800, -900, -400];
-        const rightXValues = isMobile ? [200, 250, 150] : [800, 900, 400];
-        const leftRotationValues = isMobile ? [-15, -10, -20] : [-30, -20, -35];
-        const rightRotationValues = isMobile ? [15, 10, 20] : [30, 20, 35];
-        const yValues = isMobile ? [50, -75, -200] : [100, -150, -400];
-
-        gsap.to(cardLeft, {
-          x: leftXValues[index],
-          scrollTrigger: {
-            trigger: mainRef.current,
-            start: "top center",
-            end: "150% bottom",
-            scrub: true,
-            onUpdate: (self) => {
-              const progress = self.progress;
-              if (cardLeft && cardRight) {
-                cardLeft.style.transform = `translateX(${
-                  progress * leftXValues[index]
-                }px) translateY(${progress * yValues[index]}px) rotate(${
-                  progress * leftRotationValues[index]
-                }deg)`;
-                cardRight.style.transform = `translateX(${
-                  progress * rightXValues[index]
-                }px) translateY(${progress * yValues[index]}px) rotate(${
-                  progress * rightRotationValues[index]
-                }deg)`;
-              }
-            },
-          },
-        });
-      });
-    };
-
-    // Pequeño delay para asegurar que los elementos estén renderizados
-    const timer = setTimeout(() => {
-      initScrollAnimations();
-    }, 500);
-
-    return () => {
-      clearTimeout(timer);
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, [isMobile]);
-
-  const handleItemClick = (index, item) => {
-    if (isGalleryOpenRef.current) {
-      closeGallery();
-      return;
-    }
-
-    isGalleryOpenRef.current = true;
-    currentItemRef.current = item;
-
-    const items = itemsRef.current;
-    const container = containerRef.current;
-    const numberOfItems = items.length;
-    const angleIncrement = (2 * Math.PI) / numberOfItems;
-    const radius = isMobile ? 150 : 300;
-
-    const centerX = container.offsetWidth / 2;
-    const centerY = container.offsetHeight / 2;
-
-    const angle = index * angleIncrement;
-    const initialRotation = (angle * 180 / Math.PI) - 90;
-    const x = centerX + radius * Math.cos(angle);
-    const y = centerY + radius * Math.sin(angle);
-
-    item.originalPosition = { x, y, rotation: initialRotation };
-
-    gsap.to(items.filter((_, i) => i !== index), {
-      scale: 0,
-      duration: 0.5,
-      ease: "power2.in",
-      stagger: 0.05
-    });
-
-    const expandedScale = isMobile ? 4.5 : 3;
-
-    gsap.to(item, {
-      left: "50%",
-      top: "50%",
-      x: "-50%",
-      y: "-50%",
-      rotation: 0,
-      scale: expandedScale,
-      duration: 1,
-      ease: "power2.out",
-      onComplete: function() {
-        item.classList.add('about-item-expanded');
-      }
-    });
-
-    const handleKeyPress = (e) => {
-      if (e.key === 'Escape') {
-        closeGallery();
-      }
-    };
-    document.addEventListener('keydown', handleKeyPress);
-
-    const handleOutsideClick = (e) => {
-      if (!item.contains(e.target)) {
-        closeGallery();
-      }
-    };
-    document.addEventListener('click', handleOutsideClick);
-
-    item._closeListeners = { handleKeyPress, handleOutsideClick };
-  };
-
-  const closeGallery = () => {
-    if (!isGalleryOpenRef.current || !currentItemRef.current) return;
-
-    const item = currentItemRef.current;
-    const items = itemsRef.current;
-
-    item.classList.remove('about-item-expanded');
-
-    gsap.to(item, {
-      left: item.originalPosition.x + 'px',
-      top: item.originalPosition.y + 'px',
-      x: "0%",
-      y: "0%",
-      rotation: item.originalPosition.rotation,
-      scale: 1,
-      duration: 1,
-      ease: "power2.out",
-      onComplete: function() {
-        gsap.to(items, {
-          scale: 1,
-          duration: 0.5,
-          stagger: 0.05,
-          ease: "power2.out"
-        });
-        
-        isGalleryOpenRef.current = false;
-        currentItemRef.current = null;
-      }
-    });
-
-    if (item._closeListeners) {
-      document.removeEventListener('keydown', item._closeListeners.handleKeyPress);
-      document.removeEventListener('click', item._closeListeners.handleOutsideClick);
-      delete item._closeListeners;
+  const addToServicesRefs = (el) => {
+    if (el && !servicesRef.current.includes(el)) {
+      servicesRef.current.push(el);
     }
   };
 
-  const addToRefs = (el, index) => {
-    if (el && !itemsRef.current.includes(el)) {
-      itemsRef.current[index] = el;
+  const addToStatsRefs = (el) => {
+    if (el && !statsRef.current.includes(el)) {
+      statsRef.current.push(el);
     }
   };
 
-  const addCopyLineRef = (el, index) => {
-    if (el) {
-      copyLinesRef.current[index] = el;
+  const services = [
+    {
+      icon: faUsers,
+      title: 'Gestión Integral de Pacientes',
+      description: 'Sistema completo de historias clínicas, turnos, tratamientos y seguimiento médico continuo.',
+      features: ['Historial médico digital', 'Fichas personalizadas', 'Alertas automáticas', 'Comunicación directa']
+    },
+    {
+      icon: faCogs,
+      title: 'Automatización de Procesos',
+      description: 'Eliminá tareas repetitivas y optimizá el flujo de trabajo de tu consultorio.',
+      features: ['Turnos automáticos', 'Recordatorios inteligentes', 'Facturación integrada', 'Backups automáticos']
+    },
+    {
+      icon: faChartBar,
+      title: 'Analíticas Avanzadas',
+      description: 'Métricas detalladas para tomar decisiones basadas en datos reales de tu práctica.',
+      features: ['Dashboard interactivo', 'Reportes personalizados', 'KPIs de rendimiento', 'Tendencias del consultorio']
+    },
+    {
+      icon: faMobileAlt,
+      title: 'E-commerce Médico',
+      description: 'Vendé productos, servicios y tratamientos directamente desde tu plataforma.',
+      features: ['Catálogo digital', 'Pagos online', 'Stock inteligente', 'Ventas cruzadas']
+    },
+    {
+      icon: faCloud,
+      title: 'Plataforma Cloud',
+      description: 'Acceso seguro desde cualquier dispositivo, en cualquier momento y lugar.',
+      features: ['Sincronización en tiempo real', 'Acceso multiplataforma', 'Escalabilidad automática', 'Zero downtime']
+    },
+    {
+      icon: faShieldAlt,
+      title: 'Seguridad HIPAA Compliant',
+      description: 'Protección de datos médicos con los más altos estándares de seguridad.',
+      features: ['Encriptación end-to-end', 'Backups seguros', 'Accesos controlados', 'Auditoría completa']
     }
-  };
+  ];
 
-  const addRowRef = (el, index) => {
-    if (el) {
-      rowsRef.current[index] = el;
-    }
-  };
+  const stats = [
+    { number: '500+', label: 'Consultorios Transformados' },
+    { number: '85%', label: 'Reducción Tiempo Admin' },
+    { number: '40%', label: 'Aumento Ingresos' },
+    { number: '99.9%', label: 'Uptime Garantizado' }
+  ];
 
   return (
-    <div className="about-us-page">
-      {/* Sección Hero con la galería circular */}
-      <section className="about-hero" ref={heroRef}>
-        <div className="about-hero-img">
-          <img src={proLogo} alt="Pro Logo" />
+    <section className="about-us-section" ref={containerRef}>
+      <div className="about-us-container">
+        {/* Background Elements */}
+        <div className="about-bg-elements">
+          <div className="bg-orb orb-1"></div>
+          <div className="bg-orb orb-2"></div>
+          <div className="bg-orb orb-3"></div>
+          <div className="floating-code">{'</>'}</div>
+          <div className="circuit-pattern"></div>
         </div>
-        
-        <div className="about-container" ref={containerRef}>
-          <div className="about-gallery">
-            {images.map((image, index) => (
+
+        {/* Header */}
+        <div className="about-header">
+          <div className="about-badge">
+            <FontAwesomeIcon icon={faCode} className="badge-icon" />
+            <span>Desarrollo de Software a Medida</span>
+          </div>
+          
+          <h1 className="about-title" ref={titleRef}>
+            De desarrolladores a{' '}
+            <span className="title-gradient">transformadores</span> de consultorios
+          </h1>
+          
+          <p className="about-subtitle" ref={subtitleRef}>
+            Creamos 219Meds cuando descubrimos que podíamos simplificar 
+            <strong> radicalmente</strong> la vida de los profesionales de la salud
+          </p>
+        </div>
+
+        {/* Mission Statement */}
+        <div className="mission-section" ref={missionRef}>
+          <div className="mission-content">
+            <div className="mission-icon">
+              <FontAwesomeIcon icon={faLightbulb} />
+            </div>
+            <div className="mission-text">
+              <h2>Nuestra Misión</h2>
+              <p>
+                Como empresa de desarrollo de software, identificamos que los dueños de clínicas y consultorios 
+                perdían <strong>horas valiosas</strong> en tareas administrativas repetitivas. Decidimos crear 
+                un ecosistema completo que unifique <strong>turnos, pacientes, especialistas, productos y analíticas </strong> 
+                en una interfaz única e intuitiva.
+              </p>
+              <p>
+                No solo desarrollamos software - <strong>resolvemos problemas reales</strong> y liberamos tiempo 
+                para que los profesionales se enfoquen en lo que realmente importa: la atención médica de calidad.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Services Grid */}
+        <div className="services-section">
+          <div className="services-header">
+            <FontAwesomeIcon icon={faRocket} className="section-icon" />
+            <h2>Todo lo que necesitás, en un solo lugar</h2>
+            <p>Diseñamos cada función pensando en simplificar tu día a día</p>
+          </div>
+
+          <div className="services-grid">
+            {services.map((service, index) => (
               <div
                 key={index}
-                className="about-item"
-                ref={(el) => addToRefs(el, index)}
-                onClick={() => handleItemClick(index, itemsRef.current[index])}
+                className="service-card"
+                ref={addToServicesRefs}
               >
-                <img src={image} alt={`Team member ${index + 1}`} />
+                <div className="service-icon-wrapper">
+                  <div className="service-icon-bg"></div>
+                  <FontAwesomeIcon 
+                    icon={service.icon} 
+                    className="service-icon"
+                  />
+                </div>
+                
+                <div className="service-content">
+                  <h3 className="service-title">{service.title}</h3>
+                  <p className="service-description">{service.description}</p>
+                  
+                  <ul className="service-features">
+                    {service.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="service-feature">
+                        <FontAwesomeIcon icon={faCheckCircle} className="feature-check" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="service-glow"></div>
               </div>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* Sección Main con cards animadas */}
-      <section className="about-main" ref={mainRef}>
-        <div className="about-main-content">
-          <div className="about-logo" ref={logoRef}>
-            <img src={logo} alt="Logo" />
-          </div>
-          <div className="about-copy">
-            <div className="about-line">
-              <p ref={(el) => addCopyLineRef(el, 0)}>Nuestra política principal es</p>
-            </div>
-            <div className="about-line">
-              <p ref={(el) => addCopyLineRef(el, 1)}>Cultivar conciencia, cosechar experiencia</p>
-            </div>
-            <div className="about-line">
-              <p ref={(el) => addCopyLineRef(el, 2)}>dispensar, informar y capacitar</p>
-            </div>
-            <div className="about-line">
-              <p ref={(el) => addCopyLineRef(el, 3)}>a nuestros asociados.</p>
-            </div>
-          </div>
-          <div className="about-btn"> 
-            <Link 
-              to="/register" 
-              className="about-btn-primary-modern"
-              ref={buttonRef}
+        {/* Stats Section */}
+        <div className="stats-section">
+          {stats.map((stat, index) => (
+            <div
+              key={index}
+              className="stat-item"
+              ref={addToStatsRefs}
             >
-              <FontAwesomeIcon icon={faUser} /> 
-              <span>Unirse al Club</span>
-              <FontAwesomeIcon icon={faArrowRight} className="about-arrow" />
-            </Link>
+              <div className="stat-number">{stat.number}</div>
+              <div className="stat-label">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Value Proposition */}
+        <div className="value-section">
+          <div className="value-content">
+            <div className="value-icon">
+              <FontAwesomeIcon icon={faMagic} />
+            </div>
+            <h2>Más que software, una revolución en tu consultorio</h2>
+            <p>
+              Integramos <strong>tecnología de punta</strong> con <strong>conocimiento médico</strong> para crear 
+              herramientas que realmente funcionan. Desde la agenda digital hasta el e-commerce médico, 
+              cada feature fue pensado para <strong>ahorrarte tiempo y aumentar tu productividad</strong>.
+            </p>
+            <div className="value-highlights">
+              <div className="value-highlight">
+                <FontAwesomeIcon icon={faInfinity} />
+                <span>Escalable y adaptable</span>
+              </div>
+              <div className="value-highlight">
+                <FontAwesomeIcon icon={faHandshake} />
+                <span>Soporte personalizado</span>
+              </div>
+              <div className="value-highlight">
+                <FontAwesomeIcon icon={faRocket} />
+                <span>Implementación rápida</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="about-row" ref={(el) => addRowRef(el, 0)}>
-          <div className="about-card about-card-left">
-            <img src={cardImages[0]} alt="Card 1" />
-          </div>
-          <div className="about-card about-card-right">
-            <img src={cardImages[1]} alt="Card 2" />
-          </div>
+        {/* CTA Section */}
+        <div className="about-cta">
+          <button className="cta-button-primary">
+            <FontAwesomeIcon icon={faCode} />
+            <span>Conocé nuestra solución completa</span>
+            <div className="cta-arrow">→</div>
+          </button>
+          <p className="cta-note">
+            Desarrollo 100% personalizado • Integración sin complicaciones • Soporte técnico dedicado
+          </p>
         </div>
-
-        <div className="about-row" ref={(el) => addRowRef(el, 1)}>
-          <div className="about-card about-card-left">
-            <img src={cardImages[2]} alt="Card 3" />
-          </div>
-          <div className="about-card about-card-right">
-            <img src={cardImages[3]} alt="Card 4" />
-          </div>
-        </div>
-
-        <div className="about-row" ref={(el) => addRowRef(el, 2)}>
-          <div className="about-card about-card-left">
-            <img src={cardImages[4]} alt="Card 5" />
-          </div>
-          <div className="about-card about-card-right">
-            <img src={cardImages[5]} alt="Card 6" />
-          </div>
-        </div>
-      </section>
-
-      <section className="about-footer">
-        <Link to="/register">Solicitar Unirse al Club</Link>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 

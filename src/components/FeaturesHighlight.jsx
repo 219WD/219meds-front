@@ -7,7 +7,8 @@ import {
   faBoxes,
   faCashRegister,
   faClock,
-  faRocket
+  faRocket,
+  faChartLine // Icono agregado para la nueva card
 } from "@fortawesome/free-solid-svg-icons";
 import gsap from 'gsap';
 import './css/FeaturesHighlight.css';
@@ -88,6 +89,13 @@ const FeaturesHighlight = () => {
       title: 'Sistema de Ventas Integrado',
       description: 'Vendé cremas, medicamentos o servicios directamente desde la plataforma.',
       color: '#1860b0'
+    },
+    // NUEVA CARD AGREGADA
+    {
+      icon: faChartLine,
+      title: 'Reportes y Analytics',
+      description: 'Métricas detalladas de tu consultorio para tomar mejores decisiones.',
+      color: '#0a2e5c'
     }
   ];
 
