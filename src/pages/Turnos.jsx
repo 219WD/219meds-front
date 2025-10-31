@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import useAuthStore from "../store/authStore";
+import useLoadingStore from "../store/loadingStore"; // Importar el store del loader
 import NavDashboard from "../components/NavDashboard";
+import GlobalLoader from "../components/GlobalLoader"; // Importar el loader
 import useNotify from "../hooks/useToast";
 import TurnosTable from "../components/Turnos/TurnosTable";
 import NuevoTurnoModal from "../components/Turnos/NuevoTurnoModal";
@@ -29,12 +31,17 @@ const Turnos = () => {
   const [showVerTurnoModal, setShowVerTurnoModal] = useState(false);
   const [turnoAVer, setTurnoAVer] = useState(null);
 
+  // Store para controlar el loader global
+  const { setLoading: setGlobalLoading, setLoadingText } = useLoadingStore();
+
   const adminContainerRef = useRef(null);
   const notify = useNotify();
 
   const fetchTurnos = async () => {
     try {
-      setLoading(true);
+      setGlobalLoading(true);
+      setLoadingText("Cargando turnos...");
+      
       const res = await fetch(`${API_URL}/turnos`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -50,11 +57,15 @@ const Turnos = () => {
       notify(err.message, "error");
     } finally {
       setLoading(false);
+      setGlobalLoading(false);
     }
   };
 
   const fetchEspecialistas = async () => {
     try {
+      setGlobalLoading(true);
+      setLoadingText("Cargando especialistas...");
+      
       const res = await fetch(`${API_URL}/especialistas`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -67,12 +78,16 @@ const Turnos = () => {
     } catch (err) {
       console.error("Error al obtener especialistas:", err.message);
       notify(err.message, "error");
+    } finally {
+      setGlobalLoading(false);
     }
   };
 
   const handleEstadoChange = async (turnoId, nuevoEstado) => {
     try {
-      setLoading(true);
+      setGlobalLoading(true);
+      setLoadingText("Actualizando estado del turno...");
+      
       const endpoint = user.isSecretaria
         ? `${API_URL}/turnos/secretaria/${turnoId}`
         : `${API_URL}/turnos/medico/${turnoId}`;
@@ -98,12 +113,15 @@ const Turnos = () => {
       notify(err.message, "error");
     } finally {
       setLoading(false);
+      setGlobalLoading(false);
     }
   };
 
   const handleReprogramarTurno = async (turnoId, nuevosDatos) => {
     try {
-      setLoading(true);
+      setGlobalLoading(true);
+      setLoadingText("Reprogramando turno...");
+      
       const endpoint = user.isSecretaria
         ? `${API_URL}/turnos/secretaria/${turnoId}`
         : `${API_URL}/turnos/medico/${turnoId}`;
@@ -130,6 +148,7 @@ const Turnos = () => {
       notify(err.message, "error");
     } finally {
       setLoading(false);
+      setGlobalLoading(false);
     }
   };
 
@@ -209,8 +228,23 @@ const Turnos = () => {
   };
 
   useEffect(() => {
-    fetchTurnos();
-    fetchEspecialistas();
+    const loadAllData = async () => {
+      setGlobalLoading(true);
+      setLoadingText("Cargando datos de turnos...");
+      
+      try {
+        await Promise.all([
+          fetchTurnos(),
+          fetchEspecialistas()
+        ]);
+      } catch (error) {
+        console.error("Error cargando datos:", error);
+      } finally {
+        setGlobalLoading(false);
+      }
+    };
+
+    loadAllData();
   }, []);
 
   const especialidadesUnicas = [
@@ -219,6 +253,9 @@ const Turnos = () => {
 
   return (
     <div className="turnos-panel">
+      {/* Loader global - se mostrará automáticamente cuando isLoading sea true */}
+      <GlobalLoader />
+
       <NavDashboard />
       <div className="turnos-wrapper">
         <div className="turnos-container" ref={adminContainerRef}>

@@ -10,6 +10,7 @@ import EditarProductoModal from "./Productos/EditarProductoModal.jsx";
 import "./css/productos.css";
 import API_URL from "../common/constants";
 import VerProductoModal from "./Productos/VerProductoModal.jsx";
+import ReseñasModal from "./Productos/ReseñasModal.jsx";
 
 const Products = () => {
   const [productos, setProductos] = useState([]);
@@ -23,6 +24,8 @@ const Products = () => {
   const [productoAEditar, setProductoAEditar] = useState(null);
   const [showVerProductoModal, setShowVerProductoModal] = useState(false);
   const [productoAVer, setProductoAVer] = useState(null);
+  const [showReseñasModal, setShowReseñasModal] = useState(false);
+  const [productoReseñas, setProductoReseñas] = useState(null);
 
   const productosContainerRef = useRef(null);
   const token = useAuthStore((state) => state.token);
@@ -219,6 +222,11 @@ const Products = () => {
         matchesSearch && matchesStatus && matchesCategory && matchesVencimiento
       );
     });
+  };
+
+  const handleViewReseñas = (producto) => {
+    setProductoReseñas(producto);
+    setShowReseñasModal(true);
   };
 
   // GSAP Animation
@@ -424,6 +432,7 @@ const Products = () => {
         <VerProductoModal
           producto={productoAVer}
           onClose={() => setShowVerProductoModal(false)}
+          onViewReseñas={handleViewReseñas}
         />
       )}
 
@@ -439,6 +448,13 @@ const Products = () => {
           producto={productoAEditar}
           onClose={() => setShowEditarProductoModal(false)}
           onSubmit={(formValues) => handleSubmit(formValues, true)}
+        />
+      )}
+
+      {showReseñasModal && productoReseñas && (
+        <ReseñasModal
+          producto={productoReseñas}
+          onClose={() => setShowReseñasModal(false)}
         />
       )}
     </div>

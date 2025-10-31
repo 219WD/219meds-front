@@ -11,7 +11,6 @@ import ChangePasswordForm from "./components/ChangePasswordForm";
 import { Toaster } from "react-hot-toast";
 import GlobalLoader from "./components/GlobalLoader.jsx";
 import Dashboard from "./components/Dashboard.jsx";
-import Pacientes from "./pages/Pacientes.jsx";
 
 // Páginas lazy
 const HomeScreen = lazy(() => import("./pages/HomeScreen"));
@@ -36,6 +35,7 @@ const Caja = lazy(() => import("./pages/Caja.jsx"));
 const LoaderGsap = lazy(() => import("./components/LoaderGsap.jsx"));
 const AboutUs = lazy(() => import("./pages/AboutUs.jsx"));
 const Analytics = lazy(() => import("./pages/Analytics.jsx"));
+const Pacientes = lazy(() => import("./pages/Pacientes.jsx"));
 
 // Componente principal
 function AppContent() {

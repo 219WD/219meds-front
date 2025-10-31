@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useAuthStore from "../store/authStore";
+import useLoadingStore from "../store/loadingStore"; // Importar el store del loader
 import NavDashboard from "../components/NavDashboard";
+import GlobalLoader from "../components/GlobalLoader"; // Importar el loader
 import useNotify from "../hooks/useToast";
 import EspecialistasHeader from "../components/Especialistas/EspecialistasHeader";
 import EspecialistasTable from "../components/Especialistas/EspecialistasTable";
@@ -20,11 +22,16 @@ const Especialistas = () => {
     matricula: "",
   });
 
+  // Store para controlar el loader global
+  const { setLoading: setGlobalLoading, setLoadingText } = useLoadingStore();
+
   const notify = useNotify();
 
   const fetchEspecialistas = async () => {
     try {
-      setLoading(true);
+      setGlobalLoading(true);
+      setLoadingText("Cargando especialistas...");
+      
       const res = await fetch(`${API_URL}/especialistas`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -42,12 +49,15 @@ const Especialistas = () => {
       setError(err.message);
     } finally {
       setLoading(false);
+      setGlobalLoading(false);
     }
   };
 
   const handleUpdateEspecialista = async () => {
     try {
-      setLoading(true);
+      setGlobalLoading(true);
+      setLoadingText("Actualizando especialista...");
+      
       const res = await fetch(
         `${API_URL}/especialistas/${selectedEspecialista._id}`,
         {
@@ -76,6 +86,7 @@ const Especialistas = () => {
       setError(err.message);
     } finally {
       setLoading(false);
+      setGlobalLoading(false);
     }
   };
 
@@ -95,6 +106,9 @@ const Especialistas = () => {
 
   return (
     <div className="admin">
+      {/* Loader global - se mostrará automáticamente cuando isLoading sea true */}
+      <GlobalLoader />
+
       <NavDashboard />
       <div className="admin-container">
         <EspecialistasHeader

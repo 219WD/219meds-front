@@ -1,32 +1,80 @@
+/* MenuCards.css - ACTUALIZADO */
 .menu-cards-section {
     display: flex;
     flex-direction: column;
     text-align: center;
-    padding: 2rem;
-    background:
-        linear-gradient(rgba(24, 86, 0, 0.7), rgba(140, 189, 126, 0.7)),
-        url("https://res.cloudinary.com/dtxdv136u/image/upload/v1733412580/kvoHqmc_nbvyac.webp");
+    padding: 3rem 2rem;
+    background: linear-gradient(
+        rgba(10, 46, 92, 0.9), 
+        rgba(24, 96, 176, 0.8)
+    );
     background-size: cover;
     background-position: center;
-    background-blend-mode: multiply;
-    padding-top: 5rem;
-    padding-bottom: 8rem;
+    background-attachment: fixed;
     position: relative;
-    width: 100vw;
+    min-height: 60vh;
+}
+
+.menu-cards-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("/src/assets/jamrock.png");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    z-index: 1;
+}
+
+.menu-cards-section > * {
+    position: relative;
+    z-index: 2;
 }
 
 .menu-cards-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .menu-cards-section h2 {
-  font-family: "Archivo Black", sans-serif;
+  font-family: "Zen Dots", sans-serif;
   text-transform: uppercase;
-  color: #E4FF00;
+  color: #fff;
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.menu-cards-section::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(45deg, #5858FB, #74B72C);
+  margin: 1rem auto;
+  border-radius: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .menu-cards-section {
+        padding: 2rem 1rem;
+    }
+    
+    .menu-cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .menu-cards-section h2 {
+        font-size: 2rem;
+    }
 }

@@ -1,34 +1,43 @@
-/* Card.css */
+/* Card.css - ACTUALIZADO CON NUEVA PALETA */
 .card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 260px;
+    width: 100%;
     overflow: hidden;
     transition: all 0.3s ease;
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Altura automática */
+    height: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(88, 88, 251, 0.2);
+    border-color: rgba(88, 88, 251, 0.4);
 }
 
 .image-container {
     position: relative;
     overflow: hidden;
-    width: 100%; /* Ocupa todo el ancho */
+    width: 100%;
+    aspect-ratio: 1 / 1;
 }
 
 .card-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ajusta la imagen manteniendo relación de aspecto */
+    object-fit: cover;
     display: block;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-image {
+    transform: scale(1.05);
 }
 
 .card-overlay {
@@ -37,12 +46,17 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.2);
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(10, 46, 92, 0.7) 100%
+    );
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s ease;
+    padding: 1rem;
 }
 
 .card:hover .card-overlay {
@@ -50,179 +64,140 @@
 }
 
 .quick-view {
-    background: rgba(255, 255, 255, 0.9);
-    width: 40px;
-    height: 40px;
+    background: linear-gradient(45deg, #5858FB, #1860b0);
+    color: white;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #333;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    transform: translateY(20px);
+    opacity: 0;
+}
+
+.card:hover .quick-view {
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .quick-view:hover {
-    background: #fff;
+    background: linear-gradient(45deg, #1860b0, #0a2e5c);
     transform: scale(1.1);
 }
 
 .card-content {
-    padding: 16px;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .card-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 1rem;
 }
 
 .rating {
-    color: #ffcc00;
+    color: #FFD700;
     font-weight: 600;
     display: flex;
     align-items: center;
     gap: 4px;
-      font-family: "Zen Dots", sans-serif;
+    font-family: "Zen Dots", sans-serif;
+    font-size: 0.9rem;
 }
 
 .price {
-    color: #2c3e50;
+    color: #74B72C;
     font-weight: 700;
-    font-size: 1.2rem;
-      font-family: "Zen Dots", sans-serif;
+    font-size: 1.3rem;
+    font-family: "Zen Dots", sans-serif;
+    text-shadow: 0 0 10px rgba(116, 183, 44, 0.3);
 }
 
 .card-title {
     font-family: "Raleway", sans-serif;
     font-size: 1.1rem;
-    font-weight: 600;
-    margin: 0 0 8px 0;
-    color: #333;
+    font-weight: 700;
+    margin: 0 0 0.75rem 0;
+    color: #fff;
     line-height: 1.3;
 }
 
 .card-description {
-    color: #666;
+    color: rgba(255, 255, 255, 0.8);
     font-family: "Raleway", sans-serif;
     font-size: 0.9rem;
-    margin: 0 0 16px 0;
+    margin: 0 0 1.5rem 0;
     line-height: 1.4;
-    flex-grow: 1; /* Ocupa el espacio disponible */
+    flex-grow: 1;
 }
 
 .card-buttons {
     display: flex;
-    gap: 10px;
-    margin-top: auto; /* Empuja los botones hacia abajo */
+    gap: 0.75rem;
+    margin-top: auto;
 }
 
 .add-to-cart-button, .view-button {
     font-family: "Raleway", sans-serif;
-    padding: 10px 16px;
+    padding: 0.75rem 1rem;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 600;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-}
-
-.add-to-cart-button {
-    background: #1F7B00;
-    color: #fff;
-}
-
-.add-to-cart-button:hover {
-    background: #166300;
-}
-
-.view-button {
-    background-color: #74B72C;
-    color: #fff;
     text-decoration: none;
 }
 
+.add-to-cart-button {
+    background: linear-gradient(45deg, #1F7B00, #74B72C);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(31, 123, 0, 0.3);
+}
+
+.add-to-cart-button:hover {
+    background: linear-gradient(45deg, #166300, #5e9423);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(31, 123, 0, 0.4);
+}
+
+.view-button {
+    background: linear-gradient(45deg, #5858FB, #1860b0);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
+}
+
 .view-button:hover {
-    background-color: #5e9423;
-}
-
-/* Variante medio - con relación de aspecto rectangular */
-.card.medio {
-    width: 350px;
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
-}
-
-.card.medio .image-container {
-    aspect-ratio: 4 / 3; /* Relación rectangular para variante medio */
-}
-
-.card.medio:hover {
-    transform: translateY(-5px);
-}
-
-.card.medio .card-content {
-    padding: 20px;
-}
-
-.card.medio .card-title {
-    font-size: 1.3rem;
-}
-
-.card.medio .card-description {
-    font-size: 1rem;
-}
-
-/* Para imágenes con diferentes proporciones */
-.card.vertical .image-container {
-    aspect-ratio: 3 / 4; /* Relación vertical */
-}
-
-.card.horizontal .image-container {
-    aspect-ratio: 4 / 3; /* Relación horizontal */
+    background: linear-gradient(45deg, #1860b0, #0a2e5c);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(88, 88, 251, 0.4);
 }
 
 /* Responsive */
-@media (max-width: 900px) {
-    .card {
-        width: 100%;
-        max-width: 280px;
-    }
-
-    .card.medio {
-        width: 100%;
-        max-width: 300px;
-    }
-    
+@media (max-width: 768px) {
     .card-buttons {
         flex-direction: column;
-        gap: 8px;
+        gap: 0.5rem;
     }
     
     .add-to-cart-button, .view-button {
         width: 100%;
     }
-}
-
-@media (max-width: 600px) {
-    .card {
-        max-width: 100%;
-    }
     
-    .image-container {
-        aspect-ratio: 1 / 1; /* En móviles, todas las imágenes son cuadradas */
-    }
-    
-    .card.medio .image-container {
-        aspect-ratio: 1 / 1;
+    .card-content {
+        padding: 1.25rem;
     }
 }

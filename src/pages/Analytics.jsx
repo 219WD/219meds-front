@@ -13,9 +13,11 @@ import {
 } from 'chart.js';
 import { Bar, Line, Doughnut } from 'react-chartjs-2';
 import useAuthStore from "../store/authStore";
+import useLoadingStore from "../store/loadingStore"; // Importar el store del loader
 import withGlobalLoader from "../utils/withGlobalLoader";
 import API_URL from "../common/constants";
-import NavDashboard from "../components/NavDashboard"; // ✅ Agregado el NavDashboard
+import NavDashboard from "../components/NavDashboard";
+import GlobalLoader from "../components/GlobalLoader"; // Importar el loader
 import "./css/analytics.css";
 
 // Registrar componentes de Chart.js
@@ -40,32 +42,37 @@ const Analytics = () => {
   const token = useAuthStore((state) => state.token);
   const containerRef = useRef(null);
 
+  // Store para controlar el loader global
+  const { setLoading: setGlobalLoading, setLoadingText } = useLoadingStore();
+
   // Fetch data
   const fetchAllData = async () => {
     try {
-      await withGlobalLoader(async () => {
-        const [pedidosRes, usersRes] = await Promise.all([
-          fetch(`${API_URL}/cart/getAllCarts`, {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          fetch(`${API_URL}/users/getUsers`, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-        ]);
+      setGlobalLoading(true);
+      setLoadingText("Cargando datos para análisis...");
+      
+      const [pedidosRes, usersRes] = await Promise.all([
+        fetch(`${API_URL}/cart/getAllCarts`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        fetch(`${API_URL}/users/getUsers`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+      ]);
 
-        if (!pedidosRes.ok) throw new Error("Error al obtener pedidos");
-        if (!usersRes.ok) throw new Error("Error al obtener usuarios");
+      if (!pedidosRes.ok) throw new Error("Error al obtener pedidos");
+      if (!usersRes.ok) throw new Error("Error al obtener usuarios");
 
-        const pedidosData = await pedidosRes.json();
-        const usersData = await usersRes.json();
+      const pedidosData = await pedidosRes.json();
+      const usersData = await usersRes.json();
 
-        setPedidos(pedidosData);
-        setUsers(usersData);
-      }, "Cargando datos para análisis...");
+      setPedidos(pedidosData);
+      setUsers(usersData);
     } catch (err) {
       console.error("Error fetching analytics data:", err);
     } finally {
       setLoading(false);
+      setGlobalLoading(false);
     }
   };
 
@@ -483,17 +490,11 @@ const Analytics = () => {
 
   const stats = getFilteredStats();
 
-  if (loading) {
-    return (
-      <div className="analytics-loading">
-        <div className="spinner"></div>
-        <p>Cargando análisis...</p>
-      </div>
-    );
-  }
-
   return (
     <div className="dashboard futurista">
+      {/* Loader global - se mostrará automáticamente cuando isLoading sea true */}
+      <GlobalLoader />
+
       {/* ✅ NavDashboard agregado */}
       <NavDashboard />
       

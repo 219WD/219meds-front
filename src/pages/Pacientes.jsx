@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import { gsap } from "gsap";
 import useAuthStore from "../store/authStore";
+import useLoadingStore from "../store/loadingStore"; // Importar el store del loader
 import "./css/PacientesPanel.css";
 import NavDashboard from "../components/NavDashboard";
+import GlobalLoader from "../components/GlobalLoader"; // Importar el loader
 import ModalCrearPaciente from "../components/Pacientes/ModalCrearPaciente.jsx";
 import PacientesHeader from "../components/Pacientes/PacientesHeader.jsx";
 import TablaPacientes from "../components/Pacientes/TablaPacientes.jsx";
@@ -33,6 +35,9 @@ const Pacientes = () => {
   const token = useAuthStore((state) => state.token);
   const user = useAuthStore((state) => state.user);
 
+  // Store para controlar el loader global
+  const { setLoading: setGlobalLoading, setLoadingText } = useLoadingStore();
+
   const notify = useNotify();
 
   const hasAnimated = useRef(false);
@@ -59,7 +64,9 @@ const Pacientes = () => {
 
   const fetchTurnos = async () => {
     try {
-      setLoading(true);
+      setGlobalLoading(true);
+      setLoadingText("Cargando turnos...");
+      
       const res = await fetch(`${API_URL}/turnos`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -73,6 +80,7 @@ const Pacientes = () => {
       setError(err.message);
     } finally {
       setLoading(false);
+      setGlobalLoading(false);
     }
   };
 
@@ -115,7 +123,8 @@ const Pacientes = () => {
 
   const fetchPacientes = async () => {
     try {
-      setLoading(true);
+      setGlobalLoading(true);
+      setLoadingText("Cargando pacientes...");
       console.log("🟡 Fetching pacientes...");
 
       const res = await fetch(`${API_URL}/pacientes`, {
@@ -141,11 +150,15 @@ const Pacientes = () => {
       setError(err.message);
     } finally {
       setLoading(false);
+      setGlobalLoading(false);
     }
   };
 
   const fetchAntecedentes = async () => {
     try {
+      setGlobalLoading(true);
+      setLoadingText("Cargando antecedentes...");
+      
       const res = await fetch(`${API_URL}/antecedentes`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -155,13 +168,17 @@ const Pacientes = () => {
       setAntecedentesOptions(data.data);
     } catch (err) {
       console.error("Error fetching antecedentes:", err);
+    } finally {
+      setGlobalLoading(false);
     }
   };
 
   // Función para crear turno
   const createTurno = async (turnoData) => {
     try {
-      setLoading(true);
+      setGlobalLoading(true);
+      setLoadingText("Creando turno...");
+      
       const res = await fetch(`${API_URL}/turnos`, {
         method: "POST",
         headers: {
@@ -183,12 +200,14 @@ const Pacientes = () => {
       return { success: false, error: err.message };
     } finally {
       setLoading(false);
+      setGlobalLoading(false);
     }
   };
 
   const createPaciente = async (pacienteData) => {
     try {
-      setLoading(true);
+      setGlobalLoading(true);
+      setLoadingText("Creando paciente...");
 
       const {
         fullName,
@@ -226,12 +245,15 @@ const Pacientes = () => {
       return { success: false, error: err.message };
     } finally {
       setLoading(false);
+      setGlobalLoading(false);
     }
   };
 
   const updatePaciente = async (id, pacienteData) => {
     try {
-      setLoading(true);
+      setGlobalLoading(true);
+      setLoadingText("Actualizando paciente...");
+      
       const res = await fetch(`${API_URL}/pacientes/${id}`, {
         method: "PUT",
         headers: {
@@ -252,11 +274,15 @@ const Pacientes = () => {
       return { success: false, error: err.message };
     } finally {
       setLoading(false);
+      setGlobalLoading(false);
     }
   };
 
   const updateDatosClinicos = async (id, datosClinicos) => {
     try {
+      setGlobalLoading(true);
+      setLoadingText("Actualizando datos clínicos...");
+      
       const res = await fetch(`${API_URL}/pacientes/medico/${id}`, {
         method: "PUT",
         headers: {
@@ -272,6 +298,8 @@ const Pacientes = () => {
       return { success: true };
     } catch (err) {
       return { success: false, error: err.message };
+    } finally {
+      setGlobalLoading(false);
     }
   };
 
@@ -307,10 +335,26 @@ const Pacientes = () => {
 
   useEffect(() => {
     console.log("🏁 Iniciando carga de datos...");
-    fetchPacientes(); // ← Esta primero, que es la importante
-    fetchAntecedentes();
-    fetchAllUsers();
-    fetchEspecialistas(); // ← Esta al final
+    
+    const loadAllData = async () => {
+      setGlobalLoading(true);
+      setLoadingText("Cargando datos de pacientes...");
+      
+      try {
+        await Promise.all([
+          fetchPacientes(),
+          fetchAntecedentes(),
+          fetchAllUsers(),
+          fetchEspecialistas()
+        ]);
+      } catch (error) {
+        console.error("Error cargando datos:", error);
+      } finally {
+        setGlobalLoading(false);
+      }
+    };
+
+    loadAllData();
   }, []);
 
   useEffect(() => {
@@ -417,24 +461,11 @@ const Pacientes = () => {
     filterPacientes(pacientes).length > visiblePacientesCount;
   const hasMoreUsers = filterUsers(allUsers).length > visibleUsersCount;
 
-  if (loading && pacientes.length === 0)
-    return (
-      <div className="pacientes-loading">
-        <div className="spinner"></div>
-        <p>Cargando pacientes...</p>
-      </div>
-    );
-
-  if (error)
-    return (
-      <div className="pacientes-error">
-        <p>Error: {error}</p>
-        <button onClick={fetchPacientes}>Reintentar</button>
-      </div>
-    );
-
   return (
     <div className="pacientes">
+      {/* Loader global - se mostrará automáticamente cuando isLoading sea true */}
+      <GlobalLoader />
+
       <NavDashboard />
       <div className="pacientes-container" ref={pacientesContainerRef}>
         <div ref={headerRef}>

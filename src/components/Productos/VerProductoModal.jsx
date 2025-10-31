@@ -7,11 +7,12 @@ import {
   faBox,
   faTag,
   faCalendarDay,
-  faBell
+  faBell,
+  faComments // 🔥 NUEVO: icono para reseñas
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 
-const VerProductoModal = ({ producto, onClose }) => {
+const VerProductoModal = ({ producto, onClose, onViewReseñas }) => { // 🔥 NUEVO: añade onViewReseñas prop
   if (!producto) return null;
 
   // 🔥 Función para renderizar estrellas
@@ -149,6 +150,17 @@ const VerProductoModal = ({ producto, onClose }) => {
                 <div className="rating-reviews">
                   {producto.numReviews || 0} reseña(s)
                 </div>
+                
+                {/* 🔥 NUEVO: Botón Ver Reseñas */}
+                {producto.cartRatings && producto.cartRatings.length > 0 && (
+                  <button 
+                    className="btn-ver-resenas"
+                    onClick={() => onViewReseñas && onViewReseñas(producto)}
+                  >
+                    <FontAwesomeIcon icon={faComments} />
+                    Ver Reseñas
+                  </button>
+                )}
               </div>
             </div>
 
