@@ -28,7 +28,7 @@
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(16px);
   border-radius: 16px;
-  border: 1px solid #5858FB;
+  border: 1px solid #5858fb;
   box-shadow: 0 8px 32px rgba(88, 88, 251, 0.3),
     inset 0 1px 1px rgba(255, 255, 255, 0.1);
   min-height: calc(100vh - 4rem);
@@ -66,7 +66,7 @@
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(16px);
   border-radius: 16px;
-  border: 1px solid #5858FB;
+  border: 1px solid #5858fb;
   box-shadow: 0 8px 32px rgba(88, 88, 251, 0.3),
     inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
@@ -81,7 +81,7 @@
 }
 
 .title-admin h1 {
-  color: #5858FB;
+  color: #5858fb;
   margin: 0;
   font-size: 1.8rem;
   text-shadow: 0 0 10px rgba(88, 88, 251, 0.3);
@@ -93,7 +93,7 @@
   --height-of-input: 40px;
   --border-height: 2px;
   --input-bg: rgba(10, 46, 92, 0.5);
-  --border-color: #5858FB;
+  --border-color: #5858fb;
   --border-radius: 30px;
   --after-border-radius: 1px;
   position: relative;
@@ -150,7 +150,7 @@
 .form-search button {
   border: none;
   background: none;
-  color: #5858FB;
+  color: #5858fb;
 }
 
 .reset {
@@ -168,7 +168,7 @@
 .form-search svg {
   width: 17px;
   margin-top: 3px;
-  color: #5858FB;
+  color: #5858fb;
 }
 
 .no-pending {
@@ -228,7 +228,7 @@
 .view-btn {
   background: none;
   border: none;
-  color: #5858FB;
+  color: #5858fb;
   cursor: pointer;
   font-size: 16px;
 }
@@ -251,7 +251,7 @@
 }
 
 .users-table .approve-btn:hover {
-  background: linear-gradient(45deg, #1860b0, #5858FB);
+  background: linear-gradient(45deg, #1860b0, #5858fb);
   transform: translateY(-2px);
 }
 
@@ -293,7 +293,7 @@
 }
 
 .filter-group label {
-  color: #5858FB;
+  color: #5858fb;
   font-size: 0.9rem;
   white-space: nowrap;
 }
@@ -310,7 +310,7 @@
 
 .filter-group select:focus {
   outline: none;
-  border-color: #5858FB;
+  border-color: #5858fb;
   box-shadow: 0 0 5px rgba(88, 88, 251, 0.5);
 }
 
@@ -490,7 +490,7 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #5858FB, #1860b0);
+    background: linear-gradient(90deg, #5858fb, #1860b0);
   }
 
   .users-table tbody tr.user-row:hover {
@@ -525,7 +525,7 @@
   .users-table tbody td::before {
     content: attr(data-label);
     font-weight: 600;
-    color: #5858FB;
+    color: #5858fb;
     text-shadow: 0 0 10px rgba(88, 88, 251, 0.4);
     font-size: 0.88rem;
     text-transform: uppercase;
@@ -560,7 +560,7 @@
   .users-table tbody td.actions::before {
     content: "Acciones" !important;
     font-weight: 600;
-    color: #5858FB;
+    color: #5858fb;
     text-shadow: 0 0 10px rgba(88, 88, 251, 0.4);
     font-size: 0.88rem;
     text-transform: uppercase;
@@ -587,14 +587,21 @@
     height: 44px !important;
     background: rgba(88, 88, 251, 0.15) !important;
     border: 1px solid rgba(88, 88, 251, 0.4) !important;
+    padding: 0.8rem 1rem !important;
     border-radius: 6px !important;
-    color: #5858FB !important;
+    color: #5858fb !important;
     cursor: pointer !important;
     transition: all 0.3s ease !important;
     flex-shrink: 0 !important;
     font-size: 0.9rem !important;
     font-weight: 600 !important;
     margin: 0 !important;
+  }
+
+  .dashboard-revoke-btn {
+    padding: 0.8rem 1rem !important;
+    font-size: 0.9rem !important;
+    width: 100% !important;
   }
 
   .view-btn:hover {
@@ -623,7 +630,7 @@
   .users-table .approve-btn:focus,
   .users-table .revoke-btn:focus {
     outline: none !important;
-    border-color: #5858FB !important;
+    border-color: #5858fb !important;
     box-shadow: 0 0 15px rgba(88, 88, 251, 0.3) !important;
   }
 
@@ -722,13 +729,13 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border-left-color: #5858FB;
+  border-left-color: #5858fb;
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;
 }
 
 .admin-loading p {
-  color: #5858FB;
+  color: #5858fb;
   font-size: 1.2rem;
   font-family: "Archivo", sans-serif;
 }
@@ -777,7 +784,7 @@
 
 .dashboard-modal-content {
   background: linear-gradient(145deg, #0a0e17, #0f1623);
-  border: 1px solid #5858FB;
+  border: 1px solid #5858fb;
   border-radius: 16px;
   padding: 2.5rem 15px 2.5rem 2.5rem;
   width: 90%;
@@ -808,7 +815,7 @@
 .dashboard-modal-close-btn {
   background: transparent;
   border: none;
-  color: #5858FB;
+  color: #5858fb;
   font-size: 1.8rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -831,7 +838,7 @@
 
 .dashboard-modal-title {
   margin: 0 0 2rem;
-  color: #5858FB;
+  color: #5858fb;
   font-size: 1.8rem;
   text-shadow: 0 0 15px rgba(88, 88, 251, 0.4);
   letter-spacing: 1px;
@@ -873,7 +880,7 @@
 
 .dashboard-status-select {
   background: linear-gradient(45deg, #0a2e5c, #1860b0);
-  border: 1px solid #5858FB;
+  border: 1px solid #5858fb;
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
@@ -887,12 +894,12 @@
 
 .dashboard-status-select:focus {
   outline: none;
-  border-color: #5858FB;
+  border-color: #5858fb;
   box-shadow: 0 0 20px rgba(88, 88, 251, 0.5);
 }
 
 .dashboard-status-select:hover {
-  background: linear-gradient(45deg, #1860b0, #5858FB);
+  background: linear-gradient(45deg, #1860b0, #5858fb);
   transform: translateY(-2px);
 }
 
@@ -912,7 +919,28 @@
 }
 
 .dashboard-close-btn:hover {
-  background: linear-gradient(45deg, #1860b0, #5858FB);
+  background: linear-gradient(45deg, #1860b0, #5858fb);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
+  transform: translateY(-2px);
+}
+
+.dashboard-revoke-btn {
+  background: linear-gradient(45deg, #5c0a0a, #b01818);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-family: "Archivo", sans-serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
+}
+
+.dashboard-revoke-btn:hover {
+  background: linear-gradient(45deg, #b01818, #fb5858);
   box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
   transform: translateY(-2px);
 }
@@ -946,7 +974,7 @@
 }
 
 .page-info {
-  color: #5858FB;
+  color: #5858fb;
   font-size: 0.9rem;
 }
 
@@ -987,7 +1015,7 @@
   background: rgba(20, 30, 40, 0.95);
   padding: 3rem;
   border-radius: 16px;
-  border: 2px solid #5858FB;
+  border: 2px solid #5858fb;
   box-shadow: 0 0 30px rgba(88, 88, 251, 0.4);
 }
 
@@ -996,13 +1024,13 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  border-left-color: #5858FB;
+  border-left-color: #5858fb;
   animation: spin 1s linear infinite;
   margin-bottom: 1.5rem;
 }
 
 .global-loader-overlay .admin-loading p {
-  color: #5858FB;
+  color: #5858fb;
   font-size: 1.3rem;
   text-shadow: 0 0 10px rgba(88, 88, 251, 0.5);
   margin: 0;
