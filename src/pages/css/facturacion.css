@@ -1,0 +1,350 @@
+.facturacion-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: none;
+  min-height: 100vh;
+}
+
+.facturacion-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.facturacion-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+.facturacion-header p {
+  color: #b0b0b0;
+  font-size: 1.1rem;
+}
+
+.fecha-filters {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: end;
+  margin: 2rem 0;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(40, 40, 40, 0.9) 0%, rgba(30, 30, 30, 0.9) 100%);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 180px;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: #e0e0e0;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-group select,
+.filter-group input {
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  background: rgba(20, 20, 20, 0.8);
+  color: #ffffff;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.filter-group select:hover,
+.filter-group input:hover {
+  border-color: rgba(102, 126, 234, 0.5);
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+  background: rgba(25, 25, 25, 0.9);
+}
+
+.download-btn {
+  padding: 0.85rem 2rem;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  align-self: end;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, rgba(40, 40, 40, 0.9) 0%, rgba(30, 30, 30, 0.9) 100%);
+  padding: 2rem;
+  border-radius: 20px;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.stat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.stat-card h3 {
+  margin: 0 0 1.5rem 0;
+  color: #e0e0e0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+.stat-subtitle {
+  color: #b0b0b0;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  line-height: 1.4;
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.chart-card {
+  background: linear-gradient(135deg, rgba(40, 40, 40, 0.9) 0%, rgba(30, 30, 30, 0.9) 100%);
+  padding: 2rem;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.chart-card:hover {
+  transform: translateY(-5px);
+}
+
+.chart-card h3 {
+  margin: 0 0 1.5rem 0;
+  color: #e0e0e0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.chart-container {
+  height: 320px;
+  position: relative;
+}
+
+.detalle-ventas {
+  background: linear-gradient(135deg, rgba(40, 40, 40, 0.9) 0%, rgba(30, 30, 30, 0.9) 100%);
+  padding: 2.5rem;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.detalle-ventas h3 {
+  margin: 0 0 2rem 0;
+  color: #e0e0e0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.table-container {
+  overflow-x: auto;
+  border-radius: 15px;
+  background: rgba(20, 20, 20, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ventas-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.ventas-table th,
+.ventas-table td {
+  padding: 1.25rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ventas-table th {
+  background: rgba(30, 30, 30, 0.9);
+  color: #e0e0e0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+}
+
+.ventas-table td {
+  color: #b0b0b0;
+  font-size: 0.95rem;
+}
+
+.ventas-table tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.ventas-table tr:last-child td {
+  border-bottom: none;
+}
+
+.no-data {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 3rem;
+}
+
+/* Badges para origen de productos */
+.origen-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.origen-turno {
+  background: rgba(54, 162, 235, 0.2);
+  color: #36A2EB;
+  border: 1px solid #36A2EB;
+}
+
+.origen-carrito {
+  background: rgba(255, 99, 132, 0.2);
+  color: #FF6384;
+  border: 1px solid #FF6384;
+}
+
+.origen-ambos {
+  background: rgba(75, 192, 192, 0.2);
+  color: #4BC0C0;
+  border: 1px solid #4BC0C0;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .facturacion-container {
+    padding: 1rem;
+  }
+  
+  .fecha-filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .filter-group {
+    min-width: unset;
+  }
+  
+  .chart-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .chart-card {
+    padding: 1.5rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .stat-card {
+    padding: 1.5rem;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+  }
+  
+  .detalle-ventas {
+    padding: 1.5rem;
+  }
+  
+  .ventas-table th,
+  .ventas-table td {
+    padding: 1rem 0.75rem;
+    font-size: 0.9rem;
+  }
+}

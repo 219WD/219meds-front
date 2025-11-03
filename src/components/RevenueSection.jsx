@@ -74,6 +74,21 @@ const RevenueSection = () => {
     }
   };
 
+  // Función para enviar WhatsApp
+  const sendWhatsApp = () => {
+    const phoneNumber = '3816671884';
+    const message = 'Quiero empezar a ahorrar tiempo con 219Meds';
+    
+    // Codificar el mensaje para URL
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Crear el enlace de WhatsApp
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+    // Abrir en una nueva pestaña
+    window.open(whatsappUrl, '_blank');
+  };
+
   const features = [
     {
       icon: faStore,
@@ -225,9 +240,12 @@ const RevenueSection = () => {
           </div>
         </div>
 
-        {/* CTA Section */}
+        {/* CTA Section - ACTUALIZADO */}
         <div className="revenue-cta">
-          <button className="cta-button-secondary">
+          <button 
+            className="cta-button-secondary"
+            onClick={sendWhatsApp}
+          >
             <span>Empezar a potenciar mi consultorio</span>
             <div className="cta-arrow">→</div>
           </button>

@@ -237,6 +237,29 @@
   color: #fff;
 }
 
+.dashboard-save-btn {
+  background: linear-gradient(45deg, #0a2e5c, #1860b0);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-family: "Archivo", sans-serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(88, 88, 251, 0.3);
+}
+
+
+.dashboard-save-btn:hover {
+  background: linear-gradient(45deg, #1860b0, #5858fb);
+  box-shadow: 0 6px 20px rgba(88, 88, 251, 0.5);
+  transform: translateY(-2px);
+}
+
+
 .users-table .approve-btn {
   background: linear-gradient(45deg, #0a2e5c, #1860b0);
   color: white;
@@ -379,6 +402,8 @@
   }
 
   .dashboard-status-select,
+  .dashboard-close-btn,
+  .dashboard-save-btn,
   .dashboard-close-btn {
     width: 100%;
     padding: 0.75rem;

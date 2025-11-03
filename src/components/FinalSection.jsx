@@ -77,6 +77,21 @@ const FinalSection = () => {
     }
   };
 
+  // Función para enviar WhatsApp
+  const sendWhatsApp = () => {
+    const phoneNumber = '3816671884';
+    const message = 'Quiero empezar a ahorrar tiempo con 219Meds';
+    
+    // Codificar el mensaje para URL
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Crear el enlace de WhatsApp
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+    // Abrir en una nueva pestaña
+    window.open(whatsappUrl, '_blank');
+  };
+
   const specialties = [
     { icon: faStethoscope, name: 'Dermatología', color: '#5B5BFB' },
     { icon: faTooth, name: 'Odontología', color: '#1860b0' },
@@ -213,7 +228,7 @@ const FinalSection = () => {
           ))}
         </div>
 
-        {/* Final CTA Section */}
+        {/* Final CTA Section - ACTUALIZADO */}
         <div className="final-cta-section">
           <div className="cta-content">
             <FontAwesomeIcon icon={faMobileAlt} className="cta-main-icon" />
@@ -224,7 +239,10 @@ const FinalSection = () => {
             <p className="cta-brand">
               <strong>219Meds</strong> — la herramienta que hace crecer tu consultorio.
             </p>
-            <button className="cta-button-large">
+            <button 
+              className="cta-button-large"
+              onClick={sendWhatsApp}
+            >
               <span>Agendá tu demo gratuita</span>
               <div className="cta-arrow">→</div>
             </button>
