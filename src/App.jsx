@@ -81,6 +81,12 @@ function AppContent() {
           <title>219Meds - Plataforma de Gestión Médica y Farmacéutica</title>
           <link rel="icon" type="image/png" href="/219Meds.png" />
 
+          {/* AGREGAR ESTAS META TAGS ADICIONALES EN HELMET */}
+          <meta name="google" content="notranslate" />
+          <meta name="robots" content="notranslate" />
+          <meta http-equiv="Content-Language" content="es" />
+          <meta name="language" content="Spanish" />
+
           <meta
             name="description"
             content="219Meds es una plataforma integral para clínicas, farmacias y profesionales de la salud. Gestioná pacientes, turnos, stock y analíticas en un solo lugar."
@@ -163,65 +169,70 @@ function AppContent() {
           />
         )}
 
-        <Routes>
-          <Route path="/" element={<HomeScreen addToCart={addToCart} />} />
-          <Route
-            path="/productos"
-            element={
-              <PartnerRoute>
-                <Productos />
-              </PartnerRoute>
-            }
-          />
-          <Route
-            path="/individual/:id"
-            element={
-              <PartnerRoute>
-                <Individual />
-              </PartnerRoute>
-            }
-          />
+        {/* ENVOLVER TODAS LAS RUTAS EN UN DIV CON translate="no" */}
+        <div translate="no">
+          <Routes>
+            <Route path="/" element={<HomeScreen addToCart={addToCart} />} />
+            <Route
+              path="/productos"
+              element={
+                <PartnerRoute>
+                  <Productos />
+                </PartnerRoute>
+              }
+            />
+            <Route
+              path="/individual/:id"
+              element={
+                <PartnerRoute>
+                  <Individual />
+                </PartnerRoute>
+              }
+            />
 
-          {/* Rutas públicas */}
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/socio" element={<Socio />} />
-          <Route path="/admin" element={<Dashboard />} />
-          <Route path="/perfil" element={<PerfilUsuario />} />
-          <Route path="/pendiente" element={<PendienteSocio />} />
-          <Route path="/solicitud" element={<Solicitud />} />
-          <Route path="/solicitudPendiente" element={<SolicitudPendiente />} />
-          <Route path="/clientes" element={<Clientes />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/estadoDelEnvio" element={<EstadoDelEnvio />} />
-          <Route path="/pedidos" element={<Pedidos />} />
-          <Route path="/especialistas" element={<Especialistas />} />
-          <Route path="/pacientes" element={<Pacientes />} />
-          <Route path="/turnos" element={<Turnos />} />
-          <Route path="/turnos/paciente" element={<TurnosPaciente />} />
-          <Route path="/consultorio" element={<Consultorio />} />
-          <Route path="/caja" element={<Caja />} />
-          <Route path="/loader" element={<LoaderGsap />} />
-          <Route path="/aboutus" element={<AboutUs />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/facturacion" element={<FacturacionPanel />} />
-          <Route
-            path="/reset-password/:token"
-            element={<ChangePasswordForm />}
-          />
-          <Route path="*" element={<h1>404 Not Found</h1>} />
-        </Routes>
+            {/* Rutas públicas */}
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/socio" element={<Socio />} />
+            <Route path="/admin" element={<Dashboard />} />
+            <Route path="/perfil" element={<PerfilUsuario />} />
+            <Route path="/pendiente" element={<PendienteSocio />} />
+            <Route path="/solicitud" element={<Solicitud />} />
+            <Route path="/solicitudPendiente" element={<SolicitudPendiente />} />
+            <Route path="/clientes" element={<Clientes />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/estadoDelEnvio" element={<EstadoDelEnvio />} />
+            <Route path="/pedidos" element={<Pedidos />} />
+            <Route path="/especialistas" element={<Especialistas />} />
+            <Route path="/pacientes" element={<Pacientes />} />
+            <Route path="/turnos" element={<Turnos />} />
+            <Route path="/turnos/paciente" element={<TurnosPaciente />} />
+            <Route path="/consultorio" element={<Consultorio />} />
+            <Route path="/caja" element={<Caja />} />
+            <Route path="/loader" element={<LoaderGsap />} />
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/facturacion" element={<FacturacionPanel />} />
+            <Route
+              path="/reset-password/:token"
+              element={<ChangePasswordForm />}
+            />
+            <Route path="*" element={<h1>404 Not Found</h1>} />
+          </Routes>
+        </div>
       </Suspense>
     </>
   );
 }
 
-// Wrapper principal
+// Wrapper principal - AGREGAR translate="no" AQUÍ TAMBIÉN
 function App() {
   return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
+    <div translate="no">
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </div>
   );
 }
 

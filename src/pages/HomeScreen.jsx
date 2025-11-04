@@ -51,7 +51,7 @@ const HomeScreen = ({ addToCart }) => {
   }
 
   return (
-    <div className="container">
+    <div className="container" translate="no">
       <Hero addToCart={addToCart} />
       <FeaturesHighlight />
       <RevenueSection />
