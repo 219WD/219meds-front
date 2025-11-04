@@ -17,6 +17,8 @@ import useLoadingStore from "../store/loadingStore";
 import API_URL from "../common/constants";
 import NavDashboard from "../components/NavDashboard";
 import GlobalLoader from "../components/GlobalLoader";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import "./css/facturacion.css";
 
 ChartJS.register(
@@ -41,6 +43,8 @@ const FacturacionPanel = () => {
   const [dateTo, setDateTo] = useState('');
   const [categoriaFilter, setCategoriaFilter] = useState('todos');
   const [productosFilter, setProductosFilter] = useState('todos');
+  const [generandoPDF, setGenerandoPDF] = useState(false);
+  const [enviandoEmail, setEnviandoEmail] = useState(false);
   const token = useAuthStore((state) => state.token);
   const { setLoading: setGlobalLoading, setLoadingText } = useLoadingStore();
   const containerRef = useRef(null);
@@ -100,15 +104,6 @@ const FacturacionPanel = () => {
         const ayerFin = new Date(ayer);
         ayerFin.setHours(23, 59, 59, 999);
         return { start: ayerInicio, end: ayerFin };
-        
-      case 'mañana':
-        const manana = new Date(now);
-        manana.setDate(manana.getDate() + 1);
-        const mananaInicio = new Date(manana);
-        mananaInicio.setHours(0, 0, 0, 0);
-        const mananaFin = new Date(manana);
-        mananaFin.setHours(23, 59, 59, 999);
-        return { start: mananaInicio, end: mananaFin };
         
       case 'personalizado':
         const inicio = dateFrom ? new Date(dateFrom) : new Date('1970-01-01');
@@ -420,11 +415,12 @@ const FacturacionPanel = () => {
     }
   };
 
-  // 🎯 GENERAR REPORTE DESCARGABLE
-  const generarReporte = () => {
+  // 🎯 GENERAR REPORTE JSON (para email)
+  const generarReporteJSON = () => {
     const { start, end } = getDateRange();
     const reporte = {
       periodo: `${start.toLocaleDateString()} - ${end.toLocaleDateString()}`,
+      fechaGeneracion: new Date().toISOString(),
       ventasTotales: ventasPorCategoria.total,
       desglose: ventasPorCategoria,
       analisisTurnos,
@@ -447,6 +443,226 @@ const FacturacionPanel = () => {
     link.download = `reporte-ventas-${dateFilter}-${new Date().toISOString().split('T')[0]}.json`;
     link.click();
     URL.revokeObjectURL(url);
+
+    return reporte; // Retornamos el reporte para usar en el email
+  };
+
+// 🎯 ENVIAR REPORTE POR EMAIL
+const enviarReportePorEmail = async () => {
+  setEnviandoEmail(true);
+  setLoadingText("Enviando reporte por email...");
+
+  try {
+    const { start, end } = getDateRange();
+    const reporte = {
+      periodo: `${start.toLocaleDateString()} - ${end.toLocaleDateString()}`,
+      fechaGeneracion: new Date().toISOString(),
+      ventasTotales: ventasPorCategoria.total,
+      desglose: ventasPorCategoria,
+      analisisTurnos,
+      analisisPedidos,
+      totalCombinado,
+      topProductos: productosMasVendidos.labels.map((nombre, index) => ({
+        producto: nombre,
+        cantidad: productosMasVendidos.cantidades[index],
+        ingresos: productosMasVendidos.ingresos[index]
+      })),
+      metodosPago: metodosPago
+    };
+
+    console.log('📧 Enviando reporte al backend...', {
+      url: `${API_URL}/email/enviar-reporte`,
+      reporte: reporte
+    });
+
+    const response = await fetch(`${API_URL}/email/enviar-reporte`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        reporte: reporte,
+        periodo: reporte.periodo,
+        asunto: `📊 Reporte de Facturación - ${reporte.periodo} - 219Meds`
+      })
+    });
+
+    console.log('📧 Respuesta del servidor:', {
+      status: response.status,
+      statusText: response.statusText,
+      ok: response.ok
+    });
+
+    if (!response.ok) {
+      // Obtener más detalles del error
+      const errorText = await response.text();
+      console.error('❌ Error detallado del servidor:', errorText);
+      throw new Error(`Error ${response.status}: ${response.statusText} - ${errorText}`);
+    }
+
+    const result = await response.json();
+    console.log('✅ Respuesta exitosa:', result);
+    alert('✅ Reporte enviado por email exitosamente');
+    
+  } catch (error) {
+    console.error('❌ Error completo enviando email:', error);
+    alert(`❌ Error al enviar el reporte por email: ${error.message}`);
+  } finally {
+    setEnviandoEmail(false);
+    setGlobalLoading(false);
+  }
+};
+
+  // 🎯 GENERAR REPORTE PDF
+  const generarReportePDF = async () => {
+    setGenerandoPDF(true);
+    setLoadingText("Generando reporte PDF...");
+
+    try {
+      // Crear elemento temporal para el reporte
+      const reporteElement = document.createElement('div');
+      reporteElement.className = 'pdf-reporte';
+      reporteElement.style.cssText = `
+        background: white;
+        color: black;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        width: 800px;
+      `;
+
+      const { start, end } = getDateRange();
+      const fechaGeneracion = new Date().toLocaleString();
+
+      // Contenido del reporte
+      reporteElement.innerHTML = `
+        <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 20px;">
+          <h1 style="color: #2c3e50; margin: 0;">Reporte de Facturación</h1>
+          <p style="color: #7f8c8d; margin: 5px 0;">Período: ${start.toLocaleDateString()} - ${end.toLocaleDateString()}</p>
+          <p style="color: #7f8c8d; margin: 0;">Generado: ${fechaGeneracion}</p>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+          <h2 style="color: #2c3e50; border-bottom: 1px solid #bdc3c7; padding-bottom: 10px;">Resumen General</h2>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px;">
+            <div style="background: #ecf0f1; padding: 15px; border-radius: 8px; text-align: center;">
+              <h3 style="margin: 0 0 10px 0; color: #2c3e50;">Ventas Totales</h3>
+              <p style="font-size: 24px; font-weight: bold; color: #27ae60; margin: 0;">$${ventasPorCategoria.total.toFixed(2)}</p>
+            </div>
+            <div style="background: #ecf0f1; padding: 15px; border-radius: 8px; text-align: center;">
+              <h3 style="margin: 0 0 10px 0; color: #2c3e50;">Total Turnos</h3>
+              <p style="font-size: 24px; font-weight: bold; color: #3498db; margin: 0;">${analisisTurnos.total}</p>
+            </div>
+            <div style="background: #ecf0f1; padding: 15px; border-radius: 8px; text-align: center;">
+              <h3 style="margin: 0 0 10px 0; color: #2c3e50;">Total Pedidos</h3>
+              <p style="font-size: 24px; font-weight: bold; color: #e74c3c; margin: 0;">${analisisPedidos.total}</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+          <h2 style="color: #2c3e50; border-bottom: 1px solid #bdc3c7; padding-bottom: 10px;">Desglose de Ventas</h2>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+            <div>
+              <h3 style="color: #34495e;">Por Categoría</h3>
+              <ul style="list-style: none; padding: 0;">
+                <li style="padding: 8px 0; border-bottom: 1px solid #ecf0f1;">
+                  <strong>Consultas:</strong> $${ventasPorCategoria.consultas.toFixed(2)}
+                </li>
+                <li style="padding: 8px 0; border-bottom: 1px solid #ecf0f1;">
+                  <strong>Productos en Turnos:</strong> $${ventasPorCategoria.productos_turnos.toFixed(2)}
+                </li>
+                <li style="padding: 8px 0;">
+                  <strong>Pedidos:</strong> $${ventasPorCategoria.pedidos.toFixed(2)}
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 style="color: #34495e;">Métodos de Pago</h3>
+              <ul style="list-style: none; padding: 0;">
+                ${Object.entries(metodosPago).map(([metodo, monto]) => `
+                  <li style="padding: 8px 0; border-bottom: 1px solid #ecf0f1;">
+                    <strong>${metodo}:</strong> $${monto.toFixed(2)}
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+          <h2 style="color: #2c3e50; border-bottom: 1px solid #bdc3c7; padding-bottom: 10px;">Productos Más Vendidos</h2>
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background: #34495e; color: white;">
+                <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Producto</th>
+                <th style="padding: 12px; text-align: center; border: 1px solid #ddd;">Cantidad</th>
+                <th style="padding: 12px; text-align: right; border: 1px solid #ddd;">Ingresos</th>
+                <th style="padding: 12px; text-align: right; border: 1px solid #ddd;">Promedio</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${productosMasVendidos.labels.map((producto, index) => `
+                <tr style="background: ${index % 2 === 0 ? '#f8f9fa' : 'white'};">
+                  <td style="padding: 10px; border: 1px solid #ddd;">${producto}</td>
+                  <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">${productosMasVendidos.cantidades[index]}</td>
+                  <td style="padding: 10px; text-align: right; border: 1px solid #ddd;">$${productosMasVendidos.ingresos[index].toFixed(2)}</td>
+                  <td style="padding: 10px; text-align: right; border: 1px solid #ddd;">$${(productosMasVendidos.ingresos[index] / productosMasVendidos.cantidades[index]).toFixed(2)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center;">
+          <p style="margin: 0; color: #7f8c8d; font-size: 14px;">
+            Reporte generado automáticamente por el Sistema de Facturación
+          </p>
+        </div>
+      `;
+
+      // Agregar al documento
+      document.body.appendChild(reporteElement);
+
+      // Generar PDF
+      const canvas = await html2canvas(reporteElement, {
+        scale: 2,
+        useCORS: true,
+        logging: false
+      });
+
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 210; // A4 width in mm
+      const pageHeight = 295; // A4 height in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      // Descargar PDF
+      pdf.save(`reporte-facturacion-${dateFilter}-${new Date().toISOString().split('T')[0]}.pdf`);
+
+      // Limpiar
+      document.body.removeChild(reporteElement);
+
+    } catch (error) {
+      console.error('Error generando PDF:', error);
+      alert('Error al generar el PDF. Por favor, intente nuevamente.');
+    } finally {
+      setGenerandoPDF(false);
+      setGlobalLoading(false);
+    }
   };
 
   return (
@@ -458,7 +674,7 @@ const FacturacionPanel = () => {
         <div className="facturacion-container" ref={containerRef}>
           <div className="facturacion-content">
             <div className="facturacion-header">
-              <h1>📊 Panel de Facturación</h1>
+              <h1>Panel de Facturación</h1>
               <p>Análisis completo de ventas y productos vendidos</p>
               
               {/* Filtros de Fecha */}
@@ -471,7 +687,6 @@ const FacturacionPanel = () => {
                   >
                     <option value="hoy">Hoy</option>
                     <option value="ayer">Ayer</option>
-                    <option value="mañana">Mañana</option>
                     <option value="fecha-especifica">Fecha Específica</option>
                     <option value="personalizado">Rango Personalizado</option>
                   </select>
@@ -534,9 +749,31 @@ const FacturacionPanel = () => {
                   </select>
                 </div>
 
-                <button className="download-btn" onClick={generarReporte}>
-                  📥 Descargar Reporte
-                </button>
+                {/* Botones de descarga */}
+                <div className="download-buttons">
+                  <button 
+                    className="download-btn json-btn" 
+                    onClick={generarReporteJSON}
+                  >
+                    📊 Descargar JSON
+                  </button>
+                  
+                  <button 
+                    className="download-btn pdf-btn" 
+                    onClick={generarReportePDF}
+                    disabled={generandoPDF}
+                  >
+                    {generandoPDF ? '🔄 Generando PDF...' : '📄 Descargar PDF'}
+                  </button>
+                  
+                  <button 
+                    className="download-btn email-btn" 
+                    onClick={enviarReportePorEmail}
+                    disabled={enviandoEmail}
+                  >
+                    {enviandoEmail ? '📧 Enviando...' : '📧 Enviar por Email'}
+                  </button>
+                </div>
               </div>
             </div>
 

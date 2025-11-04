@@ -293,6 +293,13 @@
   border: 1px solid #4BC0C0;
 }
 
+.download-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .chart-grid {
@@ -347,4 +354,13 @@
     padding: 1rem 0.75rem;
     font-size: 0.9rem;
   }
+  .download-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .download-btn {
+    width: 100%;
+    text-align: center;
+  }
+
 }
