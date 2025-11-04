@@ -490,6 +490,11 @@ const Analytics = () => {
 
   const stats = getFilteredStats();
 
+  // Función para navegar a facturación
+  const navigateToFacturacion = () => {
+    window.location.href = '/facturacion';
+  };
+
   return (
     <div className="dashboard futurista">
       {/* Loader global - se mostrará automáticamente cuando isLoading sea true */}
@@ -507,6 +512,16 @@ const Analytics = () => {
             <div className="analytics-header">
               <h1>Panel de Análisis Completo</h1>
               <p>6 gráficos con métricas detalladas de tu negocio</p>
+              
+              {/* Botón de Facturación */}
+              <div className="header-actions">
+                <button 
+                  className="facturacion-btn"
+                  onClick={navigateToFacturacion}
+                >
+                  📄 Ir a Facturación
+                </button>
+              </div>
               
               {/* Filtros de Tiempo */}
               <div className="time-filter">

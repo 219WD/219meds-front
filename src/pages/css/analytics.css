@@ -549,3 +549,48 @@
 .chartjs-legend li span {
   border-radius: 4px !important;
 }
+
+/* Estilos para el botón de facturación y header actions */
+.header-actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.facturacion-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.facturacion-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.facturacion-btn:active {
+  transform: translateY(0);
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .header-actions {
+    margin-bottom: 15px;
+  }
+  
+  .facturacion-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
