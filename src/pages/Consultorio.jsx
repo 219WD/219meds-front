@@ -118,16 +118,28 @@ const Consultorio = () => {
 
 const handleAddProductos = async () => {
   if (isAddingProductsRef.current) {
-    console.log("🛑 handleAddProductos ya en ejecución, ignorando llamada duplicada...");
+    console.log("🛑 handleAddProductos ya en ejecución...");
     return;
   }
 
   try {
     isAddingProductsRef.current = true;
     setLoading(true);
-    console.log("🔄 INICIANDO handleAddProductos - ÚNICA EJECUCIÓN");
+    console.log("🔄 INICIANDO handleAddProductos");
     console.log("📦 Productos a agregar:", selectedProducts);
     console.log("🆔 Turno ID:", selectedTurno?._id);
+
+    // ✅ Verificar que hay productos y turno
+    if (!selectedProducts || selectedProducts.length === 0) {
+      console.log("⚠️ No hay productos para agregar");
+      return true; // No es un error
+    }
+
+    if (!selectedTurno?._id) {
+      console.error("❌ No hay turno seleccionado");
+      notify("No hay turno seleccionado", "error");
+      return false;
+    }
 
     const res = await fetch(
       `${API_URL}/turnos/${selectedTurno._id}/agregar-productos`,
@@ -141,6 +153,7 @@ const handleAddProductos = async () => {
           productos: selectedProducts,
           formaPago,
           notasConsulta,
+          precioConsulta: precioConsulta || 0,
           reemplazarProductos: true,
         }),
       }
@@ -148,32 +161,31 @@ const handleAddProductos = async () => {
 
     console.log("📡 Respuesta del servidor - Status:", res.status);
 
-    const responseData = await res.json();
-    console.log("📊 Datos de respuesta:", responseData);
-
     if (!res.ok) {
-      console.error("❌ Error del servidor:", responseData);
-      throw new Error(responseData.error || `Error ${res.status}`);
+      const errorData = await res.json();
+      console.error("❌ Error del servidor:", errorData);
+      throw new Error(errorData.error || `Error ${res.status}`);
     }
 
-    console.log("✅ Productos agregados exitosamente al backend");
+    const responseData = await res.json();
+    console.log("📊 Datos de respuesta:", responseData);
+    console.log("✅ Productos agregados exitosamente");
 
-    const productNames = selectedProducts
-      .map((p) => p.nombreProducto)
-      .join(", ");
-    notify(`${productNames} agregado(s) correctamente`, "success");
-
-    // Actualizar el turno y limpiar selectedProducts
+    // Actualizar el turno localmente
     setSelectedTurno((prev) => ({ ...prev, ...responseData.data }));
-    setSelectedProducts([]); // Limpiar productos seleccionados
-    await fetchTurnos(); // Refrescar los turnos para asegurar consistencia
+    
+    // Limpiar productos seleccionados SOLO si fue exitoso
+    setSelectedProducts([]);
+    
+    // Refrescar los turnos
+    await fetchTurnos();
 
-    console.log("✅ handleAddProductos completado exitosamente");
-    return true; // Indicar que la operación fue exitosa
+    notify("Productos agregados correctamente", "success");
+    return true;
   } catch (err) {
     console.error("❌ Add productos error:", err.message);
     notify("Error al agregar productos: " + err.message, "error");
-    return false; // Indicar que la operación falló
+    return false;
   } finally {
     setLoading(false);
     isAddingProductsRef.current = false;
@@ -183,24 +195,16 @@ const handleAddProductos = async () => {
 const handleSaveHistorial = async () => {
   try {
     setLoading(true);
+    console.log("📋 Guardando historial médico...");
 
-    const productosRecetados = selectedProducts.map((p) => ({
-      nombre: p.nombreProducto,
+    // Usar los productos del turno (que ya deberían estar guardados) o los seleccionados como fallback
+    const productosParaHistorial = selectedTurno?.consulta?.productos || selectedProducts;
+    
+    const productosRecetados = productosParaHistorial.map((p) => ({
+      nombre: p.nombreProducto || p.title || 'Producto',
       cantidad: p.cantidad,
-      dosis: p.dosis || "",
+      dosis: p.dosis || '',
     }));
-
-    // Solo intentar agregar productos si no hay productos en la consulta y selectedProducts no está vacío
-    if (
-      selectedProducts.length > 0 &&
-      (!selectedTurno.consulta?.productos || selectedTurno.consulta.productos.length === 0)
-    ) {
-      console.log("📝 Guardando productos antes del historial...");
-      const success = await handleAddProductos();
-      if (!success) {
-        throw new Error("No se pudieron agregar los productos al turno");
-      }
-    }
 
     const res = await fetch(
       `${API_URL}/pacientes/${selectedTurno.pacienteId._id}/historial`,
@@ -228,12 +232,12 @@ const handleSaveHistorial = async () => {
     }
 
     const data = await res.json();
+    console.log("✅ Historial guardado:", data);
     notify("Consulta guardada en el historial del paciente", "success");
-    await fetchTurnos();
-    resetForm();
+    
   } catch (err) {
     console.error("Save historial error:", err.message);
-    notify("Error al guardar historial: " + err.message, "error");
+    throw new Error("Error al guardar historial: " + err.message);
   } finally {
     setLoading(false);
   }
@@ -244,11 +248,20 @@ const handleCompleteTurno = async () => {
     setGuardando(true);
     console.log("🔄 INICIANDO handleCompleteTurno");
 
-    // Guardar historial (que manejará los productos si es necesario)
+    // ✅ PRIMERO: Agregar productos si hay
+    if (selectedProducts.length > 0) {
+      console.log("📦 Agregando productos antes de completar turno...");
+      const productosSuccess = await handleAddProductos();
+      if (!productosSuccess) {
+        throw new Error("No se pudieron agregar los productos al turno");
+      }
+    }
+
+    // ✅ SEGUNDO: Guardar en el historial
     console.log("📝 Guardando historial...");
     await handleSaveHistorial();
 
-    // Completar turno
+    // ✅ TERCERO: Completar el turno
     console.log("✅ Completando turno...");
     const res = await fetch(
       `${API_URL}/turnos/medico/${selectedTurno._id}`,
@@ -284,6 +297,9 @@ const handleCompleteTurno = async () => {
       throw new Error(errorMsg);
     }
 
+    const turnoCompletado = await res.json();
+    console.log("🎉 Turno completado:", turnoCompletado);
+
     notify("Turno completado exitosamente", "success");
     await fetchTurnos();
     resetForm();
@@ -295,6 +311,7 @@ const handleCompleteTurno = async () => {
     setGuardando(false);
   }
 };
+
 
   const resetForm = () => {
     setSelectedTurno(null);
